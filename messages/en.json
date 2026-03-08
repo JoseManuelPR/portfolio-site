@@ -1,0 +1,138 @@
+{
+  "nav": {
+    "about": "About",
+    "projects": "Projects",
+    "stack": "Stack",
+    "experience": "Experience",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "José Manuel",
+    "title": "Software Engineer",
+    "subtitle": "Building scalable products with impact",
+    "pitch": "Full-stack engineer specializing in product development, from architecture to deployment. Currently crafting digital experiences at Bunny Studio from South America for the world.",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "torre": "Torre",
+    "contact": "Contact me"
+  },
+  "about": {
+    "title": "About",
+    "p1": "I'm a Software Engineer based in Peru, working remotely for global companies. I specialize in designing and delivering scalable, production-ready systems with a strong focus on observability, cost efficiency, and robust performance.",
+    "p2": "Currently at Bunny Studio (San Francisco), I work across the full stack — from crafting intuitive front-end experiences with Vue.js and React to building resilient back-end services with Node.js, Python, and cloud infrastructure on AWS.",
+    "p3": "I hold a degree in Computer and Systems Engineering from USAT, was recognized as a Pacific Alliance Scholar (2018), and served as Systems Engineering Ambassador. I'm also an Arctic Code Vault Contributor on GitHub.",
+    "p4": "I speak Spanish natively, English professionally, and Portuguese fluently — enabling me to collaborate effectively with diverse, distributed teams worldwide.",
+    "downloadResume": "Download Resume"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Selected work from my GitHub repositories",
+    "viewCode": "View Code",
+    "liveDemo": "Live Demo",
+    "items": [
+      {
+        "name": "Aduanas App",
+        "description": "Full-stack customs management application built with TypeScript. Features a modern UI deployed on Vercel with real-time data processing capabilities.",
+        "tech": ["TypeScript", "Next.js", "Vercel"],
+        "github": "https://github.com/JoseManuelPR/aduanas-app",
+        "demo": "https://aduanas-app.vercel.app"
+      },
+      {
+        "name": "COVID-19 Peru Tracker",
+        "description": "Real-time COVID-19 data visualization dashboard for Peru. Aggregates and displays pandemic statistics with interactive charts and maps.",
+        "tech": ["JavaScript", "React", "APIs", "Data Viz"],
+        "github": "https://github.com/JoseManuelPR/covid19peru",
+        "demo": "https://covid19peru.now.sh"
+      },
+      {
+        "name": "Torre Integration",
+        "description": "Full-stack application with a Python API backend and JavaScript frontend, integrating with the Torre.ai platform for professional networking data.",
+        "tech": ["Python", "JavaScript", "REST API"],
+        "github": "https://github.com/JoseManuelPR/torre-api",
+        "demo": ""
+      },
+      {
+        "name": "DexFreight Frontend",
+        "description": "Technical assessment project for DexFreight. Built a logistics-focused frontend application using Vue.js with modern component architecture.",
+        "tech": ["Vue.js", "JavaScript", "Logistics"],
+        "github": "https://github.com/JoseManuelPR/dexfreight-front",
+        "demo": ""
+      },
+      {
+        "name": "Vue Crypto Dashboard",
+        "description": "Cryptocurrency tracking dashboard built with Vue.js. Displays real-time prices, trends, and portfolio information using public crypto APIs.",
+        "tech": ["Vue.js", "Crypto API", "Charts"],
+        "github": "https://github.com/JoseManuelPR/vue-crypto",
+        "demo": ""
+      },
+      {
+        "name": "CONEII 2017 Registration",
+        "description": "Registration system for the National Congress of Industrial Engineering Students 2017. Managed attendee data and event logistics.",
+        "tech": ["HTML", "CSS", "JavaScript"],
+        "github": "https://github.com/JoseManuelPR/coneii2017registro",
+        "demo": ""
+      }
+    ]
+  },
+  "stack": {
+    "title": "Tech Stack",
+    "subtitle": "Technologies I work with daily",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "databases": "Databases",
+      "devops": "DevOps",
+      "ai": "AI / LLM"
+    }
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "Professional journey",
+    "items": [
+      {
+        "company": "Bunny Studio",
+        "location": "San Francisco, CA (Remote)",
+        "role": "Software Engineer",
+        "period": "2021 – Present",
+        "description": "Building and scaling the platform that connects creative professionals with global clients. Working across the full stack with Vue.js, Node.js, and AWS. Contributing to product strategy, system architecture, and platform reliability.",
+        "achievements": [
+          "Designed scalable microservices handling thousands of daily transactions",
+          "Improved platform performance and observability across critical systems",
+          "Led frontend initiatives improving user experience and conversion rates",
+          "Collaborated with cross-functional teams spanning design, product, and engineering"
+        ]
+      },
+      {
+        "company": "Previous Engineering Roles",
+        "location": "Peru",
+        "role": "Full-Stack Developer",
+        "period": "2018 – 2021",
+        "description": "Worked on diverse projects spanning web development, mobile applications, and cloud infrastructure. Gained deep experience with multiple frameworks and architectural patterns.",
+        "achievements": [
+          "Built production applications with Vue.js, React, Angular, and Node.js",
+          "Developed mobile applications using Flutter, Kotlin, and Swift",
+          "Implemented cloud solutions on AWS and Firebase",
+          "Contributed to open-source projects earning Arctic Code Vault Contributor status"
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Have a project in mind or want to discuss opportunities? Let's connect.",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "your@email.com",
+    "messagePlaceholder": "Tell me about your project or opportunity...",
+    "success": "Message sent successfully!",
+    "error": "Something went wrong. Please try again."
+  },
+  "footer": {
+    "built": "Built with Next.js & TailwindCSS",
+    "rights": "All rights reserved."
+  }
+}

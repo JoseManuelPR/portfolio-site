@@ -1,0 +1,138 @@
+{
+  "nav": {
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "stack": "Stack",
+    "experience": "Experiencia",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "greeting": "Hola, soy",
+    "name": "José Manuel",
+    "title": "Ingeniero de Software",
+    "subtitle": "Construyendo productos escalables con impacto",
+    "pitch": "Ingeniero full-stack especializado en desarrollo de productos, desde la arquitectura hasta el despliegue. Actualmente creando experiencias digitales en Bunny Studio desde Sudamérica para el mundo.",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "torre": "Torre",
+    "contact": "Contáctame"
+  },
+  "about": {
+    "title": "Sobre mí",
+    "p1": "Soy Ingeniero de Software radicado en Perú, trabajando remotamente para empresas globales. Me especializo en diseñar y entregar sistemas escalables, listos para producción, con un fuerte enfoque en observabilidad, eficiencia de costos y rendimiento robusto.",
+    "p2": "Actualmente en Bunny Studio (San Francisco), trabajo en todo el stack — desde crear experiencias front-end intuitivas con Vue.js y React hasta construir servicios back-end resilientes con Node.js, Python e infraestructura cloud en AWS.",
+    "p3": "Tengo un título en Ingeniería de Sistemas y Computación de la USAT, fui reconocido como Becario de la Alianza del Pacífico (2018) y serví como Embajador de Ingeniería de Sistemas. También soy contribuidor del Arctic Code Vault en GitHub.",
+    "p4": "Hablo español de forma nativa, inglés a nivel profesional y portugués con fluidez — lo que me permite colaborar efectivamente con equipos diversos y distribuidos en todo el mundo.",
+    "downloadResume": "Descargar CV"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "subtitle": "Trabajo seleccionado de mis repositorios de GitHub",
+    "viewCode": "Ver Código",
+    "liveDemo": "Demo en Vivo",
+    "items": [
+      {
+        "name": "Aduanas App",
+        "description": "Aplicación full-stack de gestión aduanera construida con TypeScript. Cuenta con una interfaz moderna desplegada en Vercel con capacidades de procesamiento de datos en tiempo real.",
+        "tech": ["TypeScript", "Next.js", "Vercel"],
+        "github": "https://github.com/JoseManuelPR/aduanas-app",
+        "demo": "https://aduanas-app.vercel.app"
+      },
+      {
+        "name": "COVID-19 Perú Tracker",
+        "description": "Dashboard de visualización de datos COVID-19 en tiempo real para Perú. Agrega y muestra estadísticas de la pandemia con gráficos interactivos y mapas.",
+        "tech": ["JavaScript", "React", "APIs", "Data Viz"],
+        "github": "https://github.com/JoseManuelPR/covid19peru",
+        "demo": "https://covid19peru.now.sh"
+      },
+      {
+        "name": "Torre Integration",
+        "description": "Aplicación full-stack con un backend API en Python y frontend en JavaScript, integrando con la plataforma Torre.ai para datos de networking profesional.",
+        "tech": ["Python", "JavaScript", "REST API"],
+        "github": "https://github.com/JoseManuelPR/torre-api",
+        "demo": ""
+      },
+      {
+        "name": "DexFreight Frontend",
+        "description": "Proyecto de evaluación técnica para DexFreight. Construí una aplicación frontend enfocada en logística usando Vue.js con arquitectura moderna de componentes.",
+        "tech": ["Vue.js", "JavaScript", "Logística"],
+        "github": "https://github.com/JoseManuelPR/dexfreight-front",
+        "demo": ""
+      },
+      {
+        "name": "Vue Crypto Dashboard",
+        "description": "Dashboard de seguimiento de criptomonedas construido con Vue.js. Muestra precios en tiempo real, tendencias e información de portafolio usando APIs públicas.",
+        "tech": ["Vue.js", "Crypto API", "Charts"],
+        "github": "https://github.com/JoseManuelPR/vue-crypto",
+        "demo": ""
+      },
+      {
+        "name": "CONEII 2017 Registro",
+        "description": "Sistema de registro para el Congreso Nacional de Estudiantes de Ingeniería Industrial 2017. Gestión de datos de asistentes y logística del evento.",
+        "tech": ["HTML", "CSS", "JavaScript"],
+        "github": "https://github.com/JoseManuelPR/coneii2017registro",
+        "demo": ""
+      }
+    ]
+  },
+  "stack": {
+    "title": "Stack Tecnológico",
+    "subtitle": "Tecnologías con las que trabajo diariamente",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "databases": "Bases de Datos",
+      "devops": "DevOps",
+      "ai": "IA / LLM"
+    }
+  },
+  "experience": {
+    "title": "Experiencia",
+    "subtitle": "Trayectoria profesional",
+    "items": [
+      {
+        "company": "Bunny Studio",
+        "location": "San Francisco, CA (Remoto)",
+        "role": "Ingeniero de Software",
+        "period": "2021 – Presente",
+        "description": "Construyendo y escalando la plataforma que conecta profesionales creativos con clientes globales. Trabajando en todo el stack con Vue.js, Node.js y AWS. Contribuyendo a la estrategia de producto, arquitectura de sistemas y confiabilidad de la plataforma.",
+        "achievements": [
+          "Diseñé microservicios escalables procesando miles de transacciones diarias",
+          "Mejoré el rendimiento y la observabilidad de la plataforma en sistemas críticos",
+          "Lideré iniciativas de frontend mejorando la experiencia de usuario y tasas de conversión",
+          "Colaboré con equipos multifuncionales de diseño, producto e ingeniería"
+        ]
+      },
+      {
+        "company": "Roles Previos de Ingeniería",
+        "location": "Perú",
+        "role": "Desarrollador Full-Stack",
+        "period": "2018 – 2021",
+        "description": "Trabajé en proyectos diversos abarcando desarrollo web, aplicaciones móviles e infraestructura cloud. Adquirí experiencia profunda con múltiples frameworks y patrones arquitectónicos.",
+        "achievements": [
+          "Construí aplicaciones en producción con Vue.js, React, Angular y Node.js",
+          "Desarrollé aplicaciones móviles usando Flutter, Kotlin y Swift",
+          "Implementé soluciones cloud en AWS y Firebase",
+          "Contribuí a proyectos open-source obteniendo el estatus de Arctic Code Vault Contributor"
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "¿Tienes un proyecto en mente o quieres discutir oportunidades? Conectemos.",
+    "name": "Nombre",
+    "email": "Email",
+    "message": "Mensaje",
+    "send": "Enviar Mensaje",
+    "namePlaceholder": "Tu nombre",
+    "emailPlaceholder": "tu@email.com",
+    "messagePlaceholder": "Cuéntame sobre tu proyecto u oportunidad...",
+    "success": "¡Mensaje enviado exitosamente!",
+    "error": "Algo salió mal. Por favor intenta de nuevo."
+  },
+  "footer": {
+    "built": "Construido con Next.js y TailwindCSS",
+    "rights": "Todos los derechos reservados."
+  }
+}
