@@ -1,7 +1,7 @@
 {
   "nav": {
     "about": "About",
-    "projects": "Projects",
+    "projects": "Impact",
     "stack": "Stack",
     "experience": "Experience",
     "contact": "Contact"
@@ -26,54 +26,30 @@
     "downloadResume": "Download Resume"
   },
   "projects": {
-    "title": "Projects",
-    "subtitle": "Selected work from my GitHub repositories",
-    "viewCode": "View Code",
-    "liveDemo": "Live Demo",
-    "items": [
-      {
-        "name": "Aduanas App",
-        "description": "Full-stack customs management application built with TypeScript. Features a modern UI deployed on Vercel with real-time data processing capabilities.",
-        "tech": ["TypeScript", "Next.js", "Vercel"],
-        "github": "https://github.com/JoseManuelPR/aduanas-app",
-        "demo": "https://aduanas-app.vercel.app"
+    "title": "Impact",
+    "subtitle": "Numbers that reflect my engineering journey",
+    "stats": {
+      "repos": "Public Repositories",
+      "years": "Years of Experience",
+      "technologies": "Technologies",
+      "deployed": "Products Deployed",
+      "languages": "Languages Spoken",
+      "contributions": "Contributions"
+    },
+    "highlights": {
+      "production": {
+        "title": "Production Systems",
+        "description": "Built and maintained scalable platforms serving thousands of users daily, handling real-time transactions with high availability across multiple markets."
       },
-      {
-        "name": "COVID-19 Peru Tracker",
-        "description": "Real-time COVID-19 data visualization dashboard for Peru. Aggregates and displays pandemic statistics with interactive charts and maps.",
-        "tech": ["JavaScript", "React", "APIs", "Data Viz"],
-        "github": "https://github.com/JoseManuelPR/covid19peru",
-        "demo": "https://covid19peru.now.sh"
+      "openSource": {
+        "title": "Open Source & Community",
+        "description": "Arctic Code Vault Contributor on GitHub. Active in the open-source community with contributions to various projects and tools used by developers worldwide."
       },
-      {
-        "name": "Torre Integration",
-        "description": "Full-stack application with a Python API backend and JavaScript frontend, integrating with the Torre.ai platform for professional networking data.",
-        "tech": ["Python", "JavaScript", "REST API"],
-        "github": "https://github.com/JoseManuelPR/torre-api",
-        "demo": ""
-      },
-      {
-        "name": "DexFreight Frontend",
-        "description": "Technical assessment project for DexFreight. Built a logistics-focused frontend application using Vue.js with modern component architecture.",
-        "tech": ["Vue.js", "JavaScript", "Logistics"],
-        "github": "https://github.com/JoseManuelPR/dexfreight-front",
-        "demo": ""
-      },
-      {
-        "name": "Vue Crypto Dashboard",
-        "description": "Cryptocurrency tracking dashboard built with Vue.js. Displays real-time prices, trends, and portfolio information using public crypto APIs.",
-        "tech": ["Vue.js", "Crypto API", "Charts"],
-        "github": "https://github.com/JoseManuelPR/vue-crypto",
-        "demo": ""
-      },
-      {
-        "name": "CONEII 2017 Registration",
-        "description": "Registration system for the National Congress of Industrial Engineering Students 2017. Managed attendee data and event logistics.",
-        "tech": ["HTML", "CSS", "JavaScript"],
-        "github": "https://github.com/JoseManuelPR/coneii2017registro",
-        "demo": ""
+      "global": {
+        "title": "Global Collaboration",
+        "description": "Working remotely from Peru for companies in San Francisco, collaborating across time zones with cross-functional teams spanning design, product, and engineering."
       }
-    ]
+    }
   },
   "stack": {
     "title": "Tech Stack",
@@ -95,25 +71,51 @@
         "location": "San Francisco, CA (Remote)",
         "role": "Software Engineer",
         "period": "2021 – Present",
-        "description": "Building and scaling the platform that connects creative professionals with global clients. Working across the full stack with Vue.js, Node.js, and AWS. Contributing to product strategy, system architecture, and platform reliability.",
+        "description": "Building and scaling the creative services platform that connects professionals with global clients. Full-stack development across frontend, backend, and cloud infrastructure.",
         "achievements": [
-          "Designed scalable microservices handling thousands of daily transactions",
-          "Improved platform performance and observability across critical systems",
-          "Led frontend initiatives improving user experience and conversion rates",
-          "Collaborated with cross-functional teams spanning design, product, and engineering"
+          "Designed and implemented scalable microservices handling thousands of daily transactions on AWS",
+          "Led frontend architecture improvements with Vue.js and React, boosting user engagement and conversion",
+          "Enhanced platform observability and reliability across critical production systems",
+          "Collaborated with cross-functional teams in design, product, and engineering across time zones"
         ]
       },
       {
-        "company": "Previous Engineering Roles",
-        "location": "Peru",
-        "role": "Full-Stack Developer",
-        "period": "2018 – 2021",
-        "description": "Worked on diverse projects spanning web development, mobile applications, and cloud infrastructure. Gained deep experience with multiple frameworks and architectural patterns.",
+        "company": "Torre.ai",
+        "location": "Remote",
+        "role": "Software Engineer",
+        "period": "2020 – 2021",
+        "description": "Contributed to the professional networking platform connecting talent with opportunities in Latin America and globally. Built full-stack features and integrations.",
         "achievements": [
-          "Built production applications with Vue.js, React, Angular, and Node.js",
+          "Developed full-stack features using JavaScript, Python, and modern web technologies",
+          "Built API integrations for talent matching and professional profile aggregation",
+          "Improved platform performance and user experience for a growing user base",
+          "Worked in a fast-paced remote-first startup environment with agile methodologies"
+        ]
+      },
+      {
+        "company": "Freelance & Early Career",
+        "location": "Peru & Chile",
+        "role": "Full-Stack Developer",
+        "period": "2018 – 2020",
+        "description": "Developed diverse projects spanning web, mobile, and cloud while building a strong technical foundation. Pacific Alliance Scholar in Chile (2018).",
+        "achievements": [
+          "Built production applications with Vue.js, React, Angular, and Node.js for various clients",
           "Developed mobile applications using Flutter, Kotlin, and Swift",
-          "Implemented cloud solutions on AWS and Firebase",
-          "Contributed to open-source projects earning Arctic Code Vault Contributor status"
+          "Implemented cloud solutions with AWS and Firebase for scalable deployments",
+          "Completed Pacific Alliance Scholarship exchange program in Chile, studying Civil Computer Engineering"
+        ]
+      },
+      {
+        "company": "USAT",
+        "location": "Chiclayo, Peru",
+        "role": "Systems Engineering Ambassador & Student Developer",
+        "period": "2015 – 2020",
+        "description": "Studied Computer and Systems Engineering while leading student initiatives and building community projects.",
+        "achievements": [
+          "Named Systems Engineering Ambassador (2017) for academic excellence and leadership",
+          "Built the registration system for the National Congress of Industrial Engineering (CONEII 2017)",
+          "Developed the official website for CONEII 2017, managing attendee logistics for hundreds of participants",
+          "Earned multiple Platzi certifications in JavaScript, React, Git, and Server-Side Rendering"
         ]
       }
     ]

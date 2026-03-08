@@ -1,7 +1,7 @@
 {
   "nav": {
     "about": "Sobre mí",
-    "projects": "Proyectos",
+    "projects": "Impacto",
     "stack": "Stack",
     "experience": "Experiencia",
     "contact": "Contacto"
@@ -26,54 +26,30 @@
     "downloadResume": "Descargar CV"
   },
   "projects": {
-    "title": "Proyectos",
-    "subtitle": "Trabajo seleccionado de mis repositorios de GitHub",
-    "viewCode": "Ver Código",
-    "liveDemo": "Demo en Vivo",
-    "items": [
-      {
-        "name": "Aduanas App",
-        "description": "Aplicación full-stack de gestión aduanera construida con TypeScript. Cuenta con una interfaz moderna desplegada en Vercel con capacidades de procesamiento de datos en tiempo real.",
-        "tech": ["TypeScript", "Next.js", "Vercel"],
-        "github": "https://github.com/JoseManuelPR/aduanas-app",
-        "demo": "https://aduanas-app.vercel.app"
+    "title": "Impacto",
+    "subtitle": "Números que reflejan mi trayectoria como ingeniero",
+    "stats": {
+      "repos": "Repositorios Públicos",
+      "years": "Años de Experiencia",
+      "technologies": "Tecnologías",
+      "deployed": "Productos Desplegados",
+      "languages": "Idiomas",
+      "contributions": "Contribuciones"
+    },
+    "highlights": {
+      "production": {
+        "title": "Sistemas en Producción",
+        "description": "Construí y mantuve plataformas escalables sirviendo miles de usuarios diarios, procesando transacciones en tiempo real con alta disponibilidad en múltiples mercados."
       },
-      {
-        "name": "COVID-19 Perú Tracker",
-        "description": "Dashboard de visualización de datos COVID-19 en tiempo real para Perú. Agrega y muestra estadísticas de la pandemia con gráficos interactivos y mapas.",
-        "tech": ["JavaScript", "React", "APIs", "Data Viz"],
-        "github": "https://github.com/JoseManuelPR/covid19peru",
-        "demo": "https://covid19peru.now.sh"
+      "openSource": {
+        "title": "Open Source y Comunidad",
+        "description": "Contribuidor del Arctic Code Vault en GitHub. Activo en la comunidad open-source con contribuciones a diversos proyectos y herramientas usadas por desarrolladores globalmente."
       },
-      {
-        "name": "Torre Integration",
-        "description": "Aplicación full-stack con un backend API en Python y frontend en JavaScript, integrando con la plataforma Torre.ai para datos de networking profesional.",
-        "tech": ["Python", "JavaScript", "REST API"],
-        "github": "https://github.com/JoseManuelPR/torre-api",
-        "demo": ""
-      },
-      {
-        "name": "DexFreight Frontend",
-        "description": "Proyecto de evaluación técnica para DexFreight. Construí una aplicación frontend enfocada en logística usando Vue.js con arquitectura moderna de componentes.",
-        "tech": ["Vue.js", "JavaScript", "Logística"],
-        "github": "https://github.com/JoseManuelPR/dexfreight-front",
-        "demo": ""
-      },
-      {
-        "name": "Vue Crypto Dashboard",
-        "description": "Dashboard de seguimiento de criptomonedas construido con Vue.js. Muestra precios en tiempo real, tendencias e información de portafolio usando APIs públicas.",
-        "tech": ["Vue.js", "Crypto API", "Charts"],
-        "github": "https://github.com/JoseManuelPR/vue-crypto",
-        "demo": ""
-      },
-      {
-        "name": "CONEII 2017 Registro",
-        "description": "Sistema de registro para el Congreso Nacional de Estudiantes de Ingeniería Industrial 2017. Gestión de datos de asistentes y logística del evento.",
-        "tech": ["HTML", "CSS", "JavaScript"],
-        "github": "https://github.com/JoseManuelPR/coneii2017registro",
-        "demo": ""
+      "global": {
+        "title": "Colaboración Global",
+        "description": "Trabajando remotamente desde Perú para empresas en San Francisco, colaborando a través de zonas horarias con equipos multifuncionales de diseño, producto e ingeniería."
       }
-    ]
+    }
   },
   "stack": {
     "title": "Stack Tecnológico",
@@ -95,25 +71,51 @@
         "location": "San Francisco, CA (Remoto)",
         "role": "Ingeniero de Software",
         "period": "2021 – Presente",
-        "description": "Construyendo y escalando la plataforma que conecta profesionales creativos con clientes globales. Trabajando en todo el stack con Vue.js, Node.js y AWS. Contribuyendo a la estrategia de producto, arquitectura de sistemas y confiabilidad de la plataforma.",
+        "description": "Construyendo y escalando la plataforma de servicios creativos que conecta profesionales con clientes globales. Desarrollo full-stack en frontend, backend e infraestructura cloud.",
         "achievements": [
-          "Diseñé microservicios escalables procesando miles de transacciones diarias",
-          "Mejoré el rendimiento y la observabilidad de la plataforma en sistemas críticos",
-          "Lideré iniciativas de frontend mejorando la experiencia de usuario y tasas de conversión",
-          "Colaboré con equipos multifuncionales de diseño, producto e ingeniería"
+          "Diseñé e implementé microservicios escalables procesando miles de transacciones diarias en AWS",
+          "Lideré mejoras de arquitectura frontend con Vue.js y React, aumentando engagement y conversión",
+          "Mejoré la observabilidad y confiabilidad de la plataforma en sistemas críticos de producción",
+          "Colaboré con equipos multifuncionales de diseño, producto e ingeniería a través de zonas horarias"
         ]
       },
       {
-        "company": "Roles Previos de Ingeniería",
-        "location": "Perú",
-        "role": "Desarrollador Full-Stack",
-        "period": "2018 – 2021",
-        "description": "Trabajé en proyectos diversos abarcando desarrollo web, aplicaciones móviles e infraestructura cloud. Adquirí experiencia profunda con múltiples frameworks y patrones arquitectónicos.",
+        "company": "Torre.ai",
+        "location": "Remoto",
+        "role": "Ingeniero de Software",
+        "period": "2020 – 2021",
+        "description": "Contribuí a la plataforma de networking profesional que conecta talento con oportunidades en Latinoamérica y globalmente. Desarrollo full-stack de features e integraciones.",
         "achievements": [
-          "Construí aplicaciones en producción con Vue.js, React, Angular y Node.js",
+          "Desarrollé features full-stack usando JavaScript, Python y tecnologías web modernas",
+          "Construí integraciones API para matching de talento y agregación de perfiles profesionales",
+          "Mejoré el rendimiento y la experiencia de usuario para una base de usuarios en crecimiento",
+          "Trabajé en un entorno startup remote-first con metodologías ágiles"
+        ]
+      },
+      {
+        "company": "Freelance y Carrera Temprana",
+        "location": "Perú y Chile",
+        "role": "Desarrollador Full-Stack",
+        "period": "2018 – 2020",
+        "description": "Desarrollé proyectos diversos en web, móvil y cloud mientras construía una base técnica sólida. Becario de la Alianza del Pacífico en Chile (2018).",
+        "achievements": [
+          "Construí aplicaciones en producción con Vue.js, React, Angular y Node.js para diversos clientes",
           "Desarrollé aplicaciones móviles usando Flutter, Kotlin y Swift",
-          "Implementé soluciones cloud en AWS y Firebase",
-          "Contribuí a proyectos open-source obteniendo el estatus de Arctic Code Vault Contributor"
+          "Implementé soluciones cloud con AWS y Firebase para despliegues escalables",
+          "Completé el programa de intercambio de la Alianza del Pacífico en Chile, estudiando Ingeniería Civil en Computación"
+        ]
+      },
+      {
+        "company": "USAT",
+        "location": "Chiclayo, Perú",
+        "role": "Embajador de Ingeniería de Sistemas y Desarrollador Estudiantil",
+        "period": "2015 – 2020",
+        "description": "Estudié Ingeniería de Sistemas y Computación mientras lideraba iniciativas estudiantiles y construía proyectos comunitarios.",
+        "achievements": [
+          "Nombrado Embajador de Ingeniería de Sistemas (2017) por excelencia académica y liderazgo",
+          "Construí el sistema de registro para el Congreso Nacional de Ingeniería Industrial (CONEII 2017)",
+          "Desarrollé el sitio web oficial del CONEII 2017, gestionando logística para cientos de participantes",
+          "Obtuve múltiples certificaciones de Platzi en JavaScript, React, Git y Server-Side Rendering"
         ]
       }
     ]
