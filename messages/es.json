@@ -53,70 +53,120 @@
   },
   "stack": {
     "title": "Stack Tecnológico",
-    "subtitle": "Tecnologías con las que trabajo diariamente",
-    "categories": {
-      "frontend": "Frontend",
-      "backend": "Backend",
-      "databases": "Bases de Datos",
-      "devops": "DevOps",
-      "ai": "IA / LLM"
-    }
+    "subtitle": "Tecnologías con las que trabajo diariamente"
   },
   "experience": {
     "title": "Experiencia",
     "subtitle": "Trayectoria profesional",
+    "showMore": "Ver más",
+    "showLess": "Ver menos",
     "items": [
       {
         "company": "Bunny Studio",
         "location": "San Francisco, CA (Remoto)",
         "role": "Ingeniero de Software",
-        "period": "2021 – Presente",
+        "period": "Abr 2025 – Presente",
         "description": "Construyendo y escalando la plataforma de servicios creativos que conecta profesionales con clientes globales. Desarrollo full-stack en frontend, backend e infraestructura cloud.",
         "achievements": [
-          "Diseñé e implementé microservicios escalables procesando miles de transacciones diarias en AWS",
-          "Lideré mejoras de arquitectura frontend con Vue.js y React, aumentando engagement y conversión",
-          "Mejoré la observabilidad y confiabilidad de la plataforma en sistemas críticos de producción",
-          "Colaboré con equipos multifuncionales de diseño, producto e ingeniería a través de zonas horarias"
+          "Desarrollo full-stack con tecnologías web modernas y servicios cloud",
+          "Contribuyendo a la estrategia de producto, arquitectura de sistemas y confiabilidad",
+          "Colaborando con equipos multifuncionales de diseño, producto e ingeniería"
         ]
       },
       {
         "company": "Torre.ai",
         "location": "Remoto",
         "role": "Ingeniero de Software",
-        "period": "2020 – 2021",
-        "description": "Contribuí a la plataforma de networking profesional que conecta talento con oportunidades en Latinoamérica y globalmente. Desarrollo full-stack de features e integraciones.",
+        "period": "Dic 2021 – Abr 2025",
+        "description": "Construí funcionalidades clave de la plataforma de networking profesional y reclutamiento impulsada por IA. Trabajé en todo el stack con TypeScript, Vue.js, Scala y AWS.",
         "achievements": [
-          "Desarrollé features full-stack usando JavaScript, Python y tecnologías web modernas",
-          "Construí integraciones API para matching de talento y agregación de perfiles profesionales",
-          "Mejoré el rendimiento y la experiencia de usuario para una base de usuarios en crecimiento",
-          "Trabajé en un entorno startup remote-first con metodologías ágiles"
+          "Construí flujo de aplicación, genoma de candidatos y páginas de búsqueda con TypeScript, Vue.js y Scala",
+          "Logré una mejora del 83% en Core Web Vitals mediante técnicas de optimización",
+          "Colaboré en funciones de matching impulsadas por IA usando LLMs (GPT, Gemini)",
+          "Utilicé servicios AWS (CloudWatch, S3, EC2, Lambda) para infraestructura escalable",
+          "Mentoré desarrolladores en roles de liderazgo técnico"
         ]
       },
       {
-        "company": "Freelance y Carrera Temprana",
-        "location": "Perú y Chile",
-        "role": "Desarrollador Full-Stack",
-        "period": "2018 – 2020",
-        "description": "Desarrollé proyectos diversos en web, móvil y cloud mientras construía una base técnica sólida. Becario de la Alianza del Pacífico en Chile (2018).",
+        "company": "Torre.ai",
+        "location": "Remoto",
+        "role": "Pasante de Ingeniería de Software",
+        "period": "Ago 2021 – Nov 2021",
+        "description": "Contribuí a funcionalidades fundamentales de la plataforma como parte del equipo de ingeniería durante la etapa de crecimiento inicial.",
         "achievements": [
-          "Construí aplicaciones en producción con Vue.js, React, Angular y Node.js para diversos clientes",
-          "Desarrollé aplicaciones móviles usando Flutter, Kotlin y Swift",
-          "Implementé soluciones cloud con AWS y Firebase para despliegues escalables",
-          "Completé el programa de intercambio de la Alianza del Pacífico en Chile, estudiando Ingeniería Civil en Computación"
+          "Contribuí al sistema de publicación de empleos y pipeline de candidatos",
+          "Construí componentes frontend usando Vue.js y TypeScript",
+          "Participé en revisiones de código y ceremonias ágiles con un equipo distribuido"
         ]
       },
       {
-        "company": "USAT",
+        "company": "AGROS",
+        "location": "Remoto",
+        "role": "Desarrollador Full Stack & Product Owner",
+        "period": "Abr 2020 – Jul 2021",
+        "description": "Arquitecté y entregué una solución tecnológica agrícola full-stack incluyendo aplicaciones móviles y web para recolección y gestión de datos en campo.",
+        "achievements": [
+          "Arquitecté aplicación Android para recolección offline con georreferenciación e ID biométrica",
+          "Diseñé APIs escalables e interfaces frontend usando TypeScript, React.js y Python",
+          "Utilicé servicios AWS y Docker para despliegues en la nube",
+          "Lideré responsabilidades de product ownership desde la concepción hasta el despliegue"
+        ]
+      },
+      {
+        "company": "Back Ops",
         "location": "Chiclayo, Perú",
-        "role": "Embajador de Ingeniería de Sistemas y Desarrollador Estudiantil",
+        "role": "Desarrollador de Software",
+        "period": "Ene 2017 – Dic 2019",
+        "description": "Desarrollé funcionalidades críticas para la plataforma Kiui, herramienta integral de gestión empresarial. Trabajé con TypeScript, Node.js, React y React Native.",
+        "achievements": [
+          "Desarrollé funcionalidades críticas para Kiui usando TypeScript, Node.js, React y React Native",
+          "Diseñé APIs con GraphQL, reduciendo la latencia en un 35%",
+          "Implementé AWS CloudWatch para observabilidad y monitoreo del sistema",
+          "Construí experiencias web y móviles responsivas para clientes empresariales"
+        ]
+      },
+      {
+        "company": "Universidad Católica Santo Toribio de Mogrovejo",
+        "location": "Chiclayo, Perú",
+        "role": "Asistente de Gerencia de Desarrollo",
+        "period": "Ago 2017 – Dic 2017",
+        "description": "Apoyé iniciativas de desarrollo de software dentro del departamento de tecnología. Mejoré la plataforma Aula Virtual para la experiencia académica.",
+        "achievements": [
+          "Apoyé iniciativas de desarrollo de software para la universidad",
+          "Mejoré la plataforma Aula Virtual para la experiencia de los estudiantes",
+          "Colaboré con profesores y personal de TI en soluciones tecnológicas"
+        ]
+      },
+      {
+        "company": "Universidad Católica Santo Toribio de Mogrovejo",
+        "location": "Chiclayo, Perú",
+        "role": "Embajador de Ingeniería de Sistemas & Desarrollador Estudiantil",
         "period": "2015 – 2020",
-        "description": "Estudié Ingeniería de Sistemas y Computación mientras lideraba iniciativas estudiantiles y construía proyectos comunitarios.",
+        "description": "Estudié Ingeniería de Sistemas y Computación liderando iniciativas estudiantiles. Embajador de Ingeniería de Sistemas (2017) por excelencia académica.",
         "achievements": [
           "Nombrado Embajador de Ingeniería de Sistemas (2017) por excelencia académica y liderazgo",
-          "Construí el sistema de registro para el Congreso Nacional de Ingeniería Industrial (CONEII 2017)",
-          "Desarrollé el sitio web oficial del CONEII 2017, gestionando logística para cientos de participantes",
-          "Obtuve múltiples certificaciones de Platzi en JavaScript, React, Git y Server-Side Rendering"
+          "Construí el sistema de registro para CONEII 2017",
+          "Desarrollé el sitio web oficial del CONEII 2017",
+          "Completé la beca de la Alianza del Pacífico en Chile (2018)"
         ]
+      }
+    ]
+  },
+  "recommendations": {
+    "title": "Recomendaciones",
+    "subtitle": "Lo que colegas y líderes dicen sobre trabajar conmigo",
+    "items": [
+      {
+        "name": "Alexander Torrenegra",
+        "role": "CEO y Fundador de Torre.ai",
+        "relationship": "Supervisó a José Manuel en Torre",
+        "text": "Conocí a Jose Manuel hace años mientras trabajaba en Torre. Jose Manuel tiene amplio conocimiento en producto, desarrollo de software e IA. Su trabajo ayudó a Torre a convertirse en líder en la industria del reclutamiento. Jose Manuel también es una gran persona. Es el tipo de persona con la que quieres ser amigo. Sería un gran activo para cualquier empresa o proyecto."
+      },
+      {
+        "name": "Renan Peixoto",
+        "role": "Engineering Manager",
+        "relationship": "Supervisó a José Manuel directamente",
+        "text": "Como gerente de JoseMa, quedé impresionado por su esfuerzo y disposición para asumir más responsabilidad. Fue instrumental en dar forma a nuestra plataforma y su trabajo mejoró directamente la experiencia de nuestros usuarios. Es un ingeniero fuerte y enfocado en producto. JoseMa sería una gran adición a cualquier equipo."
       }
     ]
   },

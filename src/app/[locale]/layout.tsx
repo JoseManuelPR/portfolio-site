@@ -3,6 +3,7 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { GridBackground } from "@/components/GridBackground";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import "../globals.css";
@@ -90,6 +91,7 @@ export default async function LocaleLayout({
       <body className="min-h-screen font-sans antialiased">
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
+            <GridBackground />
             <Navbar />
             <main>{children}</main>
             <Footer />

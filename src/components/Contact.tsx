@@ -22,7 +22,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="border-t border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900/50"
+      className="border-t border-neutral-200/60 bg-white/50 backdrop-blur-sm dark:border-neutral-800/60 dark:bg-neutral-950/50"
     >
       <div className="section-container">
         <Reveal variant="fade-up">

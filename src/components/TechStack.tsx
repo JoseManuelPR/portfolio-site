@@ -60,8 +60,8 @@ function LogoRow({
   return (
     <div className="logo-carousel relative overflow-hidden py-4">
       {/* Fade edges */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white dark:from-neutral-950" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white dark:from-neutral-950" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white/90 dark:from-neutral-950/90" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white/90 dark:from-neutral-950/90" />
 
       <div className={`flex w-max gap-12 ${animClass}`}>
         {items.map((logo, i) => (
@@ -96,7 +96,7 @@ export function TechStack() {
   return (
     <section
       id="stack"
-      className="border-y border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900/50"
+      className="border-y border-neutral-200/60 bg-white/50 backdrop-blur-sm dark:border-neutral-800/60 dark:bg-neutral-950/50"
     >
       <div className="section-container">
         <Reveal variant="fade-up">

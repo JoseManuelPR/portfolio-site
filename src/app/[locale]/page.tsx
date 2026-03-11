@@ -3,6 +3,7 @@ import { About } from "@/components/About";
 import { Projects } from "@/components/Projects";
 import { TechStack } from "@/components/TechStack";
 import { Experience } from "@/components/Experience";
+import { Recommendations } from "@/components/Recommendations";
 import { Contact } from "@/components/Contact";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <Projects />
       <TechStack />
       <Experience />
+      <Recommendations />
       <Contact />
     </>
   );

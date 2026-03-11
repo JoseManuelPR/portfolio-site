@@ -53,70 +53,120 @@
   },
   "stack": {
     "title": "Tech Stack",
-    "subtitle": "Technologies I work with daily",
-    "categories": {
-      "frontend": "Frontend",
-      "backend": "Backend",
-      "databases": "Databases",
-      "devops": "DevOps",
-      "ai": "AI / LLM"
-    }
+    "subtitle": "Technologies I work with daily"
   },
   "experience": {
     "title": "Experience",
     "subtitle": "Professional journey",
+    "showMore": "Show more",
+    "showLess": "Show less",
     "items": [
       {
         "company": "Bunny Studio",
         "location": "San Francisco, CA (Remote)",
         "role": "Software Engineer",
-        "period": "2021 – Present",
+        "period": "Apr 2025 – Present",
         "description": "Building and scaling the creative services platform that connects professionals with global clients. Full-stack development across frontend, backend, and cloud infrastructure.",
         "achievements": [
-          "Designed and implemented scalable microservices handling thousands of daily transactions on AWS",
-          "Led frontend architecture improvements with Vue.js and React, boosting user engagement and conversion",
-          "Enhanced platform observability and reliability across critical production systems",
-          "Collaborated with cross-functional teams in design, product, and engineering across time zones"
+          "Full-stack development with modern web technologies and cloud services",
+          "Contributing to product strategy, system architecture, and platform reliability",
+          "Collaborating with cross-functional teams spanning design, product, and engineering"
         ]
       },
       {
         "company": "Torre.ai",
         "location": "Remote",
         "role": "Software Engineer",
-        "period": "2020 – 2021",
-        "description": "Contributed to the professional networking platform connecting talent with opportunities in Latin America and globally. Built full-stack features and integrations.",
+        "period": "Dec 2021 – Apr 2025",
+        "description": "Built core platform features for the AI-powered professional networking and recruitment platform. Worked across the full stack with TypeScript, Vue.js, Scala, and AWS.",
         "achievements": [
-          "Developed full-stack features using JavaScript, Python, and modern web technologies",
-          "Built API integrations for talent matching and professional profile aggregation",
-          "Improved platform performance and user experience for a growing user base",
-          "Worked in a fast-paced remote-first startup environment with agile methodologies"
+          "Built application flow, candidate genome, and search pages using TypeScript, Vue.js, and Scala",
+          "Achieved 83% enhancement in Core Web Vitals through optimization techniques",
+          "Collaborated on AI-driven matching functions using LLMs (GPT, Gemini)",
+          "Leveraged AWS services (CloudWatch, S3, EC2, Lambda) for scalable infrastructure",
+          "Mentored developers in technical leadership roles"
         ]
       },
       {
-        "company": "Freelance & Early Career",
-        "location": "Peru & Chile",
-        "role": "Full-Stack Developer",
-        "period": "2018 – 2020",
-        "description": "Developed diverse projects spanning web, mobile, and cloud while building a strong technical foundation. Pacific Alliance Scholar in Chile (2018).",
+        "company": "Torre.ai",
+        "location": "Remote",
+        "role": "Software Engineer Intern",
+        "period": "Aug 2021 – Nov 2021",
+        "description": "Contributed to foundational platform features as part of the engineering team during the early growth stage of the company.",
         "achievements": [
-          "Built production applications with Vue.js, React, Angular, and Node.js for various clients",
-          "Developed mobile applications using Flutter, Kotlin, and Swift",
-          "Implemented cloud solutions with AWS and Firebase for scalable deployments",
-          "Completed Pacific Alliance Scholarship exchange program in Chile, studying Civil Computer Engineering"
+          "Contributed to the job post system and candidate pipeline features",
+          "Built frontend components using Vue.js and TypeScript",
+          "Participated in code reviews and agile ceremonies with a distributed team"
         ]
       },
       {
-        "company": "USAT",
+        "company": "AGROS",
+        "location": "Remote",
+        "role": "Full Stack Developer & Product Owner",
+        "period": "Apr 2020 – Jul 2021",
+        "description": "Architected and delivered a full-stack agricultural technology solution including mobile and web applications for field data collection and management.",
+        "achievements": [
+          "Architected Android application for offline data collection with georeferencing and biometric ID",
+          "Designed scalable APIs and front-end interfaces using TypeScript, React.js, and Python",
+          "Utilized AWS services and Docker for cloud deployments",
+          "Led product ownership responsibilities from conception to deployment"
+        ]
+      },
+      {
+        "company": "Back Ops",
+        "location": "Chiclayo, Peru",
+        "role": "Software Developer",
+        "period": "Jan 2017 – Dec 2019",
+        "description": "Developed critical features for the Kiui platform, a comprehensive business management tool. Worked across multiple technologies including TypeScript, Node.js, React, and React Native.",
+        "achievements": [
+          "Developed critical features for Kiui platform using TypeScript, Node.js, React, and React Native",
+          "Engineered APIs with GraphQL, reducing latency by 35%",
+          "Implemented AWS CloudWatch for system observability and monitoring",
+          "Built responsive web and mobile experiences for business clients"
+        ]
+      },
+      {
+        "company": "Universidad Católica Santo Toribio de Mogrovejo",
+        "location": "Chiclayo, Peru",
+        "role": "Development Manager Assistant",
+        "period": "Aug 2017 – Dec 2017",
+        "description": "Supported software development initiatives within the university's technology department. Enhanced the Aula Virtual platform for improved academic experiences.",
+        "achievements": [
+          "Supported software development initiatives for the university",
+          "Enhanced Aula Virtual platform improving the academic experience for students",
+          "Collaborated with faculty and IT staff on technology solutions"
+        ]
+      },
+      {
+        "company": "Universidad Católica Santo Toribio de Mogrovejo",
         "location": "Chiclayo, Peru",
         "role": "Systems Engineering Ambassador & Student Developer",
         "period": "2015 – 2020",
-        "description": "Studied Computer and Systems Engineering while leading student initiatives and building community projects.",
+        "description": "Studied Computer and Systems Engineering while leading student initiatives. Named Systems Engineering Ambassador (2017) for academic excellence and leadership.",
         "achievements": [
           "Named Systems Engineering Ambassador (2017) for academic excellence and leadership",
-          "Built the registration system for the National Congress of Industrial Engineering (CONEII 2017)",
-          "Developed the official website for CONEII 2017, managing attendee logistics for hundreds of participants",
-          "Earned multiple Platzi certifications in JavaScript, React, Git, and Server-Side Rendering"
+          "Built the registration system for CONEII 2017",
+          "Developed the official website for CONEII 2017",
+          "Completed Pacific Alliance Scholarship exchange in Chile (2018)"
         ]
+      }
+    ]
+  },
+  "recommendations": {
+    "title": "Recommendations",
+    "subtitle": "What colleagues and leaders say about working with me",
+    "items": [
+      {
+        "name": "Alexander Torrenegra",
+        "role": "CEO & Founder at Torre.ai",
+        "relationship": "Managed José Manuel at Torre",
+        "text": "I met Jose Manuel years ago while working at Torre. Jose Manuel is knowledgeable in product, software development, and AI. His work helped Torre become a leader in the recruitment industry. Jose Manuel is also a great human being. He is the type of person that you want to be friends with. He would be a great asset to any company or project."
+      },
+      {
+        "name": "Renan Peixoto",
+        "role": "Engineering Manager",
+        "relationship": "Managed José Manuel directly",
+        "text": "As JoseMa's manager, I was impressed by his effort and willingness to take on more responsibility. He was instrumental in shaping our platform and his work directly improved the experience for our users. He is a strong, product-focused engineer. JoseMa would make a great addition to any team."
       }
     ]
   },

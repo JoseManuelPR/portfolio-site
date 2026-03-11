@@ -1,25 +1,39 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { MapPin, Calendar } from "lucide-react";
+import { MapPin, Calendar, ChevronDown } from "lucide-react";
 import { Reveal } from "./AnimationProvider";
+import { useState } from "react";
 
 export function Experience() {
   const t = useTranslations("experience");
+  const [visibleCount, setVisibleCount] = useState(5);
 
-  const items = [
-    t.raw("items.0"),
-    t.raw("items.1"),
-    t.raw("items.2"),
-    t.raw("items.3"),
-  ] as Array<{
+  // Get all items count from translations
+  const allItems: Array<{
     company: string;
     location: string;
     role: string;
     period: string;
     description: string;
     achievements: string[];
-  }>;
+  }> = [];
+
+  // Dynamically read all items
+  let idx = 0;
+  while (true) {
+    try {
+      const item = t.raw(`items.${idx}`);
+      if (!item) break;
+      allItems.push(item as any);
+      idx++;
+    } catch {
+      break;
+    }
+  }
+
+  const visibleItems = allItems.slice(0, visibleCount);
+  const hasMore = visibleCount < allItems.length;
 
   return (
     <section id="experience" className="section-container">
@@ -35,17 +49,22 @@ export function Experience() {
         </p>
       </Reveal>
 
-      <div className="relative space-y-10">
+      <div className="relative space-y-8">
         {/* Timeline line */}
         <div className="absolute left-[19px] top-2 hidden h-[calc(100%-2rem)] w-px bg-gradient-to-b from-accent/50 via-neutral-200 to-transparent dark:via-neutral-800 md:block" />
 
-        {items.map((item, i) => (
-          <Reveal key={i} variant="fade-up" delay={i * 0.12}>
+        {visibleItems.map((item, i) => (
+          <Reveal key={`${item.company}-${i}`} variant="fade-up" delay={i < 5 ? i * 0.1 : 0}>
             <div className="relative md:pl-14">
               {/* Timeline dot */}
               <div className="absolute left-2 top-2 hidden md:block">
                 <div className="h-3.5 w-3.5 rounded-full border-2 border-accent bg-white dark:bg-neutral-950" />
-                <div className="absolute left-0.5 top-0.5 h-2.5 w-2.5 animate-ping rounded-full bg-accent/30" style={{ animationDuration: "3s" }} />
+                {i === 0 && (
+                  <div
+                    className="absolute left-0.5 top-0.5 h-2.5 w-2.5 animate-ping rounded-full bg-accent/30"
+                    style={{ animationDuration: "3s" }}
+                  />
+                )}
               </div>
 
               <div className="card">
@@ -86,6 +105,30 @@ export function Experience() {
           </Reveal>
         ))}
       </div>
+
+      {/* Show more / Show less */}
+      {allItems.length > 5 && (
+        <Reveal variant="fade" delay={0.2}>
+          <div className="mt-10 flex justify-center">
+            <button
+              onClick={() =>
+                setVisibleCount((prev) =>
+                  prev >= allItems.length ? 5 : Math.min(prev + 5, allItems.length)
+                )
+              }
+              className="btn-secondary group"
+            >
+              <ChevronDown
+                size={16}
+                className={`transition-transform duration-300 ${
+                  !hasMore ? "rotate-180" : ""
+                }`}
+              />
+              {hasMore ? t("showMore") : t("showLess")}
+            </button>
+          </div>
+        </Reveal>
+      )}
     </section>
   );
 }
