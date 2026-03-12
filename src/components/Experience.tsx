@@ -19,14 +19,12 @@ export function Experience() {
     achievements: string[];
   }> = [];
 
-  // Dynamically read all items
-  let idx = 0;
-  while (true) {
+  // Dynamically read all items (bounded to avoid infinite loops)
+  for (let idx = 0; idx < 50; idx++) {
     try {
       const item = t.raw(`items.${idx}`);
       if (!item) break;
       allItems.push(item as any);
-      idx++;
     } catch {
       break;
     }

@@ -100,7 +100,7 @@ export function GridBackground() {
       if (!canvas || !ctx) return;
       const dpr = window.devicePixelRatio || 1;
       width = window.innerWidth;
-      height = document.documentElement.scrollHeight;
+      height = window.innerHeight; // viewport only — canvas is position:fixed
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       canvas.style.width = `${width}px`;
@@ -227,12 +227,13 @@ export function GridBackground() {
     resize();
     draw();
 
-    // Observe body height changes (scroll content changes)
+    // Observe viewport size changes
     const ro = new ResizeObserver(() => {
-      const newH = document.documentElement.scrollHeight;
-      if (Math.abs(newH - height) > 50) resize();
+      const newW = window.innerWidth;
+      const newH = window.innerHeight;
+      if (Math.abs(newW - width) > 10 || Math.abs(newH - height) > 10) resize();
     });
-    ro.observe(document.body);
+    ro.observe(document.documentElement);
 
     window.addEventListener("resize", resize);
 

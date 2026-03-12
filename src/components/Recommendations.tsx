@@ -14,13 +14,11 @@ export function Recommendations() {
     text: string;
   }> = [];
 
-  let idx = 0;
-  while (true) {
+  for (let idx = 0; idx < 50; idx++) {
     try {
       const item = t.raw(`items.${idx}`);
       if (!item) break;
       items.push(item as any);
-      idx++;
     } catch {
       break;
     }
