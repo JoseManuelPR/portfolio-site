@@ -1,37 +1,33 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useMessages } from "next-intl";
 import { MapPin, Calendar, ChevronDown } from "lucide-react";
 import { Reveal } from "./AnimationProvider";
-import { useState } from "react";
+import { useState, useMemo } from "react";
+
+type ExperienceItem = {
+  company: string;
+  location: string;
+  role: string;
+  period: string;
+  description: string;
+  achievements: string[];
+};
 
 export function Experience() {
   const t = useTranslations("experience");
+  const messages = useMessages() as any;
   const [visibleCount, setVisibleCount] = useState(5);
 
-  // Get all items count from translations
-  const allItems: Array<{
-    company: string;
-    location: string;
-    role: string;
-    period: string;
-    description: string;
-    achievements: string[];
-  }> = [];
+  // Read items directly from the messages object — avoids t.raw() re-render issues
+  const allItems: ExperienceItem[] = useMemo(
+    () => (messages?.experience?.items ?? []) as ExperienceItem[],
+    [messages]
+  );
 
-  // Dynamically read all items (bounded to avoid infinite loops)
-  for (let idx = 0; idx < 50; idx++) {
-    try {
-      const item = t.raw(`items.${idx}`);
-      if (!item) break;
-      allItems.push(item as any);
-    } catch {
-      break;
-    }
-  }
-
+  const total = allItems.length;
   const visibleItems = allItems.slice(0, visibleCount);
-  const hasMore = visibleCount < allItems.length;
+  const hasMore = visibleCount < total;
 
   return (
     <section id="experience" className="section-container">
@@ -105,13 +101,13 @@ export function Experience() {
       </div>
 
       {/* Show more / Show less */}
-      {allItems.length > 5 && (
+      {total > 5 && (
         <Reveal variant="fade" delay={0.2}>
           <div className="mt-10 flex justify-center">
             <button
               onClick={() =>
                 setVisibleCount((prev) =>
-                  prev >= allItems.length ? 5 : Math.min(prev + 5, allItems.length)
+                  prev >= total ? 5 : Math.min(prev + 5, total)
                 )
               }
               className="btn-secondary group"
