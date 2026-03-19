@@ -39,7 +39,7 @@ export async function generateMetadata({
     openGraph: {
       title: `José Manuel Puicón Rodas — ${t("title")}`,
       description: t("pitch"),
-      url: "https://josemanuelpr.vercel.app",
+      url: "https://josepuicon-dev.vercel.app",
       siteName: "José Manuel Puicón Rodas",
       locale: locale === "es" ? "es_PE" : "en_US",
       type: "website",
@@ -62,10 +62,10 @@ export async function generateMetadata({
       },
     },
     alternates: {
-      canonical: "https://josemanuelpr.vercel.app",
+      canonical: "https://josepuicon-dev.vercel.app",
       languages: {
-        en: "https://josemanuelpr.vercel.app/en",
-        es: "https://josemanuelpr.vercel.app/es",
+        en: "https://josepuicon-dev.vercel.app/en",
+        es: "https://josepuicon-dev.vercel.app/es",
       },
     },
   };
