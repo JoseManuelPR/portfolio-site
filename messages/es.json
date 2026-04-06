@@ -15,7 +15,7 @@
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "torre": "Torre",
-    "contact": "Contáctame"
+    "contact": "Trabajemos juntos"
   },
   "about": {
     "title": "Sobre mí",
@@ -172,7 +172,7 @@
   },
   "contact": {
     "title": "Contacto",
-    "subtitle": "¿Tienes un proyecto en mente o quieres discutir oportunidades? Conectemos.",
+    "subtitle": "¿Tienes un proyecto en mente? Me encantaría saber más.",
     "name": "Nombre",
     "email": "Email",
     "message": "Mensaje",

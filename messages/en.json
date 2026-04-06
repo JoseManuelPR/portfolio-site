@@ -15,7 +15,7 @@
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "torre": "Torre",
-    "contact": "Contact me"
+    "contact": "Let's work together"
   },
   "about": {
     "title": "About",
@@ -172,7 +172,7 @@
   },
   "contact": {
     "title": "Get in Touch",
-    "subtitle": "Have a project in mind or want to discuss opportunities? Let's connect.",
+    "subtitle": "Have a project in mind? I'd love to hear about it.",
     "name": "Name",
     "email": "Email",
     "message": "Message",

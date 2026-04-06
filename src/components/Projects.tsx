@@ -74,7 +74,7 @@ export function Projects() {
       >
         {highlights.map(({ icon: Icon, title, description }) => (
           <div key={title} className="group card">
-            <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-accent/8 text-accent transition-all duration-300 group-hover:bg-accent group-hover:text-white group-hover:shadow-glow dark:bg-accent/15">
+            <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-accent/8 text-accent transition-all duration-300 group-hover:bg-accent group-hover:text-white dark:bg-accent/15">
               <Icon size={20} />
             </div>
             <h3 className="mb-2 text-lg font-semibold">{title}</h3>
