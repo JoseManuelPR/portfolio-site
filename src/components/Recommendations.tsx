@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations, useMessages } from "next-intl";
-import { Reveal, Stagger } from "./AnimationProvider";
+import { Reveal } from "./AnimationProvider";
 
 type RecommendationItem = {
   name: string;
@@ -17,7 +17,7 @@ function Initials({ name }: { name: string }) {
       ? parts[0][0] + parts[parts.length - 1][0]
       : parts[0].slice(0, 2);
   return (
-    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/10 text-sm font-semibold text-accent ring-1 ring-accent/20">
+    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent/20 to-purple-500/20 text-sm font-bold text-accent ring-2 ring-accent/10">
       {letters.toUpperCase()}
     </div>
   );
@@ -34,45 +34,43 @@ export function Recommendations() {
   return (
     <section id="recommendations" className="section-container">
       <Reveal variant="fade-up">
-        <h2 className="section-title mb-2">
+        <h2 className="section-title mb-3">
           {t("title")}
           <span className="text-accent">.</span>
         </h2>
       </Reveal>
       <Reveal variant="fade-up" delay={0.1}>
-        <p className="mb-12 text-neutral-500 dark:text-neutral-400">
-          {t("subtitle")}
-        </p>
+        <p className="section-subtitle mb-14">{t("subtitle")}</p>
       </Reveal>
 
-      <Stagger className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-8 sm:grid-cols-2">
         {items.map((rec, i) => (
           <Reveal key={i} variant="fade-up" delay={i * 0.1}>
-            <article className="flex h-full flex-col rounded-2xl border border-neutral-200/80 bg-white/80 p-8 backdrop-blur-sm dark:border-neutral-800/60 dark:bg-neutral-900/80">
+            <article className="group card flex h-full flex-col p-8">
               {/* Large decorative quote */}
               <span
                 aria-hidden="true"
-                className="mb-4 block font-serif text-6xl leading-none text-accent/20 select-none"
+                className="mb-2 block font-serif text-7xl leading-none text-accent/15 select-none transition-colors duration-500 group-hover:text-accent/25"
               >
                 &ldquo;
               </span>
 
               {/* Recommendation text */}
-              <p className="flex-1 text-[0.95rem] leading-relaxed text-neutral-600 dark:text-neutral-300">
+              <p className="flex-1 text-[0.95rem] leading-[1.85] text-neutral-500 dark:text-neutral-400">
                 {rec.text}
               </p>
 
               {/* Author */}
-              <div className="mt-8 flex items-center gap-3 border-t border-neutral-100 pt-6 dark:border-neutral-800">
+              <div className="mt-8 flex items-center gap-4 border-t border-neutral-100 pt-6 dark:border-neutral-800/60">
                 <Initials name={rec.name} />
                 <div className="min-w-0">
-                  <p className="truncate font-semibold text-sm text-neutral-900 dark:text-white">
+                  <p className="truncate font-semibold text-neutral-900 dark:text-white">
                     {rec.name}
                   </p>
-                  <p className="truncate text-xs text-neutral-500 dark:text-neutral-400">
+                  <p className="truncate text-sm text-neutral-500 dark:text-neutral-400">
                     {rec.role}
                   </p>
-                  <p className="truncate text-xs text-accent/70 mt-0.5">
+                  <p className="truncate text-xs font-medium text-accent/60 mt-0.5">
                     {rec.relationship}
                   </p>
                 </div>
@@ -80,7 +78,7 @@ export function Recommendations() {
             </article>
           </Reveal>
         ))}
-      </Stagger>
+      </div>
     </section>
   );
 }

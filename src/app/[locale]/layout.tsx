@@ -33,9 +33,13 @@ export async function generateMetadata({
       "AWS",
       "Portfolio",
       "José Manuel",
+      "Puicón Rodas",
+      "Peru",
+      "Remote Engineer",
     ],
     authors: [{ name: "José Manuel Puicón Rodas" }],
     creator: "José Manuel Puicón Rodas",
+    metadataBase: new URL("https://josepuicon-dev.vercel.app"),
     openGraph: {
       title: `José Manuel Puicón Rodas — ${t("title")}`,
       description: t("pitch"),
@@ -71,6 +75,49 @@ export async function generateMetadata({
   };
 }
 
+/* JSON-LD structured data for rich search results */
+function JsonLd() {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "José Manuel Puicón Rodas",
+    url: "https://josepuicon-dev.vercel.app",
+    jobTitle: "Software Engineer",
+    worksFor: {
+      "@type": "Organization",
+      name: "Bunny Studio",
+      url: "https://bunnystudio.com",
+    },
+    sameAs: [
+      "https://github.com/JoseManuelPR",
+      "https://www.linkedin.com/in/josemanuelpr23/",
+      "https://torre.ai/josemanuelpr23",
+    ],
+    knowsLanguage: ["Spanish", "English", "Portuguese"],
+    alumniOf: {
+      "@type": "EducationalOrganization",
+      name: "Universidad Católica Santo Toribio de Mogrovejo",
+    },
+    knowsAbout: [
+      "TypeScript",
+      "React",
+      "Vue.js",
+      "Next.js",
+      "Node.js",
+      "Python",
+      "AWS",
+      "Full Stack Development",
+    ],
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
 export default async function LocaleLayout({
   children,
   params,
@@ -88,6 +135,9 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
+      <head>
+        <JsonLd />
+      </head>
       <body className="min-h-screen font-sans antialiased">
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
