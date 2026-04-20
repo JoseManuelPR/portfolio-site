@@ -56,7 +56,7 @@ export function Projects() {
             >
               <Icon size={18} />
             </div>
-            <div className="text-2xl font-bold tracking-tight">
+            <div className="text-2xl font-bold tracking-tight" style={{ fontVariantNumeric: "tabular-nums" }}>
               <CountUp end={value} duration={2} suffix={suffix} />
             </div>
             <p className="mt-1.5 text-xs font-medium text-neutral-500 dark:text-neutral-400">

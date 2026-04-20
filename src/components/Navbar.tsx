@@ -99,7 +99,7 @@ export function Navbar() {
           <div className="ml-3 flex items-center gap-0.5 border-l border-neutral-200/60 pl-3 dark:border-neutral-800/60">
             <button
               onClick={toggleLocale}
-              className="rounded-lg p-2 text-neutral-400 transition-colors duration-300 hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+              className="flex h-10 w-10 items-center justify-center rounded-lg text-neutral-400 transition-colors duration-300 hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
               aria-label="Toggle language"
             >
               <Globe size={17} />
@@ -107,7 +107,7 @@ export function Navbar() {
             {mounted && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="rounded-lg p-2 text-neutral-400 transition-colors duration-300 hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+                className="flex h-10 w-10 items-center justify-center rounded-lg text-neutral-400 transition-colors duration-300 hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
                 aria-label="Toggle theme"
               >
                 {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
@@ -120,21 +120,21 @@ export function Navbar() {
         <div className="flex items-center gap-1 md:hidden">
           <button
             onClick={toggleLocale}
-            className="rounded-lg p-2 text-neutral-500 dark:text-neutral-400"
+            className="flex h-11 w-11 items-center justify-center rounded-lg text-neutral-500 dark:text-neutral-400"
           >
             <Globe size={17} />
           </button>
           {mounted && (
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="rounded-lg p-2 text-neutral-500 dark:text-neutral-400"
+              className="flex h-11 w-11 items-center justify-center rounded-lg text-neutral-500 dark:text-neutral-400"
             >
               {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
             </button>
           )}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="rounded-lg p-2 text-neutral-500 dark:text-neutral-400"
+            className="flex h-11 w-11 items-center justify-center rounded-lg text-neutral-500 dark:text-neutral-400"
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>

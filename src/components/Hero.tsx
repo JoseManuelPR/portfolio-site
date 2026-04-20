@@ -15,7 +15,7 @@ export function Hero() {
   const ease = "cubic-bezier(0.16, 1, 0.3, 1)";
 
   return (
-    <section className="relative flex min-h-screen items-center" id="hero">
+    <section className="relative flex min-h-dvh items-center" id="hero">
       {/* Ambient glow orbs */}
       <div className="absolute left-1/3 top-1/4 -z-10 h-[480px] w-[480px] -translate-x-1/2 rounded-full bg-accent/[0.04] blur-[100px] dark:bg-accent/[0.08]" />
       <div className="absolute right-1/4 bottom-1/3 -z-10 h-[320px] w-[320px] rounded-full bg-purple-500/[0.03] blur-[80px] dark:bg-purple-500/[0.06]" />
