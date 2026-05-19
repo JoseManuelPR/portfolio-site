@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Reveal } from "./AnimationProvider";
+import { cn } from "@/lib/utils";
 
 interface TechLogo {
   name: string;
@@ -47,22 +48,23 @@ function LogoRow({
   direction: "left" | "right";
 }) {
   const items = [...logos, ...logos];
-  const animClass =
-    direction === "left" ? "animate-scroll-left" : "animate-scroll-right";
 
   return (
-    <div className="logo-carousel relative overflow-hidden py-4">
+    <div className="marquee-container relative overflow-hidden py-4">
       {/* Fade edges */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white dark:from-neutral-950 sm:w-32" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white dark:from-neutral-950 sm:w-32" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-neutral-50 dark:from-[#0a0a0f] sm:w-32" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-neutral-50 dark:from-[#0a0a0f] sm:w-32" />
 
-      <div className={`flex w-max gap-10 ${animClass}`}>
+      <div className={cn(
+        "flex w-max gap-8",
+        direction === "left" ? "animate-marquee" : "animate-marquee-reverse"
+      )}>
         {items.map((logo, i) => (
           <div
             key={`${logo.slug}-${i}`}
-            className="group flex flex-col items-center gap-2.5"
+            className="group flex flex-col items-center gap-3"
           >
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-neutral-100 bg-white p-2.5 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-accent/20 group-hover:shadow-glow dark:border-neutral-800 dark:bg-neutral-900 dark:group-hover:border-accent/30">
+            <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-neutral-200/50 bg-white p-3 shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:border-accent/20 group-hover:shadow-glow dark:border-white/[0.06] dark:bg-white/[0.04] dark:group-hover:border-accent/30">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={`https://cdn.simpleicons.org/${logo.slug}/${logo.color}`}
@@ -70,7 +72,7 @@ function LogoRow({
                 width={32}
                 height={32}
                 loading="lazy"
-                className="h-8 w-8 object-contain"
+                className="h-8 w-8 object-contain transition-transform duration-500 group-hover:scale-110"
               />
             </div>
             <span className="text-[10px] font-medium text-neutral-400 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:-translate-y-0.5">
@@ -88,22 +90,27 @@ export function TechStack() {
 
   return (
     <section id="stack" className="relative">
-      {/* Subtle top/bottom borders with gradient fade */}
       <div className="section-divider" />
 
       <div className="section-container">
         <Reveal variant="fade-up">
-          <h2 className="section-title mb-3">
+          <div className="section-label mb-6">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            {t("title")}
+          </div>
+        </Reveal>
+        <Reveal variant="fade-up" delay={0.1}>
+          <h2 className="section-title mb-4">
             {t("title")}
             <span className="text-accent">.</span>
           </h2>
         </Reveal>
-        <Reveal variant="fade-up" delay={0.1}>
-          <p className="section-subtitle mb-14">{t("subtitle")}</p>
+        <Reveal variant="fade-up" delay={0.15}>
+          <p className="section-subtitle mb-16">{t("subtitle")}</p>
         </Reveal>
 
         <Reveal variant="fade" delay={0.2}>
-          <div className="space-y-4">
+          <div className="space-y-6">
             <LogoRow logos={row1} direction="left" />
             <LogoRow logos={row2} direction="right" />
           </div>

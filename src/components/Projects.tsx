@@ -12,54 +12,80 @@ import {
   Zap,
 } from "lucide-react";
 import { Reveal, Stagger, CountUp } from "./AnimationProvider";
+import { cn } from "@/lib/utils";
 
 export function Projects() {
   const t = useTranslations("projects");
 
   const stats = [
-    { icon: Code2, value: 19, suffix: "+", label: t("stats.repos"), color: "from-indigo-500 to-purple-500" },
-    { icon: Calendar, value: 7, suffix: "+", label: t("stats.years"), color: "from-blue-500 to-cyan-500" },
-    { icon: Layers, value: 12, suffix: "+", label: t("stats.technologies"), color: "from-emerald-500 to-teal-500" },
-    { icon: Globe, value: 5, suffix: "+", label: t("stats.deployed"), color: "from-amber-500 to-orange-500" },
-    { icon: Users, value: 3, suffix: "", label: t("stats.languages"), color: "from-rose-500 to-pink-500" },
-    { icon: Zap, value: 1000, suffix: "+", label: t("stats.contributions"), color: "from-violet-500 to-fuchsia-500" },
+    { icon: Code2, value: 19, suffix: "+", label: t("stats.repos"), gradient: "from-indigo-500 to-purple-500" },
+    { icon: Calendar, value: 7, suffix: "+", label: t("stats.years"), gradient: "from-blue-500 to-cyan-500" },
+    { icon: Layers, value: 12, suffix: "+", label: t("stats.technologies"), gradient: "from-emerald-500 to-teal-500" },
+    { icon: Globe, value: 5, suffix: "+", label: t("stats.deployed"), gradient: "from-amber-500 to-orange-500" },
+    { icon: Users, value: 3, suffix: "", label: t("stats.languages"), gradient: "from-rose-500 to-pink-500" },
+    { icon: Zap, value: 1000, suffix: "+", label: t("stats.contributions"), gradient: "from-violet-500 to-fuchsia-500" },
   ];
 
   const highlights = [
-    { icon: Rocket, title: t("highlights.production.title"), description: t("highlights.production.description") },
-    { icon: GitBranch, title: t("highlights.openSource.title"), description: t("highlights.openSource.description") },
-    { icon: Globe, title: t("highlights.global.title"), description: t("highlights.global.description") },
+    {
+      icon: Rocket,
+      title: t("highlights.production.title"),
+      description: t("highlights.production.description"),
+      accent: "from-blue-500/10 via-cyan-500/10 to-transparent",
+    },
+    {
+      icon: GitBranch,
+      title: t("highlights.openSource.title"),
+      description: t("highlights.openSource.description"),
+      accent: "from-violet-500/10 via-purple-500/10 to-transparent",
+    },
+    {
+      icon: Globe,
+      title: t("highlights.global.title"),
+      description: t("highlights.global.description"),
+      accent: "from-emerald-500/10 via-teal-500/10 to-transparent",
+    },
   ];
 
   return (
     <section id="projects" className="section-container">
       <Reveal variant="fade-up">
-        <h2 className="section-title mb-3">
+        <div className="section-label mb-6">
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+          {t("title")}
+        </div>
+      </Reveal>
+
+      <Reveal variant="fade-up" delay={0.1}>
+        <h2 className="section-title mb-4">
           {t("title")}
           <span className="text-accent">.</span>
         </h2>
       </Reveal>
-      <Reveal variant="fade-up" delay={0.1}>
-        <p className="section-subtitle mb-16">{t("subtitle")}</p>
+      <Reveal variant="fade-up" delay={0.15}>
+        <p className="section-subtitle mb-20">{t("subtitle")}</p>
       </Reveal>
 
-      {/* Stats grid */}
+      {/* Stats — bento-style grid */}
       <Stagger
         variant="scale"
         staggerDelay={0.06}
-        className="mb-20 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6"
+        className="mb-24 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6"
       >
-        {stats.map(({ icon: Icon, value, suffix, label, color }) => (
-          <div key={label} className="group card text-center">
+        {stats.map(({ icon: Icon, value, suffix, label, gradient }) => (
+          <div key={label} className="group glass-card p-6 text-center hover:scale-[1.02]">
             <div
-              className={`mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${color} text-white shadow-sm transition-transform duration-300 group-hover:scale-110`}
+              className={cn(
+                "mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:shadow-lg",
+                gradient
+              )}
             >
               <Icon size={18} />
             </div>
-            <div className="text-2xl font-bold tracking-tight" style={{ fontVariantNumeric: "tabular-nums" }}>
-              <CountUp end={value} duration={2} suffix={suffix} />
+            <div className="text-3xl font-bold tracking-tight" style={{ fontVariantNumeric: "tabular-nums" }}>
+              <CountUp end={value} duration={2.5} suffix={suffix} />
             </div>
-            <p className="mt-1.5 text-xs font-medium text-neutral-500 dark:text-neutral-400">
+            <p className="mt-2 text-xs font-medium text-neutral-500 dark:text-neutral-400 leading-tight">
               {label}
             </p>
           </div>
@@ -72,15 +98,21 @@ export function Projects() {
         staggerDelay={0.12}
         className="grid gap-6 sm:grid-cols-3"
       >
-        {highlights.map(({ icon: Icon, title, description }) => (
-          <div key={title} className="group card">
-            <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-accent/8 text-accent transition-all duration-300 group-hover:bg-accent group-hover:text-white dark:bg-accent/15">
-              <Icon size={20} />
+        {highlights.map(({ icon: Icon, title, description, accent }) => (
+          <div key={title} className="group glass-card relative overflow-hidden p-8">
+            {/* Gradient accent top */}
+            <div className={cn("absolute inset-x-0 top-0 h-px bg-gradient-to-r", accent)} />
+            <div className={cn("absolute inset-x-0 top-0 h-24 bg-gradient-to-b opacity-0 transition-opacity duration-500 group-hover:opacity-100", accent)} />
+
+            <div className="relative">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/8 text-accent transition-all duration-500 group-hover:bg-accent group-hover:text-white group-hover:shadow-glow dark:bg-accent/15">
+                <Icon size={22} />
+              </div>
+              <h3 className="mb-3 text-lg font-bold text-neutral-900 dark:text-white">{title}</h3>
+              <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
+                {description}
+              </p>
             </div>
-            <h3 className="mb-2 text-lg font-semibold">{title}</h3>
-            <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
-              {description}
-            </p>
           </div>
         ))}
       </Stagger>

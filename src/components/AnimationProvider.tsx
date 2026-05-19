@@ -8,8 +8,6 @@ import {
   CSSProperties,
 } from "react";
 
-// ─── Intersection Observer hook ──────────────────────────────────────────────
-
 interface UseRevealOptions {
   threshold?: number;
   rootMargin?: string;
@@ -17,7 +15,7 @@ interface UseRevealOptions {
 }
 
 export function useReveal(opts: UseRevealOptions = {}) {
-  const { threshold = 0.12, rootMargin = "0px 0px -40px 0px", once = true } = opts;
+  const { threshold = 0.12, rootMargin = "0px 0px -60px 0px", once = true } = opts;
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -44,8 +42,6 @@ export function useReveal(opts: UseRevealOptions = {}) {
   return { ref, isVisible };
 }
 
-// ─── Reveal wrapper components ──────────────────────────────────────────────
-
 type RevealVariant =
   | "fade-up"
   | "fade-down"
@@ -53,7 +49,8 @@ type RevealVariant =
   | "fade-right"
   | "fade"
   | "scale"
-  | "blur";
+  | "blur"
+  | "slide-up-blur";
 
 interface RevealProps {
   children: ReactNode;
@@ -65,23 +62,21 @@ interface RevealProps {
   once?: boolean;
 }
 
-/* Subtler transforms — Apple-like restraint.
-   24px translate instead of 40px, gentler scale. */
 const variantStyles: Record<RevealVariant, { hidden: CSSProperties; visible: CSSProperties }> = {
   "fade-up": {
-    hidden: { opacity: 0, transform: "translateY(24px)" },
+    hidden: { opacity: 0, transform: "translateY(32px)" },
     visible: { opacity: 1, transform: "translateY(0)" },
   },
   "fade-down": {
-    hidden: { opacity: 0, transform: "translateY(-24px)" },
+    hidden: { opacity: 0, transform: "translateY(-32px)" },
     visible: { opacity: 1, transform: "translateY(0)" },
   },
   "fade-left": {
-    hidden: { opacity: 0, transform: "translateX(-24px)" },
+    hidden: { opacity: 0, transform: "translateX(-32px)" },
     visible: { opacity: 1, transform: "translateX(0)" },
   },
   "fade-right": {
-    hidden: { opacity: 0, transform: "translateX(24px)" },
+    hidden: { opacity: 0, transform: "translateX(32px)" },
     visible: { opacity: 1, transform: "translateX(0)" },
   },
   fade: {
@@ -89,12 +84,16 @@ const variantStyles: Record<RevealVariant, { hidden: CSSProperties; visible: CSS
     visible: { opacity: 1 },
   },
   scale: {
-    hidden: { opacity: 0, transform: "scale(0.95)" },
+    hidden: { opacity: 0, transform: "scale(0.92)" },
     visible: { opacity: 1, transform: "scale(1)" },
   },
   blur: {
-    hidden: { opacity: 0, filter: "blur(6px)" },
+    hidden: { opacity: 0, filter: "blur(8px)" },
     visible: { opacity: 1, filter: "blur(0px)" },
+  },
+  "slide-up-blur": {
+    hidden: { opacity: 0, transform: "translateY(40px)", filter: "blur(10px)" },
+    visible: { opacity: 1, transform: "translateY(0)", filter: "blur(0px)" },
   },
 };
 
@@ -102,7 +101,7 @@ export function Reveal({
   children,
   variant = "fade-up",
   delay = 0,
-  duration = 0.8,
+  duration = 0.9,
   className = "",
   threshold = 0.12,
   once = true,
@@ -112,7 +111,7 @@ export function Reveal({
 
   const style: CSSProperties = {
     ...(isVisible ? visible : hidden),
-    transition: `all ${duration}s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
+    transition: `all ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
     willChange: "transform, opacity, filter",
   };
 
@@ -122,8 +121,6 @@ export function Reveal({
     </div>
   );
 }
-
-// ─── Stagger children ────────────────────────────────────────────────────────
 
 interface StaggerProps {
   children: ReactNode[];
@@ -139,7 +136,7 @@ export function Stagger({
   children,
   variant = "fade-up",
   staggerDelay = 0.08,
-  duration = 0.7,
+  duration = 0.8,
   className = "",
   childClassName = "",
   threshold = 0.1,
@@ -152,7 +149,7 @@ export function Stagger({
         const { hidden, visible } = variantStyles[variant];
         const style: CSSProperties = {
           ...(isVisible ? visible : hidden),
-          transition: `all ${duration}s cubic-bezier(0.22, 1, 0.36, 1) ${i * staggerDelay}s`,
+          transition: `all ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${i * staggerDelay}s`,
           willChange: "transform, opacity",
         };
         return (
@@ -165,8 +162,6 @@ export function Stagger({
   );
 }
 
-// ─── Counter animation ───────────────────────────────────────────────────────
-
 interface CountUpProps {
   end: number;
   duration?: number;
@@ -177,7 +172,7 @@ interface CountUpProps {
 
 export function CountUp({
   end,
-  duration = 2,
+  duration = 2.5,
   suffix = "",
   prefix = "",
   className = "",
@@ -206,7 +201,7 @@ export function CountUp({
   return (
     <span ref={ref} className={className}>
       {prefix}
-      {count}
+      {count.toLocaleString()}
       {suffix}
     </span>
   );

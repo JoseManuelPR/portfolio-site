@@ -21,7 +21,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "hero" });
 
   return {
-    title: `José Manuel Puicón Rodas — ${t("title")}`,
+    title: `Jose Manuel Puicon Rodas — ${t("title")}`,
     description: t("pitch"),
     keywords: [
       "Software Engineer",
@@ -32,25 +32,25 @@ export async function generateMetadata({
       "TypeScript",
       "AWS",
       "Portfolio",
-      "José Manuel",
-      "Puicón Rodas",
+      "Jose Manuel",
+      "Puicon Rodas",
       "Peru",
       "Remote Engineer",
     ],
-    authors: [{ name: "José Manuel Puicón Rodas" }],
-    creator: "José Manuel Puicón Rodas",
+    authors: [{ name: "Jose Manuel Puicon Rodas" }],
+    creator: "Jose Manuel Puicon Rodas",
     metadataBase: new URL("https://josepuicon-dev.vercel.app"),
     openGraph: {
-      title: `José Manuel Puicón Rodas — ${t("title")}`,
+      title: `Jose Manuel Puicon Rodas — ${t("title")}`,
       description: t("pitch"),
       url: "https://josepuicon-dev.vercel.app",
-      siteName: "José Manuel Puicón Rodas",
+      siteName: "Jose Manuel Puicon Rodas",
       locale: locale === "es" ? "es_PE" : "en_US",
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: `José Manuel Puicón Rodas — ${t("title")}`,
+      title: `Jose Manuel Puicon Rodas — ${t("title")}`,
       description: t("pitch"),
       creator: "@josemanuelpr23",
     },
@@ -75,12 +75,11 @@ export async function generateMetadata({
   };
 }
 
-/* JSON-LD structured data for rich search results */
 function JsonLd() {
   const data = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "José Manuel Puicón Rodas",
+    name: "Jose Manuel Puicon Rodas",
     url: "https://josepuicon-dev.vercel.app",
     jobTitle: "Software Engineer",
     worksFor: {
@@ -96,7 +95,7 @@ function JsonLd() {
     knowsLanguage: ["Spanish", "English", "Portuguese"],
     alumniOf: {
       "@type": "EducationalOrganization",
-      name: "Universidad Católica Santo Toribio de Mogrovejo",
+      name: "Universidad Catolica Santo Toribio de Mogrovejo",
     },
     knowsAbout: [
       "TypeScript",
@@ -139,7 +138,6 @@ export default async function LocaleLayout({
         <JsonLd />
       </head>
       <body className="min-h-screen font-sans antialiased">
-        {/* Skip link — keyboard-nav accessibility (ui-ux-pro-max rule: skip-links) */}
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[9999] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-none"
