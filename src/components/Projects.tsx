@@ -63,14 +63,14 @@ export function Projects() {
         </h2>
       </Reveal>
       <Reveal variant="fade-up" delay={0.15}>
-        <p className="section-subtitle mb-20">{t("subtitle")}</p>
+        <p className="section-subtitle mb-14">{t("subtitle")}</p>
       </Reveal>
 
       {/* Stats — bento-style grid */}
       <Stagger
         variant="scale"
         staggerDelay={0.06}
-        className="mb-24 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6"
+        className="mb-16 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6"
       >
         {stats.map(({ icon: Icon, value, suffix, label, gradient }) => (
           <div key={label} className="group glass-card p-6 text-center hover:scale-[1.02]">

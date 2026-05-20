@@ -45,10 +45,10 @@ export function Experience() {
         </h2>
       </Reveal>
       <Reveal variant="fade-up" delay={0.15}>
-        <p className="section-subtitle mb-16">{t("subtitle")}</p>
+        <p className="section-subtitle mb-12">{t("subtitle")}</p>
       </Reveal>
 
-      <div className="relative space-y-0">
+      <div className="relative space-y-4">
         {/* Timeline line */}
         <div className="absolute left-[23px] top-6 hidden h-[calc(100%-3rem)] w-px md:block">
           <div className="h-full w-full bg-gradient-to-b from-accent/50 via-neutral-200/50 to-transparent dark:via-white/[0.06]" />
@@ -56,7 +56,7 @@ export function Experience() {
 
         {visibleItems.map((item, i) => (
           <Reveal key={`${item.company}-${i}`} variant="fade-up" delay={i < 5 ? i * 0.08 : 0}>
-            <div className="relative md:pl-16 pb-8 last:pb-0">
+            <div className="relative md:pl-16">
               {/* Timeline dot */}
               <div className="absolute left-[14px] top-8 hidden md:block">
                 <div className="relative">

@@ -44,7 +44,7 @@ export function Contact() {
           </h2>
         </Reveal>
         <Reveal variant="fade-up" delay={0.15}>
-          <p className="section-subtitle mb-16">{t("subtitle")}</p>
+          <p className="section-subtitle mb-12">{t("subtitle")}</p>
         </Reveal>
 
         <div className="grid gap-16 lg:grid-cols-5">

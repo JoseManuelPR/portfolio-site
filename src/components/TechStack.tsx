@@ -56,15 +56,15 @@ function LogoRow({
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-neutral-50 dark:from-[#0a0a0f] sm:w-32" />
 
       <div className={cn(
-        "flex w-max gap-8",
+        "flex w-max gap-5 sm:gap-6",
         direction === "left" ? "animate-marquee" : "animate-marquee-reverse"
       )}>
         {items.map((logo, i) => (
           <div
             key={`${logo.slug}-${i}`}
-            className="group flex flex-col items-center gap-3"
+            className="group flex flex-col items-center gap-2.5"
           >
-            <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-neutral-200/50 bg-white p-3 shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:border-accent/20 group-hover:shadow-glow dark:border-white/[0.06] dark:bg-white/[0.04] dark:group-hover:border-accent/30">
+            <div className="relative flex h-14 w-14 items-center justify-center rounded-xl border border-neutral-200/50 bg-white p-2.5 shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:border-accent/20 group-hover:shadow-glow dark:border-white/[0.06] dark:bg-white/[0.04] dark:group-hover:border-accent/30 sm:h-16 sm:w-16 sm:rounded-2xl sm:p-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={`https://cdn.simpleicons.org/${logo.slug}/${logo.color}`}
@@ -106,7 +106,7 @@ export function TechStack() {
           </h2>
         </Reveal>
         <Reveal variant="fade-up" delay={0.15}>
-          <p className="section-subtitle mb-16">{t("subtitle")}</p>
+          <p className="section-subtitle mb-12">{t("subtitle")}</p>
         </Reveal>
 
         <Reveal variant="fade" delay={0.2}>

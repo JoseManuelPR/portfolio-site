@@ -48,7 +48,7 @@ export function Recommendations() {
         </h2>
       </Reveal>
       <Reveal variant="fade-up" delay={0.15}>
-        <p className="section-subtitle mb-16">{t("subtitle")}</p>
+        <p className="section-subtitle mb-12">{t("subtitle")}</p>
       </Reveal>
 
       <div className="grid gap-8 sm:grid-cols-2">
