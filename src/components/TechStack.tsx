@@ -50,10 +50,10 @@ function LogoRow({
   const items = [...logos, ...logos];
 
   return (
-    <div className="marquee-container relative overflow-hidden py-4">
-      {/* Fade edges */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-neutral-50 dark:from-[#0a0a0f] sm:w-32" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-neutral-50 dark:from-[#0a0a0f] sm:w-32" />
+    <div
+      className="marquee-container relative overflow-hidden py-4"
+      style={{ maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)", WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)" }}
+    >
 
       <div className={cn(
         "flex w-max gap-5 sm:gap-6",

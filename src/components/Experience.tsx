@@ -51,7 +51,7 @@ export function Experience() {
       <div className="relative space-y-4">
         {/* Timeline line */}
         <div className="absolute left-[23px] top-6 hidden h-[calc(100%-3rem)] w-px md:block">
-          <div className="h-full w-full bg-gradient-to-b from-accent/50 via-neutral-200/50 to-transparent dark:via-white/[0.06]" />
+          <div className="h-full w-full bg-gradient-to-b from-accent/50 via-neutral-300 to-neutral-200 dark:via-white/[0.06] dark:to-transparent" />
         </div>
 
         {visibleItems.map((item, i) => (

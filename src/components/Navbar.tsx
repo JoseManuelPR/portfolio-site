@@ -18,6 +18,8 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState("");
   const [hidden, setHidden] = useState(false);
   const lastY = useRef(0);
+  const scrollDir = useRef<"up" | "down">("up");
+  const dirChangeY = useRef(0);
 
   const sections = [
     { id: "about", label: t("about") },
@@ -30,7 +32,17 @@ export function Navbar() {
   const onScroll = useCallback(() => {
     const y = window.scrollY;
     setScrolled(y > 20);
-    setHidden(y > 100 && y > lastY.current);
+
+    const dir = y > lastY.current ? "down" : "up";
+    if (dir !== scrollDir.current) {
+      scrollDir.current = dir;
+      dirChangeY.current = y;
+    }
+    if (dir === "down" && y > 100 && y - dirChangeY.current > 80) {
+      setHidden(true);
+    } else if (dir === "up") {
+      setHidden(false);
+    }
     lastY.current = y;
 
     const sectionIds = ["about", "projects", "stack", "experience", "contact"];
