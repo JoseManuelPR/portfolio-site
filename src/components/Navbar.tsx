@@ -89,7 +89,7 @@ export function Navbar() {
         <nav className={cn(
           "flex items-center justify-between px-5 py-3 transition-all duration-500",
           scrolled
-            ? "floating-nav rounded-2xl shadow-lg shadow-black/[0.03] dark:shadow-black/20"
+            ? "floating-nav rounded-2xl shadow-lg shadow-black/[0.03] dark:shadow-none"
             : "bg-transparent"
         )}>
           {/* Logo */}
@@ -111,7 +111,7 @@ export function Navbar() {
               "flex items-center gap-0.5 rounded-xl px-1.5 py-1 transition-all duration-500",
               scrolled
                 ? "bg-transparent"
-                : "border border-neutral-200/40 bg-white/50 backdrop-blur-xl dark:border-white/[0.06] dark:bg-white/[0.04]"
+                : "border border-neutral-200/40 bg-white/50 backdrop-blur-xl dark:border-transparent dark:bg-white/[0.03]"
             )}>
               {sections.map((s) => (
                 <a
