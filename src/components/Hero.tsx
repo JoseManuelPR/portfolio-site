@@ -53,6 +53,25 @@ function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
   );
 }
 
+function TerminalReveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), delay * 1000);
+    return () => clearTimeout(t);
+  }, [delay]);
+  return (
+    <div
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(4px)",
+        transition: "opacity 0.3s ease, transform 0.3s ease",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 export function Hero() {
   const t = useTranslations("hero");
   const [mounted, setMounted] = useState(false);
@@ -232,38 +251,61 @@ export function Hero() {
                 {/* Terminal content */}
                 <div className="p-5 font-mono text-[13px] leading-relaxed">
                   <div className="text-neutral-400 dark:text-neutral-500">
-                    <span className="text-emerald-500">$</span> cat profile.json
+                    <span className="text-emerald-500">$</span>{" "}
+                    <TypewriterText text="cat profile.json" delay={0.5} />
                   </div>
                   <div className="mt-3 space-y-1.5 text-neutral-500 dark:text-neutral-400">
-                    <div>{"{"}</div>
-                    <div className="pl-4">
-                      <span className="text-accent">&quot;role&quot;</span>: <span className="text-emerald-400">&quot;Full-Stack Engineer&quot;</span>,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-accent">&quot;company&quot;</span>: <span className="text-emerald-400">&quot;Bunny Studio&quot;</span>,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-accent">&quot;location&quot;</span>: <span className="text-emerald-400">&quot;Peru → World&quot;</span>,
-                    </div>
-                    <div className="pl-4">
-                      <span className="text-accent">&quot;stack&quot;</span>: [
-                    </div>
-                    <div className="pl-8 text-amber-400">
-                      &quot;TypeScript&quot;, &quot;React&quot;, &quot;Vue&quot;,
-                    </div>
-                    <div className="pl-8 text-amber-400">
-                      &quot;Node.js&quot;, &quot;Python&quot;, &quot;AWS&quot;
-                    </div>
-                    <div className="pl-4">],</div>
-                    <div className="pl-4">
-                      <span className="text-accent">&quot;languages&quot;</span>: [<span className="text-pink-400">&quot;ES&quot;</span>, <span className="text-pink-400">&quot;EN&quot;</span>, <span className="text-pink-400">&quot;PT&quot;</span>]
-                    </div>
-                    <div>{"}"}</div>
+                    <TerminalReveal delay={1.2}>
+                      <div>{"{"}</div>
+                    </TerminalReveal>
+                    <TerminalReveal delay={1.35}>
+                      <div className="pl-4">
+                        <span className="text-accent">&quot;role&quot;</span>: <span className="text-emerald-400">&quot;Full-Stack Engineer&quot;</span>,
+                      </div>
+                    </TerminalReveal>
+                    <TerminalReveal delay={1.5}>
+                      <div className="pl-4">
+                        <span className="text-accent">&quot;company&quot;</span>: <span className="text-emerald-400">&quot;Bunny Studio&quot;</span>,
+                      </div>
+                    </TerminalReveal>
+                    <TerminalReveal delay={1.65}>
+                      <div className="pl-4">
+                        <span className="text-accent">&quot;location&quot;</span>: <span className="text-emerald-400">&quot;Peru → World&quot;</span>,
+                      </div>
+                    </TerminalReveal>
+                    <TerminalReveal delay={1.8}>
+                      <div className="pl-4">
+                        <span className="text-accent">&quot;stack&quot;</span>: [
+                      </div>
+                    </TerminalReveal>
+                    <TerminalReveal delay={1.95}>
+                      <div className="pl-8 text-amber-400">
+                        &quot;TypeScript&quot;, &quot;React&quot;, &quot;Vue&quot;,
+                      </div>
+                    </TerminalReveal>
+                    <TerminalReveal delay={2.1}>
+                      <div className="pl-8 text-amber-400">
+                        &quot;Node.js&quot;, &quot;Python&quot;, &quot;AWS&quot;
+                      </div>
+                    </TerminalReveal>
+                    <TerminalReveal delay={2.25}>
+                      <div className="pl-4">],</div>
+                    </TerminalReveal>
+                    <TerminalReveal delay={2.4}>
+                      <div className="pl-4">
+                        <span className="text-accent">&quot;languages&quot;</span>: [<span className="text-pink-400">&quot;ES&quot;</span>, <span className="text-pink-400">&quot;EN&quot;</span>, <span className="text-pink-400">&quot;PT&quot;</span>]
+                      </div>
+                    </TerminalReveal>
+                    <TerminalReveal delay={2.55}>
+                      <div>{"}"}</div>
+                    </TerminalReveal>
                   </div>
-                  <div className="mt-4 flex items-center gap-1.5 text-neutral-400 dark:text-neutral-500">
-                    <span className="text-emerald-500">$</span>
-                    <TypewriterText text="npm run build-amazing-things" delay={2} />
-                  </div>
+                  <TerminalReveal delay={2.8}>
+                    <div className="mt-4 flex items-center gap-1.5 text-neutral-400 dark:text-neutral-500">
+                      <span className="text-emerald-500">$</span>
+                      <TypewriterText text="npm run build-amazing-things" delay={3} />
+                    </div>
+                  </TerminalReveal>
                 </div>
               </div>
             </div>

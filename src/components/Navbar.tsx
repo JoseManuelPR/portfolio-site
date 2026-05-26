@@ -76,18 +76,18 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-500",
+        "fixed top-0 z-50 w-full transition-transform duration-500",
         hidden && !mobileOpen ? "-translate-y-full" : "translate-y-0"
       )}
     >
       <div className={cn(
-        "mx-auto mt-0 max-w-4xl transition-all duration-500",
+        "mx-auto mt-0 max-w-4xl transition-[margin,padding] duration-500",
         scrolled
           ? "mt-3 px-4 sm:px-6"
           : "px-0"
       )}>
         <nav className={cn(
-          "flex items-center justify-between px-5 py-3 transition-all duration-500",
+          "flex items-center justify-between px-5 py-3 transition-[background-color,backdrop-filter,box-shadow,border-radius] duration-500",
           scrolled
             ? "floating-nav rounded-2xl shadow-lg shadow-black/[0.03] dark:shadow-none"
             : "bg-transparent"
@@ -108,7 +108,7 @@ export function Navbar() {
           {/* Desktop nav — pill */}
           <div className="hidden items-center md:flex">
             <div className={cn(
-              "flex items-center gap-0.5 rounded-xl px-1.5 py-1 transition-all duration-500",
+              "flex items-center gap-0.5 rounded-xl px-1.5 py-1 transition-[background-color,backdrop-filter,box-shadow] duration-500",
               scrolled
                 ? "bg-transparent"
                 : "border border-neutral-200/40 bg-white/50 backdrop-blur-xl dark:border-transparent dark:bg-white/[0.03]"
