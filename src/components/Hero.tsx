@@ -30,16 +30,15 @@ function TypewriterText({ text, delay = 0 }: { text: string; delay?: number }) {
 
   useEffect(() => {
     if (!started) return;
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i <= text.length) {
-        setDisplayed(text.slice(0, i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 35);
-    return () => clearInterval(interval);
+    const start = performance.now();
+    let raf: number;
+    const tick = () => {
+      const chars = Math.min(Math.floor((performance.now() - start) / 35), text.length);
+      setDisplayed(text.slice(0, chars));
+      if (chars < text.length) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
   }, [started, text]);
 
   return (
@@ -69,6 +68,110 @@ function TerminalReveal({ children, delay = 0 }: { children: React.ReactNode; de
     >
       {children}
     </div>
+  );
+}
+
+type CodeSegment = { text: string; className?: string };
+type CodeLine = { className?: string; segments: CodeSegment[] };
+
+const jsonLines: CodeLine[] = [
+  { segments: [{ text: "{" }] },
+  { className: "pl-4", segments: [
+    { text: '"role"', className: "text-accent" },
+    { text: ": " },
+    { text: '"Full-Stack Engineer"', className: "text-emerald-400" },
+    { text: "," },
+  ]},
+  { className: "pl-4", segments: [
+    { text: '"company"', className: "text-accent" },
+    { text: ": " },
+    { text: '"Bunny Studio"', className: "text-emerald-400" },
+    { text: "," },
+  ]},
+  { className: "pl-4", segments: [
+    { text: '"location"', className: "text-accent" },
+    { text: ": " },
+    { text: '"Peru → World"', className: "text-emerald-400" },
+    { text: "," },
+  ]},
+  { className: "pl-4", segments: [
+    { text: '"stack"', className: "text-accent" },
+    { text: ": [" },
+  ]},
+  { className: "pl-8 text-amber-400", segments: [
+    { text: '"TypeScript", "React", "Vue",' },
+  ]},
+  { className: "pl-8 text-amber-400", segments: [
+    { text: '"Node.js", "Python", "AWS"' },
+  ]},
+  { className: "pl-4", segments: [{ text: "]," }] },
+  { className: "pl-4", segments: [
+    { text: '"languages"', className: "text-accent" },
+    { text: ": [" },
+    { text: '"ES"', className: "text-pink-400" },
+    { text: ", " },
+    { text: '"EN"', className: "text-pink-400" },
+    { text: ", " },
+    { text: '"PT"', className: "text-pink-400" },
+    { text: "]" },
+  ]},
+  { segments: [{ text: "}" }] },
+];
+
+function TypewriterBlock({ lines, delay = 0, speed = 14 }: {
+  lines: CodeLine[]; delay?: number; speed?: number;
+}) {
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+  const totalChars = lines.reduce(
+    (sum, l) => sum + l.segments.reduce((s, seg) => s + seg.text.length, 0), 0
+  );
+
+  useEffect(() => {
+    const t = setTimeout(() => setStarted(true), delay * 1000);
+    return () => clearTimeout(t);
+  }, [delay]);
+
+  useEffect(() => {
+    if (!started) return;
+    const start = performance.now();
+    let raf: number;
+    const tick = () => {
+      const chars = Math.min(Math.floor((performance.now() - start) / speed), totalChars);
+      setCount(chars);
+      if (chars < totalChars) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [started, totalChars, speed]);
+
+  let charsLeft = started ? count : 0;
+
+  return (
+    <>
+      {lines.map((line, li) => {
+        const lineLen = line.segments.reduce((s, seg) => s + seg.text.length, 0);
+        const show = Math.max(0, Math.min(charsLeft, lineLen));
+        charsLeft -= show;
+        const typing = show > 0 && show < lineLen;
+        let rem = show;
+        return (
+          <div key={li} className={line.className} style={show === 0 ? { opacity: 0 } : undefined}>
+            {show === 0 ? " " : (
+              <>
+                {line.segments.map((seg, si) => {
+                  if (rem <= 0) return null;
+                  const n = Math.min(rem, seg.text.length);
+                  rem -= n;
+                  return <span key={si} className={seg.className}>{seg.text.slice(0, n)}</span>;
+                })}
+                {typing && <span className="inline-block w-0.5 h-[1em] bg-accent ml-0.5 align-text-bottom" />}
+              </>
+            )}
+          </div>
+        );
+      })}
+    </>
   );
 }
 
@@ -255,55 +358,12 @@ export function Hero() {
                     <TypewriterText text="cat profile.json" delay={0.5} />
                   </div>
                   <div className="mt-3 space-y-1.5 text-neutral-500 dark:text-neutral-400">
-                    <TerminalReveal delay={1.2}>
-                      <div>{"{"}</div>
-                    </TerminalReveal>
-                    <TerminalReveal delay={1.35}>
-                      <div className="pl-4">
-                        <span className="text-accent">&quot;role&quot;</span>: <span className="text-emerald-400">&quot;Full-Stack Engineer&quot;</span>,
-                      </div>
-                    </TerminalReveal>
-                    <TerminalReveal delay={1.5}>
-                      <div className="pl-4">
-                        <span className="text-accent">&quot;company&quot;</span>: <span className="text-emerald-400">&quot;Bunny Studio&quot;</span>,
-                      </div>
-                    </TerminalReveal>
-                    <TerminalReveal delay={1.65}>
-                      <div className="pl-4">
-                        <span className="text-accent">&quot;location&quot;</span>: <span className="text-emerald-400">&quot;Peru → World&quot;</span>,
-                      </div>
-                    </TerminalReveal>
-                    <TerminalReveal delay={1.8}>
-                      <div className="pl-4">
-                        <span className="text-accent">&quot;stack&quot;</span>: [
-                      </div>
-                    </TerminalReveal>
-                    <TerminalReveal delay={1.95}>
-                      <div className="pl-8 text-amber-400">
-                        &quot;TypeScript&quot;, &quot;React&quot;, &quot;Vue&quot;,
-                      </div>
-                    </TerminalReveal>
-                    <TerminalReveal delay={2.1}>
-                      <div className="pl-8 text-amber-400">
-                        &quot;Node.js&quot;, &quot;Python&quot;, &quot;AWS&quot;
-                      </div>
-                    </TerminalReveal>
-                    <TerminalReveal delay={2.25}>
-                      <div className="pl-4">],</div>
-                    </TerminalReveal>
-                    <TerminalReveal delay={2.4}>
-                      <div className="pl-4">
-                        <span className="text-accent">&quot;languages&quot;</span>: [<span className="text-pink-400">&quot;ES&quot;</span>, <span className="text-pink-400">&quot;EN&quot;</span>, <span className="text-pink-400">&quot;PT&quot;</span>]
-                      </div>
-                    </TerminalReveal>
-                    <TerminalReveal delay={2.55}>
-                      <div>{"}"}</div>
-                    </TerminalReveal>
+                    <TypewriterBlock lines={jsonLines} delay={1.2} speed={14} />
                   </div>
-                  <TerminalReveal delay={2.8}>
+                  <TerminalReveal delay={4.5}>
                     <div className="mt-4 flex items-center gap-1.5 text-neutral-400 dark:text-neutral-500">
                       <span className="text-emerald-500">$</span>
-                      <TypewriterText text="npm run build-amazing-things" delay={3} />
+                      <TypewriterText text="npm run build-amazing-things" delay={4.7} />
                     </div>
                   </TerminalReveal>
                 </div>
