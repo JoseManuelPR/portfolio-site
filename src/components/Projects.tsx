@@ -13,17 +13,18 @@ import {
 } from "lucide-react";
 import { Reveal, Stagger, CountUp } from "./AnimationProvider";
 import { cn } from "@/lib/utils";
+import type { GitHubStats } from "@/lib/github";
 
-export function Projects() {
+export function Projects({ githubStats }: { githubStats?: GitHubStats }) {
   const t = useTranslations("projects");
 
   const stats = [
-    { icon: Code2, value: 19, suffix: "+", label: t("stats.repos"), gradient: "from-indigo-500 to-purple-500" },
+    { icon: Code2, value: githubStats?.publicRepos ?? 19, suffix: "+", label: t("stats.repos"), gradient: "from-indigo-500 to-purple-500" },
     { icon: Calendar, value: 7, suffix: "+", label: t("stats.years"), gradient: "from-blue-500 to-cyan-500" },
     { icon: Layers, value: 12, suffix: "+", label: t("stats.technologies"), gradient: "from-emerald-500 to-teal-500" },
     { icon: Globe, value: 5, suffix: "+", label: t("stats.deployed"), gradient: "from-amber-500 to-orange-500" },
     { icon: Users, value: 3, suffix: "", label: t("stats.languages"), gradient: "from-rose-500 to-pink-500" },
-    { icon: Zap, value: 1000, suffix: "+", label: t("stats.contributions"), gradient: "from-violet-500 to-fuchsia-500" },
+    { icon: Zap, value: githubStats?.contributions ?? 1000, suffix: "+", label: t("stats.contributions"), gradient: "from-violet-500 to-fuchsia-500" },
   ];
 
   const highlights = [

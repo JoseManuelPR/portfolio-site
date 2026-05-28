@@ -2,8 +2,10 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Send, Mail, Github, Linkedin, ArrowUpRight, Sparkles } from "lucide-react";
+import { Send, Mail, Github, Linkedin, ArrowUpRight, Sparkles, CheckCircle2, Loader2 } from "lucide-react";
 import { Reveal } from "./AnimationProvider";
+
+type FormStatus = "idle" | "loading" | "success" | "error";
 
 export function Contact() {
   const t = useTranslations("contact");
@@ -12,11 +14,29 @@ export function Contact() {
     email: "",
     message: "",
   });
+  const [status, setStatus] = useState<FormStatus>("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoLink = `mailto:josemanuelpr23@gmail.com?subject=Portfolio Contact from ${formData.name}&body=${encodeURIComponent(formData.message)}%0A%0AFrom: ${formData.name} (${formData.email})`;
-    window.open(mailtoLink, "_blank");
+    setStatus("loading");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        setStatus("error");
+        return;
+      }
+
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+    } catch {
+      setStatus("error");
+    }
   };
 
   const links = [
@@ -97,10 +117,23 @@ export function Contact() {
                 />
               </div>
 
-              <button type="submit" className="btn-primary">
-                <Send size={16} />
-                {t("send")}
+              <button
+                type="submit"
+                disabled={status === "loading" || status === "success"}
+                className="btn-primary disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+              >
+                {status === "loading" ? (
+                  <Loader2 size={16} className="animate-spin" />
+                ) : status === "success" ? (
+                  <CheckCircle2 size={16} />
+                ) : (
+                  <Send size={16} />
+                )}
+                {status === "success" ? t("success") : t("send")}
               </button>
+              {status === "error" && (
+                <p className="text-sm text-red-500 mt-2">{t("error")}</p>
+              )}
             </form>
           </Reveal>
 
