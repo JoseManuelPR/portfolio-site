@@ -15,7 +15,8 @@
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "torre": "Torre",
-    "contact": "Let's work together"
+    "contact": "Let's work together",
+    "status": "Open to opportunities"
   },
   "about": {
     "title": "About",
@@ -180,6 +181,10 @@
     "namePlaceholder": "Your name",
     "emailPlaceholder": "your@email.com",
     "messagePlaceholder": "Tell me about your project or opportunity...",
+    "connect": "Connect",
+    "status": "Open to opportunities",
+    "availability": "Remote · Full-time · Contract",
+    "location": "Based in Peru, working across timezones with teams in SF, latam, and Europe.",
     "success": "Message sent successfully!",
     "error": "Something went wrong. Please try again."
   },

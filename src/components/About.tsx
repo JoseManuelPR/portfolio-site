@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { MapPin, Building2, GraduationCap, Languages, ArrowUpRight } from "lucide-react";
+import { MapPin, Building2, GraduationCap, Languages } from "lucide-react";
 import { Reveal, Stagger } from "./AnimationProvider";
 import { cn } from "@/lib/utils";
 
@@ -78,7 +78,7 @@ export function About() {
                 <p className="font-semibold text-neutral-900 dark:text-white">{label}</p>
                 <p className="text-sm text-neutral-500 dark:text-neutral-400">{sub}</p>
               </div>
-              <ArrowUpRight size={14} className="text-neutral-300 transition-all duration-300 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 dark:text-neutral-700" />
+              <div className="h-1.5 w-1.5 rounded-full bg-accent/40 transition-colors duration-300 group-hover:bg-accent" />
             </div>
           ))}
         </Stagger>

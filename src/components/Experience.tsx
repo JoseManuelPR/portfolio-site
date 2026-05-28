@@ -17,13 +17,13 @@ type ExperienceItem = {
 
 export function Experience() {
   const t = useTranslations("experience");
-  const messages = useMessages() as any;
+  const messages = useMessages() as Record<string, unknown>;
   const [visibleCount, setVisibleCount] = useState(5);
 
-  const allItems: ExperienceItem[] = useMemo(
-    () => (messages?.experience?.items ?? []) as ExperienceItem[],
-    [messages]
-  );
+  const allItems: ExperienceItem[] = useMemo(() => {
+    const section = messages?.experience as { items?: ExperienceItem[] } | undefined;
+    return section?.items ?? [];
+  }, [messages]);
 
   const total = allItems.length;
   const visibleItems = allItems.slice(0, visibleCount);

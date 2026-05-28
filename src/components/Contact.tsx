@@ -110,7 +110,7 @@ export function Contact() {
               {/* Links */}
               <div>
                 <h3 className="mb-6 font-mono text-xs font-semibold uppercase tracking-widest text-accent/60">
-                  Connect
+                  {t("connect")}
                 </h3>
                 <div className="space-y-4">
                   {links.map(({ icon: Icon, label, href, external }) => (
@@ -144,14 +144,14 @@ export function Contact() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" style={{ animationDuration: "2s" }} />
                     <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
                   </span>
-                  Open to opportunities
+                  {t("status")}
                 </p>
                 <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
-                  Remote &middot; Full-time &middot; Contract
+                  {t("availability")}
                 </p>
                 <div className="mt-4 pt-4 border-t border-neutral-100/80 dark:border-white/[0.04]">
                   <p className="text-xs text-neutral-400 dark:text-neutral-500 leading-relaxed">
-                    Based in Peru, working across timezones with teams in SF, latam, and Europe.
+                    {t("location")}
                   </p>
                 </div>
               </div>

@@ -26,9 +26,9 @@ function Initials({ name }: { name: string }) {
 
 export function Recommendations() {
   const t = useTranslations("recommendations");
-  const messages = useMessages() as any;
-  const items: RecommendationItem[] =
-    (messages?.recommendations?.items ?? []) as RecommendationItem[];
+  const messages = useMessages() as Record<string, unknown>;
+  const section = messages?.recommendations as { items?: RecommendationItem[] } | undefined;
+  const items: RecommendationItem[] = section?.items ?? [];
 
   if (!items.length) return null;
 

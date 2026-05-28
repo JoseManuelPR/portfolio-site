@@ -8,6 +8,7 @@ interface TechLogo {
   name: string;
   slug: string;
   color: string;
+  invertOnDark?: boolean;
 }
 
 const row1: TechLogo[] = [
@@ -15,7 +16,7 @@ const row1: TechLogo[] = [
   { name: "JavaScript", slug: "javascript", color: "F7DF1E" },
   { name: "React", slug: "react", color: "61DAFB" },
   { name: "Vue.js", slug: "vuedotjs", color: "4FC08D" },
-  { name: "Next.js", slug: "nextdotjs", color: "000000" },
+  { name: "Next.js", slug: "nextdotjs", color: "000000", invertOnDark: true },
   { name: "Angular", slug: "angular", color: "DD0031" },
   { name: "TailwindCSS", slug: "tailwindcss", color: "06B6D4" },
   { name: "HTML5", slug: "html5", color: "E34F26" },
@@ -34,7 +35,7 @@ const row2: TechLogo[] = [
   { name: "MongoDB", slug: "mongodb", color: "47A248" },
   { name: "AWS", slug: "amazonwebservices", color: "232F3E" },
   { name: "Docker", slug: "docker", color: "2496ED" },
-  { name: "Vercel", slug: "vercel", color: "000000" },
+  { name: "Vercel", slug: "vercel", color: "000000", invertOnDark: true },
   { name: "Git", slug: "git", color: "F05032" },
   { name: "Linux", slug: "linux", color: "FCC624" },
   { name: "GraphQL", slug: "graphql", color: "E10098" },
@@ -72,7 +73,10 @@ function LogoRow({
                 width={32}
                 height={32}
                 loading="lazy"
-                className="h-8 w-8 object-contain transition-transform duration-500 group-hover:scale-110"
+                className={cn(
+                  "h-8 w-8 object-contain transition-transform duration-500 group-hover:scale-110",
+                  logo.invertOnDark && "dark:invert"
+                )}
               />
             </div>
             <span className="text-[10px] font-medium text-neutral-400 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:-translate-y-0.5">
