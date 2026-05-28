@@ -6,7 +6,20 @@ import {
   useState,
   ReactNode,
   CSSProperties,
+  useSyncExternalStore,
 } from "react";
+
+function usePrefersReducedMotion() {
+  return useSyncExternalStore(
+    (cb) => {
+      const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+      mql.addEventListener("change", cb);
+      return () => mql.removeEventListener("change", cb);
+    },
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    () => false, // SSR default
+  );
+}
 
 interface UseRevealOptions {
   threshold?: number;
@@ -107,13 +120,16 @@ export function Reveal({
   once = true,
 }: RevealProps) {
   const { ref, isVisible } = useReveal({ threshold, once });
+  const prefersReduced = usePrefersReducedMotion();
   const { hidden, visible } = variantStyles[variant];
 
-  const style: CSSProperties = {
-    ...(isVisible ? visible : hidden),
-    transition: `all ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
-    willChange: "transform, opacity, filter",
-  };
+  const style: CSSProperties = prefersReduced
+    ? {} // skip all animation when user prefers reduced motion
+    : {
+        ...(isVisible ? visible : hidden),
+        transition: `all ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
+        willChange: isVisible ? "auto" : "transform, opacity, filter",
+      };
 
   return (
     <div ref={ref} style={style} className={className}>
@@ -142,16 +158,19 @@ export function Stagger({
   threshold = 0.1,
 }: StaggerProps) {
   const { ref, isVisible } = useReveal({ threshold });
+  const prefersReduced = usePrefersReducedMotion();
 
   return (
     <div ref={ref} className={className}>
       {children.map((child, i) => {
         const { hidden, visible } = variantStyles[variant];
-        const style: CSSProperties = {
-          ...(isVisible ? visible : hidden),
-          transition: `all ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${i * staggerDelay}s`,
-          willChange: "transform, opacity",
-        };
+        const style: CSSProperties = prefersReduced
+          ? {}
+          : {
+              ...(isVisible ? visible : hidden),
+              transition: `all ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${i * staggerDelay}s`,
+              willChange: isVisible ? "auto" : "transform, opacity",
+            };
         return (
           <div key={i} style={style} className={childClassName}>
             {child}
@@ -183,19 +202,21 @@ export function CountUp({
   useEffect(() => {
     if (!isVisible) return;
 
-    let start = 0;
-    const step = end / (duration * 60);
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 1000 / 60);
+    const startTime = performance.now();
+    const durationMs = duration * 1000;
+    let raf: number;
 
-    return () => clearInterval(timer);
+    const tick = () => {
+      const elapsed = performance.now() - startTime;
+      const progress = Math.min(elapsed / durationMs, 1);
+      // ease-out cubic for smooth deceleration
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * end));
+      if (progress < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    return () => cancelAnimationFrame(raf);
   }, [isVisible, end, duration]);
 
   return (

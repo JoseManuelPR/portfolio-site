@@ -118,7 +118,7 @@ export function Navbar() {
                   key={s.id}
                   href={`#${s.id}`}
                   className={cn(
-                    "relative rounded-lg px-3.5 py-1.5 text-[13px] font-medium transition-all duration-300",
+                    "relative rounded-lg px-3.5 py-1.5 text-[13px] font-medium transition-[color,background-color] duration-300",
                     activeSection === s.id
                       ? "bg-accent/10 text-accent dark:bg-accent/15"
                       : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"

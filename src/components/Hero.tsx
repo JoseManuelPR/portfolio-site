@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 function FloatingOrb({ className, delay = 0 }: { className?: string; delay?: number }) {
@@ -193,7 +193,6 @@ function TypewriterBlock({ lines, delay = 0, speed = 14 }: {
 export function Hero() {
   const t = useTranslations("hero");
   const [mounted, setMounted] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -202,7 +201,7 @@ export function Hero() {
   const ease = "cubic-bezier(0.16, 1, 0.3, 1)";
 
   return (
-    <section ref={containerRef} className="relative flex min-h-dvh items-center overflow-hidden" id="hero">
+    <section className="relative flex min-h-dvh items-center overflow-hidden" id="hero">
       {/* Ambient orbs */}
       <FloatingOrb className="left-1/4 top-1/4 -z-10 h-[500px] w-[500px] bg-accent/[0.04] dark:bg-accent/[0.07]" />
       <FloatingOrb className="right-1/4 bottom-1/4 -z-10 h-[400px] w-[400px] bg-purple-500/[0.03] dark:bg-purple-500/[0.05]" delay={3} />
