@@ -131,9 +131,19 @@ export function Contact() {
                 )}
                 {status === "success" ? t("success") : t("send")}
               </button>
-              {status === "error" && (
-                <p className="text-sm text-red-500 mt-2">{t("error")}</p>
-              )}
+              <p
+                role="status"
+                aria-live="polite"
+                className={`mt-2 min-h-[1.25rem] text-sm ${
+                  status === "error" ? "text-red-500" : "text-emerald-500"
+                }`}
+              >
+                {status === "error"
+                  ? t("error")
+                  : status === "success"
+                    ? t("success")
+                    : ""}
+              </p>
             </form>
           </Reveal>
 

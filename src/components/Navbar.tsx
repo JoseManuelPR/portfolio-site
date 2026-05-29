@@ -154,6 +154,7 @@ export function Navbar() {
             <button
               onClick={toggleLocale}
               className="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-500 dark:text-neutral-400"
+              aria-label="Toggle language"
             >
               <Globe size={15} />
             </button>
@@ -161,6 +162,7 @@ export function Navbar() {
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-500 dark:text-neutral-400"
+                aria-label="Toggle theme"
               >
                 {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
               </button>
@@ -168,6 +170,8 @@ export function Navbar() {
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-500 dark:text-neutral-400"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
             >
               {mobileOpen ? <X size={18} /> : <Menu size={18} />}
             </button>

@@ -205,13 +205,7 @@ export function Hero() {
           {/* Left — text content */}
           <div className="max-w-2xl">
             {/* Status badge */}
-            <div
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(20px)",
-                transition: `all 0.7s ${ease} 0.1s`,
-              }}
-            >
+            <div className="reveal-load" style={{ animationDelay: "0.1s" }}>
               <span className="inline-flex items-center gap-2.5 rounded-full border border-emerald-200/60 bg-emerald-50/80 px-4 py-2 text-xs font-semibold text-emerald-700 backdrop-blur-sm dark:border-emerald-800/30 dark:bg-emerald-950/40 dark:text-emerald-400">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" style={{ animationDuration: "2s" }} />
@@ -223,36 +217,24 @@ export function Hero() {
 
             {/* Greeting */}
             <p
-              className="mt-10 font-mono text-sm tracking-wider text-accent/80"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(16px)",
-                transition: `all 0.7s ${ease} 0.2s`,
-              }}
+              className="reveal-load mt-10 font-mono text-sm tracking-wider text-accent/80"
+              style={{ animationDelay: "0.2s" }}
             >
               {t("greeting")}
             </p>
 
-            {/* Name */}
+            {/* Name — LCP element: CSS-animated so it paints without waiting for JS */}
             <h1
-              className="mt-4 text-5xl font-black tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(30px)",
-                transition: `all 0.9s ${ease} 0.3s`,
-              }}
+              className="reveal-load mt-4 text-5xl font-black tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl"
+              style={{ animationDelay: "0.3s" }}
             >
               <span className="animated-gradient">{t("name")}</span>
             </h1>
 
             {/* Title */}
             <h2
-              className="mt-5 text-2xl font-semibold text-neutral-400 dark:text-neutral-500 sm:text-3xl lg:text-4xl"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(24px)",
-                transition: `all 0.9s ${ease} 0.45s`,
-              }}
+              className="reveal-load mt-5 text-2xl font-semibold text-neutral-400 dark:text-neutral-500 sm:text-3xl lg:text-4xl"
+              style={{ animationDelay: "0.45s" }}
             >
               {t("title")}
               <span className="text-accent">.</span>
@@ -260,11 +242,8 @@ export function Hero() {
 
             {/* Subtitle line */}
             <div
-              className="mt-4 flex items-center gap-3"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transition: `all 0.7s ${ease} 0.6s`,
-              }}
+              className="reveal-load mt-4 flex items-center gap-3"
+              style={{ animationDelay: "0.55s" }}
             >
               <div className="h-px flex-1 max-w-12 bg-accent/40" />
               <p className="font-mono text-sm font-medium text-accent/70">
@@ -274,24 +253,16 @@ export function Hero() {
 
             {/* Pitch */}
             <p
-              className="mt-8 max-w-xl text-lg leading-relaxed text-neutral-500 dark:text-neutral-400"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(16px)",
-                transition: `all 0.9s ${ease} 0.7s`,
-              }}
+              className="reveal-load mt-8 max-w-xl text-lg leading-relaxed text-neutral-500 dark:text-neutral-400"
+              style={{ animationDelay: "0.65s" }}
             >
               {t("pitch")}
             </p>
 
             {/* CTAs */}
             <div
-              className="mt-12 flex flex-wrap gap-3"
-              style={{
-                opacity: mounted ? 1 : 0,
-                transform: mounted ? "translateY(0)" : "translateY(16px)",
-                transition: `all 0.9s ${ease} 0.85s`,
-              }}
+              className="reveal-load mt-12 flex flex-wrap gap-3"
+              style={{ animationDelay: "0.8s" }}
             >
               <a href="#contact" className="btn-primary">
                 <Mail size={16} />

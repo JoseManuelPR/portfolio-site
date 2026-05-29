@@ -1,8 +1,8 @@
 "use client";
 
 import { useTranslations, useMessages } from "next-intl";
-import { Reveal, Stagger } from "./AnimationProvider";
-import { ExternalLink, Github, Globe, Lock } from "lucide-react";
+import { Reveal } from "./AnimationProvider";
+import { ExternalLink, Github, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type ShowcaseItem = {
@@ -25,15 +25,9 @@ const gradients: Record<string, string> = {
 };
 
 function ProjectCard({ item, index, featured }: { item: ShowcaseItem; index: number; featured?: boolean }) {
-  const Wrapper = item.href ? "a" : "div";
-  const wrapperProps = item.href
-    ? { href: item.href, target: "_blank" as const, rel: "noopener noreferrer" }
-    : {};
-
   return (
     <Reveal variant="fade-up" delay={index * 0.08}>
-      <Wrapper
-        {...wrapperProps}
+      <div
         className={cn(
           "group glass-card relative flex flex-col overflow-hidden",
           featured ? "p-8 sm:p-10" : "p-6 sm:p-8",
@@ -51,29 +45,39 @@ function ProjectCard({ item, index, featured }: { item: ShowcaseItem; index: num
         {/* Top beam */}
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
 
+        {/* Stretched link — whole card is clickable, no nested anchors */}
+        {item.href && (
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={item.title}
+            className="absolute inset-0 z-10 rounded-2xl"
+          />
+        )}
+
         <div className="relative flex flex-1 flex-col">
           {/* Header */}
           <div className="mb-4 flex items-start justify-between">
-            <span className="text-2xl">{item.icon}</span>
+            <span className="text-2xl" aria-hidden="true">{item.icon}</span>
             <div className="flex items-center gap-2">
               {item.github && (
                 <a
                   href={item.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg text-neutral-400 transition-colors hover:bg-white/10 hover:text-white"
-                  aria-label="GitHub"
+                  className="relative z-20 flex h-8 w-8 items-center justify-center rounded-lg text-neutral-400 transition-colors hover:bg-white/10 hover:text-white"
+                  aria-label={`${item.title} — GitHub`}
                 >
                   <Github size={15} />
                 </a>
               )}
               {item.href ? (
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg text-neutral-400 transition-all duration-300 group-hover:text-accent">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg text-neutral-400 transition-all duration-300 group-hover:text-accent" aria-hidden="true">
                   <ExternalLink size={15} />
                 </div>
               ) : (
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg text-neutral-500" title="Private">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg text-neutral-500" title="Private" aria-hidden="true">
                   <Lock size={13} />
                 </div>
               )}
@@ -110,7 +114,7 @@ function ProjectCard({ item, index, featured }: { item: ShowcaseItem; index: num
             ))}
           </div>
         </div>
-      </Wrapper>
+      </div>
     </Reveal>
   );
 }
