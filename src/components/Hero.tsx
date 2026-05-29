@@ -188,10 +188,15 @@ export function Hero() {
 
   return (
     <section className="relative flex min-h-dvh items-center overflow-hidden" id="hero">
-      {/* Ambient orbs */}
-      <FloatingOrb className="left-1/4 top-1/4 -z-10 h-[500px] w-[500px] bg-accent/[0.04] dark:bg-accent/[0.07]" />
-      <FloatingOrb className="right-1/4 bottom-1/4 -z-10 h-[400px] w-[400px] bg-purple-500/[0.03] dark:bg-purple-500/[0.05]" delay={3} />
-      <FloatingOrb className="right-1/3 top-1/3 -z-10 h-[300px] w-[300px] bg-pink-500/[0.02] dark:bg-pink-500/[0.04]" delay={5} />
+      {/* Ambient orbs — deferred until after mount so their expensive blur-3xl
+          paint doesn't delay the hero's Largest Contentful Paint */}
+      {mounted && (
+        <>
+          <FloatingOrb className="left-1/4 top-1/4 -z-10 h-[500px] w-[500px] bg-accent/[0.04] dark:bg-accent/[0.07]" />
+          <FloatingOrb className="right-1/4 bottom-1/4 -z-10 h-[400px] w-[400px] bg-purple-500/[0.03] dark:bg-purple-500/[0.05]" delay={3} />
+          <FloatingOrb className="right-1/3 top-1/3 -z-10 h-[300px] w-[300px] bg-pink-500/[0.02] dark:bg-pink-500/[0.04]" delay={5} />
+        </>
+      )}
 
       {/* Grid lines accent */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -223,12 +228,12 @@ export function Hero() {
               {t("greeting")}
             </p>
 
-            {/* Name — LCP element: CSS-animated so it paints without waiting for JS */}
-            <h1
-              className="reveal-load mt-4 text-5xl font-black tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl"
-              style={{ animationDelay: "0.3s" }}
-            >
-              <span className="animated-gradient">{t("name")}</span>
+            {/* Name — LCP element: fully static (no entrance animation) so it paints
+                on the very first frame. Largest Contentful Paint = First Paint. */}
+            <h1 className="mt-4 text-5xl font-black tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl">
+              <span className={cn("animated-gradient", mounted && "gradient-shimmer")}>
+                {t("name")}
+              </span>
             </h1>
 
             {/* Title */}

@@ -123,7 +123,10 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Animated gradient for hero name */
+/* Gradient for hero name. The continuous shimmer is intentionally NOT applied
+   here: a forever-animating paint on the LCP <h1> defers its Largest Contentful
+   Paint. The gradient renders static on first paint; the shimmer is switched on
+   after mount (post-LCP) via .gradient-shimmer. */
 .animated-gradient {
   background: linear-gradient(
     135deg,
@@ -138,7 +141,12 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientShift 8s ease infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animated-gradient.gradient-shimmer {
+    animation: gradientShift 8s ease infinite;
+  }
 }
 
 @keyframes gradientShift {

@@ -26,7 +26,7 @@ export function Footer() {
             <a href="#" className="text-lg font-bold tracking-tight">
               jm<span className="text-accent">.</span>
             </a>
-            <p className="text-xs text-neutral-400 dark:text-neutral-500">
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
               &copy; {new Date().getFullYear()} Jose Manuel Puicon Rodas. {t("rights")}
             </p>
           </div>
@@ -35,7 +35,7 @@ export function Footer() {
           <div className="flex items-center gap-2">
             <Link
               href="/blog"
-              className="flex h-10 items-center gap-1.5 rounded-xl px-3 text-sm font-medium text-neutral-400 transition-all duration-300 hover:bg-neutral-100 hover:text-accent dark:text-neutral-500 dark:hover:bg-white/[0.04] dark:hover:text-accent"
+              className="flex h-10 items-center gap-1.5 rounded-xl px-3 text-sm font-medium text-neutral-500 transition-all duration-300 hover:bg-neutral-100 hover:text-accent dark:text-neutral-400 dark:hover:bg-white/[0.04] dark:hover:text-accent"
             >
               <PenLine size={14} />
               Blog
@@ -58,7 +58,7 @@ export function Footer() {
 
         {/* Built with */}
         <div className="mt-8 flex justify-center">
-          <p className="text-[11px] text-neutral-300 dark:text-neutral-700">
+          <p className="text-[11px] text-neutral-500 dark:text-neutral-400">
             {t("built")}
           </p>
         </div>

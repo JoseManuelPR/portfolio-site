@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useCallback, useRef } from "react";
+import { useEffect, useCallback, useRef, useState } from "react";
 
 export function GridBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     const container = containerRef.current;
@@ -13,9 +14,15 @@ export function GridBackground() {
   }, []);
 
   useEffect(() => {
+    setMounted(true);
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [handleMouseMove]);
+
+  // Decorative-only. Rendered after mount so the expensive paints (blur,
+  // feTurbulence noise, gradient mesh) never block the hero's first/largest
+  // contentful paint. Everything here is behind content and aria-hidden.
+  if (!mounted) return null;
 
   return (
     <>
