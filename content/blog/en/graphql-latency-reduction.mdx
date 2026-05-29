@@ -1,0 +1,55 @@
+---
+title: "Reducing API Latency by 35% with GraphQL"
+description: "How migrating from REST to GraphQL at Kiui solved over-fetching, reduced payload sizes, and simplified our frontend data layer."
+date: "2024-05-15"
+tags: ["GraphQL", "API Design", "Node.js", "Performance"]
+---
+
+## The Problem
+
+Kiui's REST API had grown organically. A single dashboard page required 7 API calls, each returning more data than the frontend needed. Total payload: 340KB. Time to interactive: 3.2 seconds.
+
+## Why GraphQL
+
+GraphQL wasn't a silver bullet — it was the right tool for our specific problems:
+
+1. **Over-fetching**: REST endpoints returned full objects when we needed 3 fields
+2. **Under-fetching**: Dashboard needed data from 7 endpoints, causing waterfall requests
+3. **Type safety**: Frontend developers were guessing response shapes
+
+## The Migration Strategy
+
+We didn't rewrite everything. Instead, we wrapped existing REST services behind a GraphQL gateway:
+
+```typescript
+const resolvers = {
+  Query: {
+    dashboard: async (_, { businessId }, context) => {
+      // Parallel fetch from existing services
+      const [revenue, orders, inventory] = await Promise.all([
+        revenueService.getSummary(businessId),
+        orderService.getRecent(businessId, { limit: 10 }),
+        inventoryService.getLowStock(businessId),
+      ]);
+
+      return { revenue, orders, inventory };
+    },
+  },
+};
+```
+
+## Results
+
+After migrating the top 5 pages:
+
+- **Payload size**: 340KB → 45KB (87% reduction)
+- **API calls per page**: 7 → 1
+- **Latency**: 35% reduction end-to-end
+- **Developer velocity**: Frontend team stopped waiting for backend endpoint changes
+
+## Lessons Learned
+
+- Start with the highest-traffic pages, not the whole API
+- DataLoader pattern is essential for avoiding N+1 queries
+- Schema design is API design — invest time in getting it right
+- Monitor resolver performance from day one

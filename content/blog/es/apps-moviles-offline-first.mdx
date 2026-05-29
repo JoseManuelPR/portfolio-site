@@ -1,0 +1,60 @@
+---
+title: "Construyendo Apps Moviles Offline-First para Trabajo de Campo"
+description: "Como disenamos AGROS para funcionar en areas sin internet — recolectando datos agricolas con georreferenciacion e ID biometrica."
+date: "2024-08-20"
+tags: ["Movil", "Offline-First", "Android", "Arquitectura"]
+---
+
+## La Restriccion
+
+El trabajo de campo agricola ocurre en areas remotas donde la conectividad a internet es poco confiable o inexistente. AGROS necesitaba recolectar datos, capturar coordenadas GPS y verificar identidad de trabajadores — todo sin conexion de red.
+
+## Decisiones de Arquitectura
+
+Elegimos una arquitectura sync-first donde el dispositivo es la fuente de verdad hasta que pueda alcanzar el servidor:
+
+```typescript
+// Cola de sincronizacion simplificada
+interface SyncQueue {
+  pending: DataRecord[];
+  synced: string[]; // IDs de registros sincronizados exitosamente
+  conflicts: ConflictRecord[];
+}
+
+async function syncWhenOnline(queue: SyncQueue) {
+  const connection = await checkConnectivity();
+  if (!connection) return;
+
+  for (const record of queue.pending) {
+    try {
+      await api.upload(record);
+      queue.synced.push(record.id);
+    } catch (e) {
+      if (isConflict(e)) {
+        queue.conflicts.push({ record, serverVersion: e.data });
+      }
+    }
+  }
+}
+```
+
+## Georreferenciacion Sin Senal GPS
+
+En vegetacion densa, la precision del GPS cae significativamente. Implementamos una estrategia de ubicacion multi-fuente:
+
+1. GPS (cuando esta disponible y es preciso)
+2. Triangulacion de torres celulares (aproximado pero confiable)
+3. Ultima posicion conocida con decaimiento temporal
+4. Pin manual en tiles de mapa cacheados
+
+## Identificacion Biometrica
+
+La identificacion de trabajadores en campo necesitaba funcionar offline. Usamos matching de huellas on-device con templates almacenados localmente, sincronizando logs de verificacion cuando volvia la conectividad.
+
+## Resolucion de Conflictos
+
+La parte mas dificil del offline-first es manejar conflictos cuando dos dispositivos modifican los mismos datos. Nuestra estrategia: last-write-wins para campos simples, merge para colecciones, resolucion manual para datos criticos.
+
+## Conclusiones
+
+Construir para offline no es solo sobre caching — es repensar cada interaccion asumiendo que la red no existe. El resultado fue una app en la que los trabajadores de campo confiaban porque nunca perdia sus datos.

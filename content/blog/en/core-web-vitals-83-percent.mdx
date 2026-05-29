@@ -1,0 +1,55 @@
+---
+title: "How We Improved Core Web Vitals by 83%"
+description: "A deep dive into the optimization techniques that transformed Torre.ai's frontend performance from poor to exceptional."
+date: "2025-02-10"
+tags: ["Performance", "Web Vitals", "Vue.js", "Frontend"]
+---
+
+## Starting Point
+
+When I first ran Lighthouse on Torre.ai's key pages, the numbers were concerning. LCP hovered around 4.2 seconds, CLS was erratic, and FID barely passed the threshold. We needed a systematic approach.
+
+## The Audit
+
+Before optimizing anything, we instrumented everything. Real User Monitoring (RUM) through CloudWatch gave us field data that synthetic tests miss:
+
+```typescript
+// Custom Web Vitals reporter
+function reportVital(metric: WebVitalMetric) {
+  const body = {
+    name: metric.name,
+    value: metric.value,
+    rating: metric.rating,
+    navigationType: getNavigationType(),
+    pathname: window.location.pathname,
+  };
+  navigator.sendBeacon('/api/vitals', JSON.stringify(body));
+}
+```
+
+## Largest Contentful Paint (LCP)
+
+The biggest win came from three changes:
+
+1. **Critical CSS inlining** — extracted above-the-fold styles and inlined them in the document head
+2. **Image optimization** — switched to WebP/AVIF with proper `srcset` and `sizes` attributes
+3. **Font loading strategy** — `font-display: swap` with preloaded WOFF2 files
+
+## Cumulative Layout Shift (CLS)
+
+CLS was the sneakiest problem. Dynamic content loading caused layout shifts that frustrated users:
+
+- Set explicit dimensions on all images and embeds
+- Reserved space for async-loaded components with skeleton placeholders
+- Moved web font loading earlier to prevent text reflow
+
+## The Results
+
+After three weeks of iterative optimization:
+
+- **LCP**: 4.2s → 1.1s (74% improvement)
+- **CLS**: 0.28 → 0.02 (93% improvement)
+- **FID**: 180ms → 45ms (75% improvement)
+- **Overall score**: 83% improvement across all Core Web Vitals
+
+The key lesson? Measure first, optimize second, and always validate with real user data.

@@ -130,7 +130,7 @@ export function Showcase() {
     <section id="work" className="relative">
       <div className="section-divider" />
 
-      <div className="section-container">
+      <div className="mx-auto max-w-6xl px-6 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
         <Reveal variant="fade-up">
           <div className="section-label mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
@@ -148,16 +148,15 @@ export function Showcase() {
           <p className="section-subtitle mb-12">{t("subtitle")}</p>
         </Reveal>
 
-        {/* Bento grid */}
+        {/* Featured row */}
         <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
-          {/* Featured — spans full width on mobile, left column on md+ */}
           {featured.map((item, i) => (
-            <div key={item.title} className={cn(i === 0 && "md:row-span-2", "[&>*]:h-full")}>
-              <ProjectCard item={item} index={i} featured />
-            </div>
+            <ProjectCard key={item.title} item={item} index={i} featured />
           ))}
+        </div>
 
-          {/* Regular projects */}
+        {/* Projects grid */}
+        <div className="mt-4 grid gap-4 sm:mt-5 sm:gap-5 md:grid-cols-3">
           {projects.map((item, i) => (
             <ProjectCard key={item.title} item={item} index={featured.length + i} />
           ))}

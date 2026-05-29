@@ -1,0 +1,60 @@
+---
+title: "Building Offline-First Mobile Apps for Field Work"
+description: "How we designed AGROS to work in areas with no internet — collecting agricultural data with georeferencing and biometric ID."
+date: "2024-08-20"
+tags: ["Mobile", "Offline-First", "Android", "Architecture"]
+---
+
+## The Constraint
+
+Agricultural field work happens in remote areas where internet connectivity is unreliable or nonexistent. AGROS needed to collect data, capture GPS coordinates, and verify worker identity — all without a network connection.
+
+## Architecture Decisions
+
+We chose a sync-first architecture where the device is the source of truth until it can reach the server:
+
+```typescript
+// Simplified sync queue
+interface SyncQueue {
+  pending: DataRecord[];
+  synced: string[]; // IDs of successfully synced records
+  conflicts: ConflictRecord[];
+}
+
+async function syncWhenOnline(queue: SyncQueue) {
+  const connection = await checkConnectivity();
+  if (!connection) return;
+
+  for (const record of queue.pending) {
+    try {
+      await api.upload(record);
+      queue.synced.push(record.id);
+    } catch (e) {
+      if (isConflict(e)) {
+        queue.conflicts.push({ record, serverVersion: e.data });
+      }
+    }
+  }
+}
+```
+
+## Georeferencing Without GPS Lock
+
+In dense vegetation, GPS accuracy drops significantly. We implemented a multi-source location strategy:
+
+1. GPS (when available and accurate)
+2. Cell tower triangulation (rough but reliable)
+3. Last known position with timestamp decay
+4. Manual pin drop on cached map tiles
+
+## Biometric Identification
+
+Worker identification in the field needed to work offline. We used on-device fingerprint matching with templates stored locally, syncing verification logs when connectivity returned.
+
+## Conflict Resolution
+
+The hardest part of offline-first is handling conflicts when two devices modify the same data. Our strategy: last-write-wins for simple fields, merge for collections, manual resolution for critical data.
+
+## Key Takeaways
+
+Building for offline isn't just about caching — it's rethinking every interaction assuming the network doesn't exist. The result was an app that field workers trusted because it never lost their data.

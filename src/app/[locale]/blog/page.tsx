@@ -29,16 +29,18 @@ export default async function BlogPage({
     <main className="min-h-screen">
       {/* Header */}
       <div className="section-container pb-12">
-        <Link
-          href="/"
-          className="group mb-10 inline-flex items-center gap-2 text-sm font-medium text-neutral-500 transition-colors hover:text-accent dark:text-neutral-400"
-        >
-          <ArrowLeft
-            size={14}
-            className="transition-transform group-hover:-translate-x-0.5"
-          />
-          {t("backHome")}
-        </Link>
+        <div className="mb-10">
+          <Link
+            href="/"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-neutral-500 transition-colors hover:text-accent dark:text-neutral-400"
+          >
+            <ArrowLeft
+              size={14}
+              className="transition-transform group-hover:-translate-x-0.5"
+            />
+            {t("backHome")}
+          </Link>
+        </div>
 
         <div className="section-label mb-6">
           <span className="h-1.5 w-1.5 rounded-full bg-accent" />

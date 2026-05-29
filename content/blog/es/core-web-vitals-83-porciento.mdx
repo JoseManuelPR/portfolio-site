@@ -1,0 +1,55 @@
+---
+title: "Como Mejoramos los Core Web Vitals en un 83%"
+description: "Un analisis profundo de las tecnicas de optimizacion que transformaron el rendimiento frontend de Torre.ai de pobre a excepcional."
+date: "2025-02-10"
+tags: ["Rendimiento", "Web Vitals", "Vue.js", "Frontend"]
+---
+
+## Punto de Partida
+
+Cuando ejecute Lighthouse por primera vez en las paginas clave de Torre.ai, los numeros eran preocupantes. El LCP rondaba los 4.2 segundos, el CLS era erratico y el FID apenas pasaba el umbral. Necesitabamos un enfoque sistematico.
+
+## La Auditoria
+
+Antes de optimizar cualquier cosa, instrumentamos todo. Real User Monitoring (RUM) a traves de CloudWatch nos dio datos de campo que las pruebas sinteticas no capturan:
+
+```typescript
+// Reportador custom de Web Vitals
+function reportVital(metric: WebVitalMetric) {
+  const body = {
+    name: metric.name,
+    value: metric.value,
+    rating: metric.rating,
+    navigationType: getNavigationType(),
+    pathname: window.location.pathname,
+  };
+  navigator.sendBeacon('/api/vitals', JSON.stringify(body));
+}
+```
+
+## Largest Contentful Paint (LCP)
+
+La mayor ganancia vino de tres cambios:
+
+1. **CSS critico inline** — extrajimos los estilos above-the-fold y los pusimos inline en el head
+2. **Optimizacion de imagenes** — cambiamos a WebP/AVIF con atributos `srcset` y `sizes` apropiados
+3. **Estrategia de carga de fuentes** — `font-display: swap` con archivos WOFF2 precargados
+
+## Cumulative Layout Shift (CLS)
+
+El CLS fue el problema mas escurridizo. El contenido dinamico causaba saltos de layout que frustraban a los usuarios:
+
+- Dimensiones explicitas en todas las imagenes y embeds
+- Espacio reservado para componentes async con skeletons
+- Carga de fuentes web mas temprana para evitar reflow de texto
+
+## Los Resultados
+
+Despues de tres semanas de optimizacion iterativa:
+
+- **LCP**: 4.2s → 1.1s (74% de mejora)
+- **CLS**: 0.28 → 0.02 (93% de mejora)
+- **FID**: 180ms → 45ms (75% de mejora)
+- **Puntuacion general**: 83% de mejora en todos los Core Web Vitals
+
+La leccion clave? Medir primero, optimizar despues, y siempre validar con datos reales de usuarios.
