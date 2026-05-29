@@ -1,0 +1,49 @@
+---
+title: "Building Scalable Systems: Lessons from Production"
+description: "Key patterns and practices I've learned building platforms that serve thousands of users daily across multiple markets."
+date: "2025-03-15"
+tags: ["Architecture", "AWS", "Scalability", "TypeScript"]
+---
+
+## The Challenge
+
+When I joined Torre.ai, the platform was growing fast. We needed systems that could handle thousands of concurrent users while maintaining sub-second response times. This post shares the patterns that worked.
+
+## Pattern 1: Event-Driven Architecture
+
+Instead of synchronous request-response for everything, we moved critical paths to event-driven patterns. This decoupled services and allowed independent scaling.
+
+```typescript
+// Before: tight coupling
+await notificationService.send(userId, message);
+await analyticsService.track(event);
+
+// After: event-driven
+eventBus.emit('user.action', { userId, event, message });
+```
+
+## Pattern 2: Strategic Caching with ISR
+
+For content that changes infrequently, Incremental Static Regeneration (ISR) in Next.js was transformative. We reduced server load by 70% while keeping content fresh.
+
+```typescript
+export const revalidate = 3600; // Revalidate every hour
+
+export default async function Page() {
+  const data = await fetchData();
+  return <Component data={data} />;
+}
+```
+
+## Pattern 3: Observability First
+
+You can't optimize what you can't measure. AWS CloudWatch became our eyes into the system. Every critical path got instrumented from day one.
+
+## Key Takeaways
+
+1. **Start simple, scale intentionally** — premature optimization is real
+2. **Measure everything** — CloudWatch, custom metrics, business KPIs
+3. **Design for failure** — every external call will eventually fail
+4. **Cache aggressively** — but have a clear invalidation strategy
+
+The result? 83% improvement in Core Web Vitals and a platform that handles peak traffic without breaking a sweat.

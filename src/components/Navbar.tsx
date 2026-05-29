@@ -24,7 +24,7 @@ export function Navbar() {
   const sections = [
     { id: "about", label: t("about") },
     { id: "projects", label: t("projects") },
-    { id: "stack", label: t("stack") },
+    { id: "work", label: t("work") },
     { id: "experience", label: t("experience") },
     { id: "contact", label: t("contact") },
   ];
@@ -45,7 +45,7 @@ export function Navbar() {
     }
     lastY.current = y;
 
-    const sectionIds = ["about", "projects", "stack", "experience", "contact"];
+    const sectionIds = ["about", "projects", "work", "experience", "contact"];
     let current = "";
     for (const id of sectionIds) {
       const el = document.getElementById(id);

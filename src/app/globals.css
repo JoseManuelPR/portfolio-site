@@ -92,8 +92,8 @@
   }
 
   .tag {
-    @apply inline-flex items-center rounded-lg bg-accent/8 px-3 py-1.5 text-xs font-semibold text-accent
-           dark:bg-accent/15 dark:text-accent-light;
+    @apply inline-flex items-center rounded-lg bg-accent/[0.08] px-3 py-1.5 text-xs font-semibold text-accent
+           dark:bg-accent/[0.15] dark:text-accent-light;
   }
 
   .input-field {
@@ -287,3 +287,24 @@
     radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 0.04) 0px, transparent 50%),
     radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 0.04) 0px, transparent 50%);
 }
+
+/* View Transitions — smooth locale switch & navigation */
+::view-transition-old(root) {
+  animation: vt-fade-out 200ms ease-out;
+}
+::view-transition-new(root) {
+  animation: vt-fade-in 300ms ease-in 80ms;
+}
+@keyframes vt-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes vt-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Named transitions for persistent elements */
+.hero-name { view-transition-name: hero-name; }
+.hero-title { view-transition-name: hero-title; }
+.nav-logo { view-transition-name: nav-logo; }

@@ -1,0 +1,40 @@
+---
+title: "Construyendo Sistemas Escalables: Lecciones de Produccion"
+description: "Patrones y practicas clave que aprendi construyendo plataformas que sirven a miles de usuarios diariamente."
+date: "2025-03-15"
+tags: ["Arquitectura", "AWS", "Escalabilidad", "TypeScript"]
+---
+
+## El Desafio
+
+Cuando me uni a Torre.ai, la plataforma crecia rapido. Necesitabamos sistemas que pudieran manejar miles de usuarios concurrentes manteniendo tiempos de respuesta por debajo del segundo. Este post comparte los patrones que funcionaron.
+
+## Patron 1: Arquitectura Orientada a Eventos
+
+En vez de request-response sincrono para todo, movimos los caminos criticos a patrones event-driven. Esto desacoplo los servicios y permitio escalar independientemente.
+
+```typescript
+// Antes: acoplamiento fuerte
+await notificationService.send(userId, message);
+await analyticsService.track(event);
+
+// Despues: event-driven
+eventBus.emit('user.action', { userId, event, message });
+```
+
+## Patron 2: Caching Estrategico con ISR
+
+Para contenido que cambia infrecuentemente, Incremental Static Regeneration (ISR) en Next.js fue transformador. Redujimos la carga del servidor en un 70% manteniendo el contenido fresco.
+
+## Patron 3: Observabilidad Primero
+
+No puedes optimizar lo que no puedes medir. AWS CloudWatch se convirtio en nuestros ojos dentro del sistema. Cada camino critico fue instrumentado desde el dia uno.
+
+## Conclusiones
+
+1. **Empieza simple, escala intencionalmente** — la optimizacion prematura es real
+2. **Mide todo** — CloudWatch, metricas custom, KPIs de negocio
+3. **Disena para fallos** — toda llamada externa eventualmente fallara
+4. **Cachea agresivamente** — pero ten una estrategia clara de invalidacion
+
+El resultado? 83% de mejora en Core Web Vitals y una plataforma que maneja trafico pico sin despeinarse.

@@ -1,0 +1,37 @@
+---
+title: "AI-Driven Development: Integrating LLMs into Production"
+description: "How we integrated GPT and Gemini into Torre.ai's matching engine, and what I learned about building AI features responsibly."
+date: "2025-01-20"
+tags: ["AI", "LLMs", "GPT", "Product Engineering"]
+---
+
+## Beyond the Hype
+
+Everyone is building with AI. But there's a difference between a demo and a production feature that serves real users. At Torre.ai, we integrated LLMs into our professional matching engine — here's what actually matters.
+
+## The Architecture
+
+We built an adapter pattern that abstracts the LLM provider. This lets us swap between GPT and Gemini based on cost, latency, and capability requirements.
+
+```typescript
+interface LLMProvider {
+  complete(prompt: string, options: CompletionOptions): Promise<string>;
+  embed(text: string): Promise<number[]>;
+}
+```
+
+## What Worked
+
+- **Structured outputs** — forcing JSON schemas on LLM responses eliminated most parsing issues
+- **Fallback chains** — GPT-4 for complex reasoning, GPT-3.5 for simple tasks, cached responses for common queries
+- **Human-in-the-loop** — AI suggestions that users can accept, modify, or reject
+
+## What Didn't
+
+- **Trusting raw LLM output** for critical decisions without validation
+- **Ignoring latency** — a 3-second API call kills UX no matter how good the result
+- **Over-engineering prompts** — simpler prompts with better context beat complex prompt chains
+
+## The Human Factor
+
+The best AI features feel invisible. Users don't care about the model behind the curtain — they care about getting matched with the right opportunity, faster. That's the metric that matters.

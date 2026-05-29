@@ -1,0 +1,168 @@
+"use client";
+
+import { useTranslations, useMessages } from "next-intl";
+import { Reveal, Stagger } from "./AnimationProvider";
+import { ExternalLink, Github, Globe, Lock } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+type ShowcaseItem = {
+  title: string;
+  description: string;
+  tags: string[];
+  href?: string;
+  github?: string;
+  type: "featured" | "project";
+  gradient: string;
+  icon: string;
+};
+
+const gradients: Record<string, string> = {
+  purple: "from-violet-600/20 via-purple-600/10 to-transparent",
+  blue: "from-blue-600/20 via-cyan-600/10 to-transparent",
+  green: "from-emerald-600/20 via-teal-600/10 to-transparent",
+  amber: "from-amber-600/20 via-orange-600/10 to-transparent",
+  rose: "from-rose-600/20 via-pink-600/10 to-transparent",
+};
+
+function ProjectCard({ item, index, featured }: { item: ShowcaseItem; index: number; featured?: boolean }) {
+  const Wrapper = item.href ? "a" : "div";
+  const wrapperProps = item.href
+    ? { href: item.href, target: "_blank" as const, rel: "noopener noreferrer" }
+    : {};
+
+  return (
+    <Reveal variant="fade-up" delay={index * 0.08}>
+      <Wrapper
+        {...wrapperProps}
+        className={cn(
+          "group glass-card relative flex flex-col overflow-hidden",
+          featured ? "p-8 sm:p-10" : "p-6 sm:p-8",
+          item.href && "cursor-pointer"
+        )}
+      >
+        {/* Gradient accent */}
+        <div
+          className={cn(
+            "absolute inset-x-0 top-0 h-48 bg-gradient-to-b opacity-60 transition-opacity duration-700 group-hover:opacity-100",
+            gradients[item.gradient] ?? gradients.purple
+          )}
+        />
+
+        {/* Top beam */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+
+        <div className="relative flex flex-1 flex-col">
+          {/* Header */}
+          <div className="mb-4 flex items-start justify-between">
+            <span className="text-2xl">{item.icon}</span>
+            <div className="flex items-center gap-2">
+              {item.github && (
+                <a
+                  href={item.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg text-neutral-400 transition-colors hover:bg-white/10 hover:text-white"
+                  aria-label="GitHub"
+                >
+                  <Github size={15} />
+                </a>
+              )}
+              {item.href ? (
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg text-neutral-400 transition-all duration-300 group-hover:text-accent">
+                  <ExternalLink size={15} />
+                </div>
+              ) : (
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg text-neutral-500" title="Private">
+                  <Lock size={13} />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Title + description */}
+          <h3
+            className={cn(
+              "font-bold text-neutral-900 transition-colors duration-300 group-hover:text-accent dark:text-white",
+              featured ? "mb-3 text-xl sm:text-2xl" : "mb-2 text-lg"
+            )}
+          >
+            {item.title}
+          </h3>
+          <p
+            className={cn(
+              "flex-1 leading-relaxed text-neutral-500 dark:text-neutral-400",
+              featured ? "text-[0.95rem]" : "text-sm"
+            )}
+          >
+            {item.description}
+          </p>
+
+          {/* Tags */}
+          <div className="mt-5 flex flex-wrap gap-2">
+            {item.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-md bg-accent/8 px-2.5 py-1 text-[11px] font-semibold text-accent dark:bg-accent/15 dark:text-accent-light"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </Wrapper>
+    </Reveal>
+  );
+}
+
+export function Showcase() {
+  const t = useTranslations("showcase");
+  const messages = useMessages() as Record<string, unknown>;
+  const section = messages?.showcase as { items?: ShowcaseItem[] } | undefined;
+  const items = section?.items ?? [];
+
+  if (!items.length) return null;
+
+  const featured = items.filter((i) => i.type === "featured");
+  const projects = items.filter((i) => i.type === "project");
+
+  return (
+    <section id="work" className="relative">
+      <div className="section-divider" />
+
+      <div className="section-container">
+        <Reveal variant="fade-up">
+          <div className="section-label mb-6">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            {t("title")}
+          </div>
+        </Reveal>
+
+        <Reveal variant="fade-up" delay={0.1}>
+          <h2 className="section-title mb-4">
+            {t("title")}
+            <span className="text-accent">.</span>
+          </h2>
+        </Reveal>
+        <Reveal variant="fade-up" delay={0.15}>
+          <p className="section-subtitle mb-12">{t("subtitle")}</p>
+        </Reveal>
+
+        {/* Bento grid */}
+        <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
+          {/* Featured — spans full width on mobile, left column on md+ */}
+          {featured.map((item, i) => (
+            <div key={item.title} className={cn(i === 0 && "md:row-span-2", "[&>*]:h-full")}>
+              <ProjectCard item={item} index={i} featured />
+            </div>
+          ))}
+
+          {/* Regular projects */}
+          {projects.map((item, i) => (
+            <ProjectCard key={item.title} item={item} index={featured.length + i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

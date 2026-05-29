@@ -3,6 +3,7 @@
     "about": "About",
     "projects": "Impact",
     "stack": "Stack",
+    "work": "Work",
     "experience": "Experience",
     "contact": "Contact"
   },
@@ -52,6 +53,55 @@
         "description": "Working remotely from Peru for companies in San Francisco, collaborating across time zones with cross-functional teams spanning design, product, and engineering."
       }
     }
+  },
+  "showcase": {
+    "title": "Work",
+    "subtitle": "Products and platforms I've built or contributed to",
+    "items": [
+      {
+        "title": "Bunny Studio",
+        "description": "Global creative services marketplace connecting businesses with vetted professionals. Full-stack engineering across the platform — frontend experiences, backend services, and cloud infrastructure on AWS.",
+        "tags": ["TypeScript", "Vue.js", "Node.js", "AWS", "PostgreSQL"],
+        "type": "featured",
+        "gradient": "blue",
+        "icon": "🎙️"
+      },
+      {
+        "title": "Torre.ai",
+        "description": "AI-powered professional networking platform. Built core features including the application flow, candidate genome, and search. Achieved 83% improvement in Core Web Vitals. Integrated LLM-driven matching (GPT, Gemini).",
+        "tags": ["TypeScript", "Vue.js", "Scala", "AI/LLMs", "AWS"],
+        "href": "https://torre.ai",
+        "type": "featured",
+        "gradient": "green",
+        "icon": "🧬"
+      },
+      {
+        "title": "AGROS",
+        "description": "Agricultural technology platform with offline-capable mobile app for field data collection, georeferencing, and biometric identification. Full product ownership from conception to deployment.",
+        "tags": ["React", "Python", "Android", "Docker", "AWS"],
+        "type": "project",
+        "gradient": "amber",
+        "icon": "🌾"
+      },
+      {
+        "title": "Kiui Platform",
+        "description": "Comprehensive business management tool. Engineered GraphQL APIs reducing latency by 35%, built responsive web and mobile experiences with React Native.",
+        "tags": ["React", "React Native", "GraphQL", "Node.js"],
+        "type": "project",
+        "gradient": "purple",
+        "icon": "📊"
+      },
+      {
+        "title": "Portfolio",
+        "description": "This site — bilingual, dark-mode, ISR-powered with dynamic GitHub stats, animated terminal, and 100% Lighthouse scores.",
+        "tags": ["Next.js 14", "TypeScript", "TailwindCSS"],
+        "href": "https://josepuicon-dev.vercel.app",
+        "github": "https://github.com/JoseManuelPR/portfolio-site",
+        "type": "project",
+        "gradient": "rose",
+        "icon": "✦"
+      }
+    ]
   },
   "stack": {
     "title": "Tech Stack",
@@ -188,6 +238,15 @@
     "location": "Based in Peru, working across timezones with teams in SF, latam, and Europe.",
     "success": "Message sent successfully!",
     "error": "Something went wrong. Please try again."
+  },
+  "blog": {
+    "label": "BLOG",
+    "title": "Blog",
+    "subtitle": "Thoughts on engineering, architecture, and building products at scale.",
+    "backHome": "Back home",
+    "backToBlog": "All posts",
+    "readMore": "Read more",
+    "noPosts": "No posts yet. Check back soon!"
   },
   "footer": {
     "built": "Built with Next.js & TailwindCSS",

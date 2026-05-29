@@ -1,0 +1,37 @@
+---
+title: "Desarrollo con IA: Integrando LLMs en Produccion"
+description: "Como integramos GPT y Gemini en el motor de matching de Torre.ai, y lo que aprendi sobre construir features de IA responsablemente."
+date: "2025-01-20"
+tags: ["IA", "LLMs", "GPT", "Ingenieria de Producto"]
+---
+
+## Mas Alla del Hype
+
+Todos estan construyendo con IA. Pero hay una diferencia entre un demo y un feature en produccion que sirve a usuarios reales. En Torre.ai, integramos LLMs en nuestro motor de matching profesional — esto es lo que realmente importa.
+
+## La Arquitectura
+
+Construimos un patron adaptador que abstrae el proveedor LLM. Esto nos permite cambiar entre GPT y Gemini basandonos en costo, latencia y capacidades requeridas.
+
+```typescript
+interface LLMProvider {
+  complete(prompt: string, options: CompletionOptions): Promise<string>;
+  embed(text: string): Promise<number[]>;
+}
+```
+
+## Lo Que Funciono
+
+- **Salidas estructuradas** — forzar schemas JSON en las respuestas del LLM elimino la mayoria de problemas de parsing
+- **Cadenas de fallback** — GPT-4 para razonamiento complejo, GPT-3.5 para tareas simples, respuestas cacheadas para queries comunes
+- **Humano en el loop** — sugerencias de IA que los usuarios pueden aceptar, modificar o rechazar
+
+## Lo Que No
+
+- **Confiar en output crudo del LLM** para decisiones criticas sin validacion
+- **Ignorar latencia** — una llamada API de 3 segundos mata la UX sin importar que tan bueno sea el resultado
+- **Sobre-ingenieria de prompts** — prompts simples con mejor contexto superan a cadenas complejas de prompts
+
+## El Factor Humano
+
+Los mejores features de IA se sienten invisibles. A los usuarios no les importa el modelo detras de la cortina — les importa conectar con la oportunidad correcta, mas rapido. Esa es la metrica que importa.
