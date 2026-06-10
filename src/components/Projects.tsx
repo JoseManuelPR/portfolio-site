@@ -1,5 +1,3 @@
-"use client";
-
 import { useTranslations } from "next-intl";
 import {
   Code2,
@@ -77,7 +75,7 @@ export function Projects({ githubStats }: { githubStats?: GitHubStats }) {
           <div key={label} className="group glass-card p-6 text-center hover:scale-[1.02]">
             <div
               className={cn(
-                "mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:shadow-lg",
+                "mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br text-white shadow-xs transition-all duration-500 group-hover:scale-110 group-hover:shadow-lg",
                 gradient
               )}
             >
@@ -102,8 +100,8 @@ export function Projects({ githubStats }: { githubStats?: GitHubStats }) {
         {highlights.map(({ icon: Icon, title, description, accent }) => (
           <div key={title} className="group glass-card relative overflow-hidden p-8">
             {/* Gradient accent top */}
-            <div className={cn("absolute inset-x-0 top-0 h-px bg-gradient-to-r", accent)} />
-            <div className={cn("absolute inset-x-0 top-0 h-24 bg-gradient-to-b opacity-0 transition-opacity duration-500 group-hover:opacity-100", accent)} />
+            <div className={cn("absolute inset-x-0 top-0 h-px bg-linear-to-r", accent)} />
+            <div className={cn("absolute inset-x-0 top-0 h-24 bg-linear-to-b opacity-0 transition-opacity duration-500 group-hover:opacity-100", accent)} />
 
             <div className="relative">
               <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/8 text-accent transition-all duration-500 group-hover:bg-accent group-hover:text-white group-hover:shadow-glow dark:bg-accent/15">

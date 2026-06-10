@@ -51,7 +51,7 @@ export function Experience() {
       <div className="relative space-y-4">
         {/* Timeline line */}
         <div className="absolute left-[23px] top-6 hidden h-[calc(100%-3rem)] w-px md:block">
-          <div className="h-full w-full bg-gradient-to-b from-accent/50 via-neutral-300 to-neutral-200 dark:via-white/[0.06] dark:to-transparent" />
+          <div className="h-full w-full bg-linear-to-b from-accent/50 via-neutral-300 to-neutral-200 dark:via-white/6 dark:to-transparent" />
         </div>
 
         {visibleItems.map((item, i) => (
@@ -60,7 +60,7 @@ export function Experience() {
               {/* Timeline dot */}
               <div className="absolute left-[14px] top-8 hidden md:block">
                 <div className="relative">
-                  <div className="h-[18px] w-[18px] rounded-full border-[2.5px] border-accent bg-white shadow-sm shadow-accent/20 dark:bg-[#0a0a0f]" />
+                  <div className="h-[18px] w-[18px] rounded-full border-[2.5px] border-accent bg-white shadow-xs shadow-accent/20 dark:bg-[#0a0a0f]" />
                   {i === 0 && (
                     <div
                       className="absolute inset-0 rounded-full bg-accent/20"
@@ -86,7 +86,7 @@ export function Experience() {
                     </div>
                   </div>
                   <div className="flex flex-col items-end gap-2 text-sm text-neutral-400">
-                    <span className="inline-flex items-center gap-2 rounded-lg bg-neutral-100/80 px-3 py-1 text-xs font-medium dark:bg-white/[0.04]">
+                    <span className="inline-flex items-center gap-2 rounded-lg bg-neutral-100/80 px-3 py-1 text-xs font-medium dark:bg-white/4">
                       <Calendar size={12} />
                       {item.period}
                     </span>

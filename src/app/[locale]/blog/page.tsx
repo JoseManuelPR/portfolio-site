@@ -87,7 +87,7 @@ export default async function BlogPage({
                 className="group glass-card flex flex-col overflow-hidden p-6 sm:p-8"
               >
                 {/* Top beam */}
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-accent/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
                 <h2 className="mb-3 text-xl font-bold text-neutral-900 transition-colors duration-300 group-hover:text-accent dark:text-white">
                   {post.title}
@@ -118,7 +118,7 @@ export default async function BlogPage({
                   {post.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="inline-flex items-center gap-1 rounded-md bg-accent/[0.08] px-2.5 py-1 text-[11px] font-semibold text-accent dark:bg-accent/[0.15] dark:text-accent-light"
+                      className="inline-flex items-center gap-1 rounded-md bg-accent/8 px-2.5 py-1 text-[11px] font-semibold text-accent dark:bg-accent/15 dark:text-accent-light"
                     >
                       <Tag size={10} />
                       {tag}

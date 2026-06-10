@@ -1,5 +1,3 @@
-"use client";
-
 import { useTranslations, useMessages } from "next-intl";
 import { Reveal } from "./AnimationProvider";
 import { ExternalLink, Lock } from "lucide-react";
@@ -38,13 +36,13 @@ function ProjectCard({ item, index, featured }: { item: ShowcaseItem; index: num
         {/* Gradient accent */}
         <div
           className={cn(
-            "absolute inset-x-0 top-0 h-48 bg-gradient-to-b opacity-60 transition-opacity duration-700 group-hover:opacity-100",
+            "absolute inset-x-0 top-0 h-48 bg-linear-to-b opacity-60 transition-opacity duration-700 group-hover:opacity-100",
             gradients[item.gradient] ?? gradients.purple
           )}
         />
 
         {/* Top beam */}
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-accent/40 to-transparent" />
 
         {/* Stretched link — whole card is clickable, no nested anchors */}
         {item.href && (

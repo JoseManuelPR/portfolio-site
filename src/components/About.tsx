@@ -1,5 +1,3 @@
-"use client";
-
 import { useTranslations } from "next-intl";
 import { MapPin, Building2, GraduationCap, Languages } from "lucide-react";
 import { Reveal, Stagger } from "./AnimationProvider";
@@ -68,7 +66,7 @@ export function About() {
               className="group glass-card flex items-center gap-5 p-5"
             >
               <div className={cn(
-                "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br transition-all duration-500",
+                "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-linear-to-br transition-all duration-500",
                 color,
                 "group-hover:scale-110 group-hover:shadow-lg"
               )}>

@@ -1,5 +1,3 @@
-"use client";
-
 import { useTranslations } from "next-intl";
 import { Mail, PenLine } from "lucide-react";
 import { Link } from "@/i18n/routing";
@@ -37,19 +35,19 @@ export function Footer() {
           <div className="flex items-center gap-2">
             <Link
               href="/blog"
-              className="flex h-10 items-center gap-1.5 rounded-xl px-3 text-sm font-medium text-neutral-500 transition-all duration-300 hover:bg-neutral-100 hover:text-accent dark:text-neutral-400 dark:hover:bg-white/[0.04] dark:hover:text-accent"
+              className="flex h-10 items-center gap-1.5 rounded-xl px-3 text-sm font-medium text-neutral-500 transition-all duration-300 hover:bg-neutral-100 hover:text-accent dark:text-neutral-400 dark:hover:bg-white/4 dark:hover:text-accent"
             >
               <PenLine size={14} />
               Blog
             </Link>
-            <div className="mx-1 h-5 w-px bg-neutral-200 dark:bg-white/[0.06]" />
+            <div className="mx-1 h-5 w-px bg-neutral-200 dark:bg-white/6" />
             {socials.map(({ icon: Icon, href, label }) => (
               <a
                 key={label}
                 href={href}
                 target={href.startsWith("mailto") ? undefined : "_blank"}
                 rel={href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-                className="flex h-10 w-10 items-center justify-center rounded-xl text-neutral-400 transition-all duration-300 hover:bg-neutral-100 hover:text-accent dark:text-neutral-500 dark:hover:bg-white/[0.04] dark:hover:text-accent"
+                className="flex h-10 w-10 items-center justify-center rounded-xl text-neutral-400 transition-all duration-300 hover:bg-neutral-100 hover:text-accent dark:text-neutral-500 dark:hover:bg-white/4 dark:hover:text-accent"
                 aria-label={label}
               >
                 <Icon size={17} />

@@ -89,7 +89,7 @@ export function Navbar() {
         <nav className={cn(
           "flex items-center justify-between px-5 py-3 transition-[background-color,backdrop-filter,box-shadow,border-radius] duration-500",
           scrolled
-            ? "floating-nav rounded-2xl shadow-lg shadow-black/[0.03] dark:shadow-none"
+            ? "floating-nav rounded-2xl shadow-lg shadow-black/3 dark:shadow-none"
             : "bg-transparent"
         )}>
           {/* Logo */}
@@ -111,7 +111,7 @@ export function Navbar() {
               "flex items-center gap-0.5 rounded-xl px-1.5 py-1 transition-[background-color,backdrop-filter,box-shadow] duration-500",
               scrolled
                 ? "bg-transparent"
-                : "border border-neutral-200/40 bg-white/50 backdrop-blur-xl dark:border-transparent dark:bg-white/[0.03]"
+                : "border border-neutral-200/40 bg-white/50 backdrop-blur-xl dark:border-transparent dark:bg-white/3"
             )}>
               {sections.map((s) => (
                 <a
@@ -132,7 +132,7 @@ export function Navbar() {
             <div className="ml-3 flex items-center gap-0.5">
               <button
                 onClick={toggleLocale}
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-neutral-400 transition-all duration-300 hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-white/[0.06] dark:hover:text-neutral-100"
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-neutral-400 transition-all duration-300 hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-white/6 dark:hover:text-neutral-100"
                 aria-label="Toggle language"
               >
                 <Globe size={15} />
@@ -140,7 +140,7 @@ export function Navbar() {
               {mounted && (
                 <button
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg text-neutral-400 transition-all duration-300 hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-white/[0.06] dark:hover:text-neutral-100"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg text-neutral-400 transition-all duration-300 hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-white/6 dark:hover:text-neutral-100"
                   aria-label="Toggle theme"
                 >
                   {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
@@ -188,7 +188,7 @@ export function Navbar() {
           <div className={cn(
             "mt-2 rounded-2xl border px-4 py-3",
             "border-neutral-200/40 bg-white/70 backdrop-blur-2xl",
-            "dark:border-white/[0.06] dark:bg-[#0a0a0f]/80"
+            "dark:border-white/6 dark:bg-[#0a0a0f]/80"
           )}>
             <div className="flex flex-col gap-0.5">
               {sections.map((s) => (
@@ -200,7 +200,7 @@ export function Navbar() {
                     "rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-300",
                     activeSection === s.id
                       ? "bg-accent/10 text-accent"
-                      : "text-neutral-500 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-white/[0.04]"
+                      : "text-neutral-500 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-white/4"
                   )}
                 >
                   {s.label}

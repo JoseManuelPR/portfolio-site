@@ -1,7 +1,7 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -13,14 +13,15 @@ import "../globals.css";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  display: "swap",
+  // "optional": never re-paint text when the webfont arrives late — the first
+  // paint IS the LCP. Repeat visits get Inter from cache; cold visits on slow
+  // connections render the metric-adjusted fallback. Classic text-LCP fix.
+  display: "optional",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
+// Mono text (terminal mockup, labels, code) uses the system mono stack — see
+// --font-mono in globals.css. A mono webfont cost 48KB on every load and sat
+// in the pre-LCP critical graph for purely decorative text.
 
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -153,20 +154,31 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
 
+  // Only client components need messages in the browser (Navbar, Hero,
+  // Experience, Contact). Server-rendered sections read translations on the
+  // server — shipping their namespaces too would duplicate them into the
+  // HTML payload and the hydration data for nothing.
+  const clientMessages = {
+    nav: messages.nav,
+    hero: messages.hero,
+    experience: messages.experience,
+    contact: messages.contact,
+  } as typeof messages;
+
   return (
-    <html lang={locale} className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+    <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
         <JsonLd />
       </head>
       <body className="min-h-screen font-sans antialiased">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[9999] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-9999 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-hidden"
         >
           Skip to main content
         </a>
         <ThemeProvider>
-          <NextIntlClientProvider messages={messages}>
+          <NextIntlClientProvider messages={clientMessages}>
             <GridBackground />
             <Navbar />
             <main id="main-content">{children}</main>

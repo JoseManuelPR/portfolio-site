@@ -1,5 +1,3 @@
-"use client";
-
 import { useTranslations } from "next-intl";
 import { Reveal } from "./AnimationProvider";
 import { cn } from "@/lib/utils";
@@ -65,7 +63,7 @@ function LogoRow({
             key={`${logo.slug}-${i}`}
             className="group flex flex-col items-center gap-2.5"
           >
-            <div className="relative flex h-14 w-14 items-center justify-center rounded-xl border border-neutral-200/50 bg-white p-2.5 shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:border-accent/20 group-hover:shadow-glow dark:border-white/[0.06] dark:bg-white/[0.04] dark:group-hover:border-accent/30 sm:h-16 sm:w-16 sm:rounded-2xl sm:p-3">
+            <div className="relative flex h-14 w-14 items-center justify-center rounded-xl border border-neutral-200/50 bg-white p-2.5 shadow-xs transition-all duration-500 group-hover:scale-110 group-hover:border-accent/20 group-hover:shadow-glow dark:border-white/6 dark:bg-white/4 dark:group-hover:border-accent/30 sm:h-16 sm:w-16 sm:rounded-2xl sm:p-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={`https://cdn.simpleicons.org/${logo.slug}/${logo.color}`}

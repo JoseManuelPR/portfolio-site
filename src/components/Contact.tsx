@@ -136,7 +136,7 @@ export function Contact() {
               <p
                 role="status"
                 aria-live="polite"
-                className={`mt-2 min-h-[1.25rem] text-sm ${
+                className={`mt-2 min-h-5 text-sm ${
                   status === "error" ? "text-red-500" : "text-emerald-500"
                 }`}
               >
@@ -166,7 +166,7 @@ export function Contact() {
                       rel={external ? "noopener noreferrer" : undefined}
                       className="group/link flex items-center gap-3.5 text-sm text-neutral-500 transition-all duration-300 hover:text-accent dark:text-neutral-400"
                     >
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100/80 transition-all duration-300 group-hover/link:bg-accent/10 dark:bg-white/[0.04] dark:group-hover/link:bg-accent/10">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-100/80 transition-all duration-300 group-hover/link:bg-accent/10 dark:bg-white/4 dark:group-hover/link:bg-accent/10">
                         <Icon size={16} />
                       </div>
                       <span className="truncate">{label}</span>
@@ -194,7 +194,7 @@ export function Contact() {
                 <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
                   {t("availability")}
                 </p>
-                <div className="mt-4 pt-4 border-t border-neutral-100/80 dark:border-white/[0.04]">
+                <div className="mt-4 pt-4 border-t border-neutral-100/80 dark:border-white/4">
                   <p className="text-xs text-neutral-400 dark:text-neutral-500 leading-relaxed">
                     {t("location")}
                   </p>

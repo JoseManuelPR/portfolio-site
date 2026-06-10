@@ -194,26 +194,26 @@ export function Hero() {
           paint doesn't delay the hero's Largest Contentful Paint */}
       {mounted && (
         <>
-          <FloatingOrb className="left-1/4 top-1/4 -z-10 h-[500px] w-[500px] bg-accent/[0.04] dark:bg-accent/[0.07]" />
-          <FloatingOrb className="right-1/4 bottom-1/4 -z-10 h-[400px] w-[400px] bg-purple-500/[0.03] dark:bg-purple-500/[0.05]" delay={3} />
-          <FloatingOrb className="right-1/3 top-1/3 -z-10 h-[300px] w-[300px] bg-pink-500/[0.02] dark:bg-pink-500/[0.04]" delay={5} />
+          <FloatingOrb className="left-1/4 top-1/4 -z-10 h-[500px] w-[500px] bg-accent/4 dark:bg-accent/[0.07]" />
+          <FloatingOrb className="right-1/4 bottom-1/4 -z-10 h-[400px] w-[400px] bg-purple-500/3 dark:bg-purple-500/5" delay={3} />
+          <FloatingOrb className="right-1/3 top-1/3 -z-10 h-[300px] w-[300px] bg-pink-500/2 dark:bg-pink-500/4" delay={5} />
         </>
       )}
 
       {/* Grid lines accent */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute left-1/4 top-0 h-full w-px bg-gradient-to-b from-transparent via-accent/10 to-transparent" />
-        <div className="absolute right-1/3 top-0 h-full w-px bg-gradient-to-b from-transparent via-accent/5 to-transparent" />
-        <div className="absolute left-0 top-1/3 h-px w-full bg-gradient-to-r from-transparent via-accent/5 to-transparent" />
+        <div className="absolute left-1/4 top-0 h-full w-px bg-linear-to-b from-transparent via-accent/10 to-transparent" />
+        <div className="absolute right-1/3 top-0 h-full w-px bg-linear-to-b from-transparent via-accent/5 to-transparent" />
+        <div className="absolute left-0 top-1/3 h-px w-full bg-linear-to-r from-transparent via-accent/5 to-transparent" />
       </div>
 
       <div className="section-container w-full">
-        <div className="grid lg:grid-cols-[1fr,auto] gap-16 items-center">
+        <div className="grid lg:grid-cols-[1fr_auto] gap-16 items-center">
           {/* Left — text content */}
           <div className="max-w-2xl">
             {/* Status badge */}
             <div className="reveal-load" style={{ animationDelay: "0.1s" }}>
-              <span className="inline-flex items-center gap-2.5 rounded-full border border-emerald-200/60 bg-emerald-50/80 px-4 py-2 text-xs font-semibold text-emerald-700 backdrop-blur-sm dark:border-emerald-800/30 dark:bg-emerald-950/40 dark:text-emerald-400">
+              <span className="inline-flex items-center gap-2.5 rounded-full border border-emerald-200/60 bg-emerald-50/80 px-4 py-2 text-xs font-semibold text-emerald-700 backdrop-blur-xs dark:border-emerald-800/30 dark:bg-emerald-950/40 dark:text-emerald-400">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" style={{ animationDuration: "2s" }} />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -329,7 +329,7 @@ export function Hero() {
 
               <div className="glass-card relative overflow-hidden rounded-2xl p-0">
                 {/* Title bar */}
-                <div className="flex items-center gap-2 border-b border-neutral-200/50 px-4 py-3 dark:border-white/[0.06]">
+                <div className="flex items-center gap-2 border-b border-neutral-200/50 px-4 py-3 dark:border-white/6">
                   <div className="flex gap-1.5">
                     <div className="h-3 w-3 rounded-full bg-red-400/80" />
                     <div className="h-3 w-3 rounded-full bg-yellow-400/80" />

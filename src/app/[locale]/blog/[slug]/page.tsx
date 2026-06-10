@@ -109,14 +109,14 @@ const mdxComponents = {
     }
     return (
       <code
-        className="rounded-md bg-neutral-100 px-1.5 py-0.5 text-sm font-mono text-accent dark:bg-white/[0.06]"
+        className="rounded-md bg-neutral-100 px-1.5 py-0.5 text-sm font-mono text-accent dark:bg-white/6 dark:text-accent-light"
         {...props}
       />
     );
   },
   pre: (props: React.HTMLAttributes<HTMLPreElement>) => (
     <pre
-      className="mb-6 overflow-x-auto rounded-xl border border-neutral-200/50 bg-neutral-50 p-5 text-sm dark:border-white/[0.06] dark:bg-white/[0.03]"
+      className="mb-6 overflow-x-auto rounded-xl border border-neutral-200/50 bg-neutral-50 p-5 text-sm dark:border-white/6 dark:bg-white/3"
       {...props}
     />
   ),
@@ -214,7 +214,7 @@ export default async function BlogPostPage({
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center gap-1.5 rounded-md bg-accent/[0.08] px-3 py-1.5 text-xs font-semibold text-accent dark:bg-accent/[0.15] dark:text-accent-light"
+                className="inline-flex items-center gap-1.5 rounded-md bg-accent/8 px-3 py-1.5 text-xs font-semibold text-accent dark:bg-accent/15 dark:text-accent-light"
               >
                 <Tag size={11} />
                 {tag}
@@ -222,7 +222,7 @@ export default async function BlogPostPage({
             ))}
           </div>
 
-          <div className="mt-8 h-px w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-white/10" />
+          <div className="mt-8 h-px w-full bg-linear-to-r from-transparent via-neutral-300 to-transparent dark:via-white/10" />
         </header>
 
         {/* Content */}
@@ -241,7 +241,9 @@ export default async function BlogPostPage({
                         light: "github-light",
                       },
                       keepBackground: false,
-                      defaultLang: "plaintext",
+                      // Block-only: a plain string here would also process
+                      // inline `code`, stripping its pill styling.
+                      defaultLang: { block: "plaintext" },
                     },
                   ],
                 ],
@@ -251,7 +253,7 @@ export default async function BlogPostPage({
         </div>
 
         {/* Footer divider */}
-        <div className="mt-16 h-px w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-white/10" />
+        <div className="mt-16 h-px w-full bg-linear-to-r from-transparent via-neutral-300 to-transparent dark:via-white/10" />
 
         <div className="mt-8 text-center">
           <Link
