@@ -2,8 +2,9 @@
 
 import { useTranslations, useMessages } from "next-intl";
 import { Reveal } from "./AnimationProvider";
-import { ExternalLink, Github, Lock } from "lucide-react";
+import { ExternalLink, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { GithubIcon } from "./icons/GithubIcon";
 
 type ShowcaseItem = {
   title: string;
@@ -69,7 +70,7 @@ function ProjectCard({ item, index, featured }: { item: ShowcaseItem; index: num
                   className="relative z-20 flex h-8 w-8 items-center justify-center rounded-lg text-neutral-400 transition-colors hover:bg-white/10 hover:text-white"
                   aria-label={`${item.title} — GitHub`}
                 >
-                  <Github size={15} />
+                  <GithubIcon size={15} />
                 </a>
               )}
               {item.href ? (

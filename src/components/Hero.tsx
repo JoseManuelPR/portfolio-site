@@ -1,10 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Github, Linkedin, Mail, ArrowDown, FileDown } from "lucide-react";
+import { Mail, ArrowDown, FileDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { TorreIcon } from "./icons/TorreIcon";
+import { GithubIcon } from "./icons/GithubIcon";
+import { LinkedinIcon } from "./icons/LinkedinIcon";
 
 function FloatingOrb({ className, delay = 0 }: { className?: string; delay?: number }) {
   return (
@@ -279,7 +281,7 @@ export function Hero() {
                 rel="noopener noreferrer"
                 className="btn-secondary"
               >
-                <Github size={16} />
+                <GithubIcon size={16} />
                 {t("github")}
               </a>
               <a
@@ -288,7 +290,7 @@ export function Hero() {
                 rel="noopener noreferrer"
                 className="btn-secondary"
               >
-                <Linkedin size={16} />
+                <LinkedinIcon size={16} />
                 {t("linkedin")}
               </a>
               <a

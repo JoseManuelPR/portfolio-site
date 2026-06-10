@@ -1,5 +1,5 @@
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock, Tag } from "lucide-react";
@@ -142,6 +142,7 @@ export default async function BlogPostPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const post = getPostBySlug(slug, locale);
   const t = await getTranslations({ locale, namespace: "blog" });
 

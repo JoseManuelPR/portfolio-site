@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { routing } from "@/i18n/routing";
@@ -146,6 +146,10 @@ export default async function LocaleLayout({
   if (!routing.locales.includes(locale as any)) {
     notFound();
   }
+
+  // Required for static rendering with next-intl v4 — without it, every
+  // route under [locale] falls back to dynamic (on-demand) rendering.
+  setRequestLocale(locale);
 
   const messages = await getMessages();
 

@@ -1,16 +1,18 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Github, Linkedin, Mail, PenLine } from "lucide-react";
+import { Mail, PenLine } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { TorreIcon } from "./icons/TorreIcon";
+import { GithubIcon } from "./icons/GithubIcon";
+import { LinkedinIcon } from "./icons/LinkedinIcon";
 
 export function Footer() {
   const t = useTranslations("footer");
 
   const socials = [
-    { icon: Github, href: "https://github.com/JoseManuelPR", label: "GitHub" },
-    { icon: Linkedin, href: "https://www.linkedin.com/in/josemanuelpr23/", label: "LinkedIn" },
+    { icon: GithubIcon, href: "https://github.com/JoseManuelPR", label: "GitHub" },
+    { icon: LinkedinIcon, href: "https://www.linkedin.com/in/josemanuelpr23/", label: "LinkedIn" },
     { icon: TorreIcon, href: "https://torre.ai/josemanuelpr23", label: "Torre" },
     { icon: Mail, href: "mailto:josemanuelpr23@gmail.com", label: "Email" },
   ];

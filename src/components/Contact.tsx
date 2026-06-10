@@ -2,8 +2,10 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Send, Mail, Github, Linkedin, ArrowUpRight, Sparkles, CheckCircle2, Loader2 } from "lucide-react";
+import { Send, Mail, ArrowUpRight, Sparkles, CheckCircle2, Loader2 } from "lucide-react";
 import { Reveal } from "./AnimationProvider";
+import { GithubIcon } from "./icons/GithubIcon";
+import { LinkedinIcon } from "./icons/LinkedinIcon";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -41,8 +43,8 @@ export function Contact() {
 
   const links = [
     { icon: Mail, label: "josemanuelpr23@gmail.com", href: "mailto:josemanuelpr23@gmail.com", external: false },
-    { icon: Github, label: "github.com/JoseManuelPR", href: "https://github.com/JoseManuelPR", external: true },
-    { icon: Linkedin, label: "linkedin.com/in/josemanuelpr23", href: "https://www.linkedin.com/in/josemanuelpr23/", external: true },
+    { icon: GithubIcon, label: "github.com/JoseManuelPR", href: "https://github.com/JoseManuelPR", external: true },
+    { icon: LinkedinIcon, label: "linkedin.com/in/josemanuelpr23", href: "https://www.linkedin.com/in/josemanuelpr23/", external: true },
   ];
 
   return (

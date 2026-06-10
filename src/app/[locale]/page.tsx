@@ -7,8 +7,16 @@ import { Experience } from "@/components/Experience";
 import { Recommendations } from "@/components/Recommendations";
 import { Contact } from "@/components/Contact";
 import { getGitHubStats } from "@/lib/github";
+import { setRequestLocale } from "next-intl/server";
 
-export default async function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const githubStats = await getGitHubStats();
 
   return (
