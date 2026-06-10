@@ -1,0 +1,62 @@
+---
+title: "Migrating This Site to Next.js 16, React 19 and Tailwind v4"
+description: "Field notes from a same-day migration: the silent SSG downgrade, two codemod bugs, a removed icon set, and the Lighthouse trap that almost shipped a perf regression."
+date: "2026-06-10"
+tags: ["Next.js", "React 19", "Tailwind", "Migration"]
+altSlug: "migracion-nextjs-16-notas"
+---
+
+## Why bother
+
+This portfolio ran fine on Next 14. But the repo is public and linked from the site — for a working engineer, the stack *is* content. I migrated to Next 16.2, React 19.2, next-intl 4 and Tailwind 4 in one sitting. These are the actual potholes, in the order I hit them.
+
+## 1. `next lint` is gone
+
+Next 16 removed the `lint` command. If your `package.json` still says `"lint": "next lint"`, CI breaks before anything interesting happens. I replaced it with a plain `tsc --noEmit` typecheck.
+
+## 2. `middleware.ts` is now `proxy.ts`
+
+The file convention was renamed. The old name still works behind a deprecation warning, but the rename is a one-line `git mv` — do it and move on.
+
+## 3. The silent SSG downgrade
+
+The sneakiest one. After upgrading, the build still passed — but every route quietly flipped from `●` (prerendered) to `ƒ` (dynamic). With next-intl v4 on Next 16, any page that doesn't call `setRequestLocale(locale)` opts the whole tree into request-time rendering.
+
+```tsx
+export default async function Page({ params }) {
+  const { locale } = await params;
+  setRequestLocale(locale); // without this: bye-bye static rendering
+  // ...
+}
+```
+
+Nothing fails. Nothing warns. You just start paying for server renders on pages that used to be static files. **Read the route table in your build output after a framework upgrade** — it's the cheapest regression test that exists.
+
+## 4. lucide-react v1 removed brand icons
+
+`Github` and `Linkedin` no longer exist as exports. Lucide deprecated brand icons a while ago and v1 finally dropped them. I inlined two small SVGs styled to match lucide's stroke look — sturdier than pinning an old version forever.
+
+## 5. The Tailwind codemod is good — and it bites
+
+The official `@tailwindcss/upgrade` codemod migrated 14 files, rewrote my config into CSS-first `@theme`, and deleted `tailwind.config.ts`. Two things it got wrong:
+
+- It renamed the string literal `"blur"` to `"blur-sm"` **inside a TypeScript type union** — it pattern-matched a class rename onto something that wasn't a class. Build broke at typecheck.
+- My font config became `--font-mono: var(--font-mono)` — a circular reference, because my `next/font` CSS variable shared the name of Tailwind's own theme key. Renaming the font variable fixed it.
+
+Codemods are accelerators, not autopilots. Diff every file they touch.
+
+## 6. The Lighthouse trap
+
+After the migration, lab LCP jumped from 2.4s to 3.1s. Panic? No — read the trace. **Observed** LCP was 140ms; only the *simulated* metric regressed. Lighthouse's simulation charges every request that starts before the LCP paint against it, and my two preloaded webfonts dominated that graph. The heavier React 19 runtime tipped it over the threshold.
+
+The fixes were honest engineering, not metric gaming:
+
+- Dropped the mono webfont entirely (48 KB for decorative terminal text — the system mono stack looks just as good).
+- Converted six stateless sections from `"use client"` to Server Components, with animations remaining as client leaves.
+- Stopped shipping the full i18n catalog to the client — only the four namespaces client components actually use.
+
+Result: LCP 2.1–2.3s, performance 98–99 — better than before the migration.
+
+## The takeaway
+
+The migration itself took minutes; the *verification* took the afternoon. That ratio is correct. Upgrade fearlessly, but treat the build route table, a real browser session and a Lighthouse trace as non-negotiable exit criteria.

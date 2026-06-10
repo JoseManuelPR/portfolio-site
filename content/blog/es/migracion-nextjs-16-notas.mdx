@@ -1,0 +1,62 @@
+---
+title: "Migrando este sitio a Next.js 16, React 19 y Tailwind v4"
+description: "Notas de campo de una migración en el día: el downgrade silencioso de SSG, dos bugs del codemod, un set de iconos eliminado y la trampa de Lighthouse que casi despliega una regresión."
+date: "2026-06-10"
+tags: ["Next.js", "React 19", "Tailwind", "Migración"]
+altSlug: "nextjs-16-migration-notes"
+---
+
+## Por qué molestarse
+
+Este portafolio funcionaba bien en Next 14. Pero el repo es público y está enlazado desde el sitio — para un ingeniero en activo, el stack *es* contenido. Migré a Next 16.2, React 19.2, next-intl 4 y Tailwind 4 en una sola sesión. Estos son los baches reales, en el orden en que los pisé.
+
+## 1. `next lint` ya no existe
+
+Next 16 eliminó el comando `lint`. Si tu `package.json` todavía dice `"lint": "next lint"`, el CI se rompe antes de que pase nada interesante. Lo reemplacé por un `tsc --noEmit` simple.
+
+## 2. `middleware.ts` ahora es `proxy.ts`
+
+Renombraron la convención de archivo. El nombre viejo sigue funcionando con una advertencia de deprecación, pero el cambio es un `git mv` de una línea — hazlo y sigue.
+
+## 3. El downgrade silencioso de SSG
+
+El más traicionero. Después de actualizar, el build seguía pasando — pero todas las rutas pasaron calladamente de `●` (prerenderizadas) a `ƒ` (dinámicas). Con next-intl v4 en Next 16, cualquier página que no llame a `setRequestLocale(locale)` mete todo el árbol en renderizado por request.
+
+```tsx
+export default async function Page({ params }) {
+  const { locale } = await params;
+  setRequestLocale(locale); // sin esto: adiós renderizado estático
+  // ...
+}
+```
+
+Nada falla. Nada avisa. Simplemente empiezas a pagar renders de servidor en páginas que antes eran archivos estáticos. **Lee la tabla de rutas del output del build después de actualizar un framework** — es el test de regresión más barato que existe.
+
+## 4. lucide-react v1 eliminó los iconos de marca
+
+`Github` y `Linkedin` ya no existen como exports. Lucide había deprecado los iconos de marca hace tiempo y la v1 finalmente los eliminó. Incrusté dos SVG pequeños con el mismo estilo de trazo de lucide — más sólido que quedarse anclado a una versión vieja para siempre.
+
+## 5. El codemod de Tailwind es bueno — y muerde
+
+El codemod oficial `@tailwindcss/upgrade` migró 14 archivos, reescribió mi config al `@theme` CSS-first y borró `tailwind.config.ts`. Dos cosas que hizo mal:
+
+- Renombró el literal `"blur"` a `"blur-sm"` **dentro de un type union de TypeScript** — aplicó un renombre de clases sobre algo que no era una clase. El build se rompió en el typecheck.
+- Mi configuración de fuentes quedó como `--font-mono: var(--font-mono)` — una referencia circular, porque mi variable CSS de `next/font` compartía nombre con la clave del theme de Tailwind. Renombrar la variable de la fuente lo arregló.
+
+Los codemods son aceleradores, no pilotos automáticos. Revisa el diff de cada archivo que tocan.
+
+## 6. La trampa de Lighthouse
+
+Después de la migración, el LCP de laboratorio saltó de 2.4 s a 3.1 s. ¿Pánico? No — lee el trace. El LCP **observado** era de 140 ms; solo la métrica *simulada* empeoró. La simulación de Lighthouse le carga al LCP cada request que empieza antes de su paint, y mis dos webfonts precargadas dominaban ese grafo. El runtime más pesado de React 19 lo empujó sobre el umbral.
+
+Los fixes fueron ingeniería honesta, no maquillaje de métricas:
+
+- Eliminé la webfont mono por completo (48 KB para texto decorativo de terminal — el stack mono del sistema se ve igual de bien).
+- Convertí seis secciones sin estado de `"use client"` a Server Components, con las animaciones como hojas cliente.
+- Dejé de enviar el catálogo i18n completo al navegador — solo los cuatro namespaces que los componentes cliente usan de verdad.
+
+Resultado: LCP de 2.1–2.3 s, performance 98–99 — mejor que antes de la migración.
+
+## La conclusión
+
+La migración en sí tomó minutos; la *verificación* tomó la tarde. Esa proporción es la correcta. Actualiza sin miedo, pero trata la tabla de rutas del build, una sesión en un navegador real y un trace de Lighthouse como criterios de salida no negociables.
