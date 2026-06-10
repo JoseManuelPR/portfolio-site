@@ -155,14 +155,13 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   // Only client components need messages in the browser (Navbar, Hero,
-  // Experience, Contact). Server-rendered sections read translations on the
+  // Experience). Server-rendered sections read translations on the
   // server — shipping their namespaces too would duplicate them into the
   // HTML payload and the hydration data for nothing.
   const clientMessages = {
     nav: messages.nav,
     hero: messages.hero,
     experience: messages.experience,
-    contact: messages.contact,
   } as typeof messages;
 
   return (

@@ -1,45 +1,16 @@
-"use client";
-
 import { useTranslations } from "next-intl";
-import { useState } from "react";
-import { Send, Mail, ArrowUpRight, Sparkles, CheckCircle2, Loader2 } from "lucide-react";
+import { Mail, ArrowUpRight, Sparkles } from "lucide-react";
+import Script from "next/script";
 import { Reveal } from "./AnimationProvider";
 import { GithubIcon } from "./icons/GithubIcon";
 import { LinkedinIcon } from "./icons/LinkedinIcon";
 
-type FormStatus = "idle" | "loading" | "success" | "error";
+// Published Tally form (Name / Email / Message, all required, email
+// notifications on). Submissions land in the Tally inbox + email.
+const TALLY_FORM_ID = "rjvKBL";
 
 export function Contact() {
   const t = useTranslations("contact");
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [status, setStatus] = useState<FormStatus>("idle");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("loading");
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) {
-        setStatus("error");
-        return;
-      }
-
-      setStatus("success");
-      setFormData({ name: "", email: "", message: "" });
-    } catch {
-      setStatus("error");
-    }
-  };
 
   const links = [
     { icon: Mail, label: "josemanuelpr23@gmail.com", href: "mailto:josemanuelpr23@gmail.com", external: false },
@@ -70,83 +41,23 @@ export function Contact() {
         </Reveal>
 
         <div className="grid gap-16 lg:grid-cols-5">
-          {/* Form */}
+          {/* Tally form — white "paper" card on purpose: the embedded form is
+              light-themed, so we frame it instead of fighting the dark theme */}
           <Reveal variant="fade-right" delay={0.2} className="lg:col-span-3">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div className="group">
-                  <label htmlFor="name" className="mb-2.5 block text-sm font-semibold text-neutral-700 dark:text-neutral-300">
-                    {t("name")}
-                  </label>
-                  <input
-                    id="name"
-                    type="text"
-                    required
-                    placeholder={t("namePlaceholder")}
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="input-field"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="mb-2.5 block text-sm font-semibold text-neutral-700 dark:text-neutral-300">
-                    {t("email")}
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    required
-                    placeholder={t("emailPlaceholder")}
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="input-field"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="message" className="mb-2.5 block text-sm font-semibold text-neutral-700 dark:text-neutral-300">
-                  {t("message")}
-                </label>
-                <textarea
-                  id="message"
-                  required
-                  rows={6}
-                  placeholder={t("messagePlaceholder")}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="input-field resize-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={status === "loading" || status === "success"}
-                className="btn-primary disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
-              >
-                {status === "loading" ? (
-                  <Loader2 size={16} className="animate-spin" />
-                ) : status === "success" ? (
-                  <CheckCircle2 size={16} />
-                ) : (
-                  <Send size={16} />
-                )}
-                {status === "success" ? t("success") : t("send")}
-              </button>
-              <p
-                role="status"
-                aria-live="polite"
-                className={`mt-2 min-h-5 text-sm ${
-                  status === "error" ? "text-red-500" : "text-emerald-500"
-                }`}
-              >
-                {status === "error"
-                  ? t("error")
-                  : status === "success"
-                    ? t("success")
-                    : ""}
-              </p>
-            </form>
+            <div className="rounded-2xl border border-neutral-200/60 bg-white p-4 shadow-soft sm:p-6 dark:border-white/10">
+              <iframe
+                data-tally-src={`https://tally.so/embed/${TALLY_FORM_ID}?alignLeft=1&hideTitle=1&dynamicHeight=1`}
+                loading="lazy"
+                width="100%"
+                height={420}
+                title={t("title")}
+                className="border-0"
+              />
+            </div>
+            <Script
+              src="https://tally.so/widgets/embed.js"
+              strategy="afterInteractive"
+            />
           </Reveal>
 
           {/* Sidebar info */}
