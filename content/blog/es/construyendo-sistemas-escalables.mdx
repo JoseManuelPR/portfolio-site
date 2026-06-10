@@ -1,40 +1,50 @@
 ---
-title: "Construyendo Sistemas Escalables: Lecciones de Produccion"
-description: "Patrones y practicas clave que aprendi construyendo plataformas que sirven a miles de usuarios diariamente."
+title: "Construyendo sistemas escalables: lecciones de producción"
+description: "Patrones y prácticas clave que aprendí construyendo plataformas que sirven a miles de usuarios diariamente."
 date: "2025-03-15"
 tags: ["Arquitectura", "AWS", "Escalabilidad", "TypeScript"]
+altSlug: "building-scalable-systems"
 ---
 
-## El Desafio
+## El desafío
 
-Cuando me uni a Torre.ai, la plataforma crecia rapido. Necesitabamos sistemas que pudieran manejar miles de usuarios concurrentes manteniendo tiempos de respuesta por debajo del segundo. Este post comparte los patrones que funcionaron.
+Cuando me uní a Torre.ai, la plataforma crecía rápido. Necesitábamos sistemas que pudieran manejar miles de usuarios concurrentes manteniendo tiempos de respuesta por debajo del segundo. Este post comparte los patrones que funcionaron.
 
-## Patron 1: Arquitectura Orientada a Eventos
+## Patrón 1: arquitectura orientada a eventos
 
-En vez de request-response sincrono para todo, movimos los caminos criticos a patrones event-driven. Esto desacoplo los servicios y permitio escalar independientemente.
+En vez de request-response síncrono para todo, movimos los caminos críticos a patrones event-driven. Esto desacopló los servicios y permitió escalarlos de forma independiente.
 
 ```typescript
 // Antes: acoplamiento fuerte
 await notificationService.send(userId, message);
 await analyticsService.track(event);
 
-// Despues: event-driven
+// Después: event-driven
 eventBus.emit('user.action', { userId, event, message });
 ```
 
-## Patron 2: Caching Estrategico con ISR
+## Patrón 2: caching estratégico con ISR
 
-Para contenido que cambia infrecuentemente, Incremental Static Regeneration (ISR) en Next.js fue transformador. Redujimos la carga del servidor en un 70% manteniendo el contenido fresco.
+Para contenido que cambia con poca frecuencia, Incremental Static Regeneration (ISR) en Next.js fue transformador. Redujimos la carga del servidor en un 70% manteniendo el contenido fresco.
 
-## Patron 3: Observabilidad Primero
+```typescript
+export const revalidate = 3600; // Revalida cada hora
 
-No puedes optimizar lo que no puedes medir. AWS CloudWatch se convirtio en nuestros ojos dentro del sistema. Cada camino critico fue instrumentado desde el dia uno.
+export default async function Page() {
+  const data = await fetchData();
+  return <Component data={data} />;
+}
+```
+
+## Patrón 3: observabilidad primero
+
+No puedes optimizar lo que no puedes medir. AWS CloudWatch se convirtió en nuestros ojos dentro del sistema. Cada camino crítico fue instrumentado desde el día uno.
 
 ## Conclusiones
 
-1. **Empieza simple, escala intencionalmente** — la optimizacion prematura es real
-2. **Mide todo** — CloudWatch, metricas custom, KPIs de negocio
-3. **Disena para fallos** — toda llamada externa eventualmente fallara
-4. **Cachea agresivamente** — pero ten una estrategia clara de invalidacion
+1. **Empieza simple, escala con intención** — la optimización prematura es real
+2. **Mide todo** — CloudWatch, métricas custom, KPIs de negocio
+3. **Diseña para fallos** — toda llamada externa eventualmente fallará
+4. **Cachea agresivamente** — pero con una estrategia clara de invalidación
 
-El resultado? 83% de mejora en Core Web Vitals y una plataforma que maneja trafico pico sin despeinarse.
+¿El resultado? 83% de mejora en Core Web Vitals y una plataforma que maneja el tráfico pico sin despeinarse.

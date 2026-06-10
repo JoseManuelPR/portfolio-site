@@ -1,0 +1,64 @@
+---
+title: "Multi-Tenant Postgres: Isolation Patterns for SaaS"
+description: "Row-level tenancy, RLS, schema-per-tenant or database-per-tenant? How I think about isolating customer data in a production SaaS, and the discipline that matters more than the pattern."
+date: "2026-03-22"
+tags: ["PostgreSQL", "SaaS", "Multi-tenancy", "Backend"]
+altSlug: "multi-tenancy-postgres-aislamiento"
+---
+
+## The question every SaaS faces
+
+The moment your product has two customers, you have a multi-tenancy problem: customer A must never see customer B's data — not in a query, not in a cache, not in a log. Working on a restaurant SaaS where every table eventually points back to a company, I've learned the pattern you pick matters less than the discipline you build around it.
+
+## The four patterns
+
+**1. Shared schema, tenant column.** Every row carries a `company_id`. One database, one schema, cheapest to operate, easiest to migrate. The risk concentrates in one place: every single query must filter by tenant.
+
+**2. Row-Level Security (RLS).** Same layout, but Postgres enforces the filter for you:
+
+```sql
+ALTER TABLE orders ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation ON orders
+  USING (company_id = current_setting('app.company_id')::uuid);
+```
+
+Now even a buggy query can't leak rows — the database refuses. The cost: you must set `app.company_id` per connection/transaction, which gets tricky with poolers and serverless drivers.
+
+**3. Schema-per-tenant.** Stronger isolation, per-tenant migrations possible. Operationally painful past a few hundred tenants — migrations become a fleet operation.
+
+**4. Database-per-tenant.** Maximum isolation, maximum cost. Justified for regulated industries or massive enterprise contracts, rarely for a growing SaaS.
+
+## What I actually use
+
+Shared schema with a tenant column, plus three non-negotiable disciplines:
+
+**Scoped accessors, not raw queries.** Application code never touches a table without going through a helper that demands the tenant:
+
+```typescript
+export function tenantDb(companyId: string) {
+  return {
+    orders: {
+      list: (filters: OrderFilters) =>
+        db.select().from(orders).where(
+          and(eq(orders.companyId, companyId), buildFilters(filters))
+        ),
+    },
+    // every accessor repeats the pattern — boring is the point
+  };
+}
+```
+
+If reaching the data without naming the tenant is *impossible by construction*, code review stops being your last line of defense.
+
+**Tenant-first composite indexes.** `(company_id, created_at)`, `(company_id, status)`. Every hot query starts with the tenant column, so every index does too. This also keeps each tenant's slice of the B-tree compact — a small tenant never pays for a big one's table scan.
+
+**Cross-tenant probes in CI.** A test that logs in as tenant A and tries every endpoint with tenant B's resource IDs, expecting 404s. It's the cheapest security audit you'll ever write, and it catches the bug *category*, not just one bug.
+
+## The subtle leaks
+
+The query layer is where everyone looks, so it's rarely where it breaks. The leaks I've actually seen: cache keys missing the tenant prefix, WebSocket rooms broadcasting to everyone, background jobs processing "all rows" without scoping, and sequential integer IDs leaking growth metrics. Scope all four like you scope queries.
+
+## Takeaway
+
+Pick row-level tenancy until you have a contractual reason not to. Then spend your energy where the real risk lives: making unscoped access structurally impossible, and testing the boundary like an attacker would.

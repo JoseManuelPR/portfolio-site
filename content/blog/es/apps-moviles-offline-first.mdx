@@ -1,20 +1,21 @@
 ---
-title: "Construyendo Apps Moviles Offline-First para Trabajo de Campo"
-description: "Como disenamos AGROS para funcionar en areas sin internet — recolectando datos agricolas con georreferenciacion e ID biometrica."
+title: "Construyendo apps móviles offline-first para trabajo de campo"
+description: "Cómo diseñamos AGROS para funcionar en zonas sin internet — recolectando datos agrícolas con georreferenciación e identificación biométrica."
 date: "2024-08-20"
-tags: ["Movil", "Offline-First", "Android", "Arquitectura"]
+tags: ["Móvil", "Offline-First", "Android", "Arquitectura"]
+altSlug: "offline-first-mobile-apps"
 ---
 
-## La Restriccion
+## La restricción
 
-El trabajo de campo agricola ocurre en areas remotas donde la conectividad a internet es poco confiable o inexistente. AGROS necesitaba recolectar datos, capturar coordenadas GPS y verificar identidad de trabajadores — todo sin conexion de red.
+El trabajo de campo agrícola ocurre en zonas remotas donde la conectividad a internet es poco confiable o inexistente. AGROS necesitaba recolectar datos, capturar coordenadas GPS y verificar la identidad de los trabajadores — todo sin conexión de red.
 
-## Decisiones de Arquitectura
+## Decisiones de arquitectura
 
 Elegimos una arquitectura sync-first donde el dispositivo es la fuente de verdad hasta que pueda alcanzar el servidor:
 
 ```typescript
-// Cola de sincronizacion simplificada
+// Cola de sincronización simplificada
 interface SyncQueue {
   pending: DataRecord[];
   synced: string[]; // IDs de registros sincronizados exitosamente
@@ -38,23 +39,23 @@ async function syncWhenOnline(queue: SyncQueue) {
 }
 ```
 
-## Georreferenciacion Sin Senal GPS
+## Georreferenciación sin señal GPS
 
-En vegetacion densa, la precision del GPS cae significativamente. Implementamos una estrategia de ubicacion multi-fuente:
+En vegetación densa, la precisión del GPS cae significativamente. Implementamos una estrategia de ubicación multi-fuente:
 
-1. GPS (cuando esta disponible y es preciso)
-2. Triangulacion de torres celulares (aproximado pero confiable)
-3. Ultima posicion conocida con decaimiento temporal
-4. Pin manual en tiles de mapa cacheados
+1. GPS (cuando está disponible y es preciso)
+2. Triangulación de torres celulares (aproximada pero confiable)
+3. Última posición conocida con decaimiento temporal
+4. Pin manual sobre tiles de mapa cacheados
 
-## Identificacion Biometrica
+## Identificación biométrica
 
-La identificacion de trabajadores en campo necesitaba funcionar offline. Usamos matching de huellas on-device con templates almacenados localmente, sincronizando logs de verificacion cuando volvia la conectividad.
+La identificación de trabajadores en campo necesitaba funcionar offline. Usamos matching de huellas on-device con plantillas almacenadas localmente, sincronizando los registros de verificación cuando volvía la conectividad.
 
-## Resolucion de Conflictos
+## Resolución de conflictos
 
-La parte mas dificil del offline-first es manejar conflictos cuando dos dispositivos modifican los mismos datos. Nuestra estrategia: last-write-wins para campos simples, merge para colecciones, resolucion manual para datos criticos.
+La parte más difícil del offline-first es manejar conflictos cuando dos dispositivos modifican los mismos datos. Nuestra estrategia: last-write-wins para campos simples, merge para colecciones y resolución manual para datos críticos.
 
 ## Conclusiones
 
-Construir para offline no es solo sobre caching — es repensar cada interaccion asumiendo que la red no existe. El resultado fue una app en la que los trabajadores de campo confiaban porque nunca perdia sus datos.
+Construir para offline no es solo cachear — es repensar cada interacción asumiendo que la red no existe. El resultado fue una app en la que los trabajadores de campo confiaban, porque nunca perdía sus datos.

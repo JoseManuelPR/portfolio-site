@@ -4,7 +4,9 @@ import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock, Tag } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import rehypePrettyCode from "rehype-pretty-code";
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 export async function generateStaticParams() {
   const locales = ["en", "es"];
@@ -30,9 +32,35 @@ export async function generateMetadata({
 
   if (!post) return { title: "Not Found" };
 
+  const otherLocale = locale === "es" ? "en" : "es";
+  const url = `${SITE_URL}/${locale}/blog/${slug}`;
+  const languages: Record<string, string> = { [locale]: url };
+  if (post.altSlug) {
+    languages[otherLocale] = `${SITE_URL}/${otherLocale}/blog/${post.altSlug}`;
+  }
+
   return {
     title: post.title,
     description: post.description,
+    alternates: {
+      canonical: url,
+      languages,
+    },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.description,
+      url,
+      publishedTime: post.date,
+      authors: ["Jose Manuel Puicon Rodas"],
+      tags: post.tags,
+      locale: locale === "es" ? "es_PE" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+    },
   };
 }
 
@@ -73,15 +101,22 @@ const mdxComponents = {
       {...props}
     />
   ),
-  code: (props: React.HTMLAttributes<HTMLElement>) => (
-    <code
-      className="rounded-md bg-neutral-100 px-1.5 py-0.5 text-sm font-mono text-accent dark:bg-white/[0.06]"
-      {...props}
-    />
-  ),
+  code: (props: React.HTMLAttributes<HTMLElement>) => {
+    // Shiki blocks pass token <span>s as children — leave those untouched.
+    // Only style plain inline code (`like this`), whose children is a string.
+    if (typeof props.children !== "string") {
+      return <code {...props} />;
+    }
+    return (
+      <code
+        className="rounded-md bg-neutral-100 px-1.5 py-0.5 text-sm font-mono text-accent dark:bg-white/[0.06]"
+        {...props}
+      />
+    );
+  },
   pre: (props: React.HTMLAttributes<HTMLPreElement>) => (
     <pre
-      className="mb-6 overflow-x-auto rounded-xl border border-neutral-200/50 bg-neutral-900 p-5 text-sm dark:border-white/[0.06] dark:bg-white/[0.03]"
+      className="mb-6 overflow-x-auto rounded-xl border border-neutral-200/50 bg-neutral-50 p-5 text-sm dark:border-white/[0.06] dark:bg-white/[0.03]"
       {...props}
     />
   ),
@@ -112,8 +147,28 @@ export default async function BlogPostPage({
 
   if (!post) notFound();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    inLanguage: locale,
+    keywords: post.tags.join(", "),
+    mainEntityOfPage: `${SITE_URL}/${locale}/blog/${slug}`,
+    author: {
+      "@type": "Person",
+      name: "Jose Manuel Puicon Rodas",
+      url: SITE_URL,
+    },
+  };
+
   return (
     <main className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <article className="section-container max-w-3xl pb-16">
         {/* Back */}
         <Link
@@ -171,7 +226,27 @@ export default async function BlogPostPage({
 
         {/* Content */}
         <div className="prose-custom">
-          <MDXRemote source={post.content} components={mdxComponents} />
+          <MDXRemote
+            source={post.content}
+            components={mdxComponents}
+            options={{
+              mdxOptions: {
+                rehypePlugins: [
+                  [
+                    rehypePrettyCode,
+                    {
+                      theme: {
+                        dark: "github-dark-dimmed",
+                        light: "github-light",
+                      },
+                      keepBackground: false,
+                      defaultLang: "plaintext",
+                    },
+                  ],
+                ],
+              },
+            }}
+          />
         </div>
 
         {/* Footer divider */}

@@ -311,6 +311,32 @@
     radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 0.04) 0px, transparent 50%);
 }
 
+/* Shiki dual-theme syntax highlighting (rehype-pretty-code).
+   Tokens carry --shiki-light / --shiki-dark inline vars; we pick per theme. */
+code[data-theme*=" "],
+code[data-theme*=" "] span {
+  color: var(--shiki-light);
+}
+
+:is(.dark) code[data-theme*=" "],
+:is(.dark) code[data-theme*=" "] span {
+  color: var(--shiki-dark);
+}
+
+[data-rehype-pretty-code-figure] {
+  margin: 0;
+}
+
+[data-rehype-pretty-code-figure] code {
+  display: grid;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+[data-rehype-pretty-code-figure] [data-line] {
+  padding: 0 0.25rem;
+}
+
 /* View Transitions — smooth locale switch & navigation */
 ::view-transition-old(root) {
   animation: vt-fade-out 200ms ease-out;

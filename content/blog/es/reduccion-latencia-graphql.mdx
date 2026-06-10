@@ -1,31 +1,32 @@
 ---
-title: "Reduciendo la Latencia de API en un 35% con GraphQL"
-description: "Como migrar de REST a GraphQL en Kiui resolvio el over-fetching, redujo el tamano de payloads y simplifico nuestra capa de datos frontend."
+title: "Reduciendo la latencia de API en un 35% con GraphQL"
+description: "Cómo migrar de REST a GraphQL en Kiui resolvió el over-fetching, redujo el tamaño de los payloads y simplificó nuestra capa de datos en el frontend."
 date: "2024-05-15"
-tags: ["GraphQL", "Diseno de APIs", "Node.js", "Rendimiento"]
+tags: ["GraphQL", "Diseño de APIs", "Node.js", "Rendimiento"]
+altSlug: "graphql-latency-reduction"
 ---
 
-## El Problema
+## El problema
 
-La API REST de Kiui habia crecido organicamente. Una sola pagina de dashboard requeria 7 llamadas API, cada una retornando mas datos de los que el frontend necesitaba. Payload total: 340KB. Tiempo a interactivo: 3.2 segundos.
+La API REST de Kiui había crecido de forma orgánica. Una sola página del dashboard requería 7 llamadas a la API, y cada una retornaba más datos de los que el frontend necesitaba. Payload total: 340 KB. Tiempo hasta interactivo: 3.2 segundos.
 
-## Por Que GraphQL
+## Por qué GraphQL
 
-GraphQL no fue una bala de plata — fue la herramienta correcta para nuestros problemas especificos:
+GraphQL no fue una bala de plata — fue la herramienta correcta para nuestros problemas específicos:
 
-1. **Over-fetching**: los endpoints REST retornaban objetos completos cuando necesitabamos 3 campos
+1. **Over-fetching**: los endpoints REST retornaban objetos completos cuando necesitábamos 3 campos
 2. **Under-fetching**: el dashboard necesitaba datos de 7 endpoints, causando requests en cascada
-3. **Type safety**: los desarrolladores frontend adivinaban las formas de las respuestas
+3. **Type safety**: los desarrolladores frontend adivinaban la forma de las respuestas
 
-## La Estrategia de Migracion
+## La estrategia de migración
 
-No reescribimos todo. En su lugar, envolvimos los servicios REST existentes detras de un gateway GraphQL:
+No reescribimos todo. En su lugar, envolvimos los servicios REST existentes detrás de un gateway GraphQL:
 
 ```typescript
 const resolvers = {
   Query: {
     dashboard: async (_, { businessId }, context) => {
-      // Fetch paralelo desde servicios existentes
+      // Fetch en paralelo desde los servicios existentes
       const [revenue, orders, inventory] = await Promise.all([
         revenueService.getSummary(businessId),
         orderService.getRecent(businessId, { limit: 10 }),
@@ -40,16 +41,16 @@ const resolvers = {
 
 ## Resultados
 
-Despues de migrar las 5 paginas con mas trafico:
+Después de migrar las 5 páginas con más tráfico:
 
-- **Tamano de payload**: 340KB → 45KB (87% de reduccion)
-- **Llamadas API por pagina**: 7 → 1
-- **Latencia**: 35% de reduccion end-to-end
-- **Velocidad de desarrollo**: el equipo frontend dejo de esperar cambios en endpoints del backend
+- **Tamaño de payload**: 340 KB → 45 KB (87% de reducción)
+- **Llamadas a la API por página**: 7 → 1
+- **Latencia**: 35% de reducción end-to-end
+- **Velocidad de desarrollo**: el equipo frontend dejó de esperar cambios en endpoints del backend
 
-## Lecciones Aprendidas
+## Lecciones aprendidas
 
-- Empieza con las paginas de mayor trafico, no con toda la API
-- El patron DataLoader es esencial para evitar queries N+1
-- El diseno del schema es diseno de API — invierte tiempo en hacerlo bien
-- Monitorea el rendimiento de los resolvers desde el dia uno
+- Empieza con las páginas de mayor tráfico, no con toda la API
+- El patrón DataLoader es esencial para evitar queries N+1
+- El diseño del schema es diseño de API — invierte tiempo en hacerlo bien
+- Monitorea el rendimiento de los resolvers desde el día uno

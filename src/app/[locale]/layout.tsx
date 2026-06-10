@@ -3,6 +3,7 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { routing } from "@/i18n/routing";
+import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { GridBackground } from "@/components/GridBackground";
 import { Navbar } from "@/components/Navbar";
@@ -52,11 +53,11 @@ export async function generateMetadata({
     ],
     authors: [{ name: "Jose Manuel Puicon Rodas" }],
     creator: "Jose Manuel Puicon Rodas",
-    metadataBase: new URL("https://josepuicon-dev.vercel.app"),
+    metadataBase: new URL(SITE_URL),
     openGraph: {
       title: `Jose Manuel Puicon Rodas — ${t("title")}`,
       description: t("pitch"),
-      url: "https://josepuicon-dev.vercel.app",
+      url: `${SITE_URL}/${locale}`,
       siteName: "Jose Manuel Puicon Rodas",
       locale: locale === "es" ? "es_PE" : "en_US",
       type: "website",
@@ -79,10 +80,13 @@ export async function generateMetadata({
       },
     },
     alternates: {
-      canonical: "https://josepuicon-dev.vercel.app",
+      // Locale-aware: each language version is its own canonical page.
+      // Blog routes override this with their own per-page canonicals.
+      canonical: `${SITE_URL}/${locale}`,
       languages: {
-        en: "https://josepuicon-dev.vercel.app/en",
-        es: "https://josepuicon-dev.vercel.app/es",
+        en: `${SITE_URL}/en`,
+        es: `${SITE_URL}/es`,
+        "x-default": SITE_URL,
       },
     },
   };

@@ -66,9 +66,14 @@ export async function POST(req: NextRequest) {
     });
 
     if (!formspreeRes.ok) {
-      // Fallback: if Formspree isn't configured, still return success
-      // so the user sees the success message and can configure later
-      console.error("Formspree error:", await formspreeRes.text());
+      // Be honest with the visitor: if the form backend rejects the message,
+      // surface an error so they fall back to the direct email shown next to
+      // the form, instead of believing a lost message was delivered.
+      console.error("Form backend error:", await formspreeRes.text());
+      return NextResponse.json(
+        { error: "Could not send the message. Please email me directly." },
+        { status: 502 }
+      );
     }
 
     return NextResponse.json({ success: true });

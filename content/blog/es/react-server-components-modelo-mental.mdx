@@ -1,0 +1,68 @@
+---
+title: "React Server Components: el modelo mental que por fin me hizo clic"
+description: "RSC deja de ser confuso en el momento en que dejas de pensarlo como una sola app. Este es el modelo de dos programas que uso para decidir qué corre dónde."
+date: "2026-01-18"
+tags: ["React", "Next.js", "RSC", "Arquitectura"]
+altSlug: "react-server-components-mental-model"
+---
+
+## La confusión es el punto de partida
+
+Todos los desarrolladores de React que conozco pasaron por el mismo arco con los Server Components: leer la documentación, asentir, y luego pelearse con errores de `"use client"` durante una semana. El problema no es la API — es que intentamos encajar RSC en el modelo mental de un solo programa que aprendimos con el React clásico.
+
+## Dos programas, un árbol
+
+El modelo que por fin me hizo clic: **estás escribiendo dos programas que renderizan un solo árbol.**
+
+- El **programa de servidor** corre en build time o en request time. Puede leer el filesystem, consultar la base de datos y manejar secretos. Su output no es HTML — es una descripción serializada de UI.
+- El **programa de cliente** corre en el navegador. Es dueño del estado, los efectos y los event handlers. Recibe el output del servidor e hidrata las islas interactivas.
+
+`"use client"` no es una marca de "esto se renderiza en el navegador". Es la **línea fronteriza entre los dos programas**. Todo lo que se importa debajo de ella pertenece al bundle del cliente.
+
+## Los datos bajan, las interacciones se quedan en el cliente
+
+Cuando ves dos programas, las reglas se vuelven obvias en vez de arbitrarias:
+
+```tsx
+// Programa de servidor: haz fetch donde renderizas
+export default async function PostPage({ params }) {
+  const { slug } = await params;
+  const post = await db.posts.findBySlug(slug); // sin API route de por medio
+
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      {/* La isla de cliente recibe props planas y serializables */}
+      <LikeButton postId={post.id} initialCount={post.likes} />
+    </article>
+  );
+}
+```
+
+```tsx
+// Programa de cliente: solo estado y eventos
+"use client";
+
+export function LikeButton({ postId, initialCount }: Props) {
+  const [count, setCount] = useState(initialCount);
+  return <button onClick={() => like(postId, setCount)}>{count}</button>;
+}
+```
+
+Las props que cruzan la frontera deben sobrevivir la serialización. Las funciones, las instancias de clases y los Date-como-Date no cruzan — eso no es una limitación, es el contrato entre los dos programas.
+
+## Cómo decido qué va dónde
+
+Mi checklist, en orden:
+
+1. **¿Necesita `useState`, `useEffect` o un event handler?** Cliente.
+2. **¿Toca datos, secretos o dependencias pesadas?** Servidor.
+3. **¿Ninguna de las dos?** Servidor por defecto — no envía ni un byte de JavaScript.
+
+Este portafolio aplica la regla en todas partes: el blog que estás leyendo se renderiza completamente en el servidor (la compilación de MDX, el syntax highlighting y el tiempo de lectura nunca llegan a tu navegador), mientras que el toggle de tema y el formulario de contacto son pequeñas islas de cliente.
+
+## La recompensa
+
+En una página de contenido, la diferencia es brutal: el programa de servidor puede cargar Shiki (~1 MB de gramáticas) para resaltar código en build time, y el cliente no paga nada. Antes de RSC ese trade-off no existía — cada dependencia era una decisión de bundle.
+
+Deja de preguntarte "¿dónde se renderiza este componente?". Empieza a preguntarte "¿a cuál de los dos programas pertenece?". Los errores desaparecen, y la arquitectura empieza a diseñarse sola.

@@ -13,17 +13,10 @@ const FALLBACK: GitHubStats = {
 
 export async function getGitHubStats(): Promise<GitHubStats> {
   try {
-    const [userRes, eventsRes] = await Promise.all([
-      fetch(`${GITHUB_API}/users/${GITHUB_USERNAME}`, {
-        headers: { Accept: "application/vnd.github.v3+json" },
-        next: { revalidate: 3600 }, // ISR: revalidate every hour
-      }),
-      // Contributions approximation via events (last 90 days, max 300)
-      fetch(`${GITHUB_API}/users/${GITHUB_USERNAME}/events/public?per_page=100`, {
-        headers: { Accept: "application/vnd.github.v3+json" },
-        next: { revalidate: 3600 },
-      }),
-    ]);
+    const userRes = await fetch(`${GITHUB_API}/users/${GITHUB_USERNAME}`, {
+      headers: { Accept: "application/vnd.github.v3+json" },
+      next: { revalidate: 3600 }, // ISR: revalidate every hour
+    });
 
     if (!userRes.ok) return FALLBACK;
 

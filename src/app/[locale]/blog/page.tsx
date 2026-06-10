@@ -2,6 +2,7 @@ import { getAllPosts } from "@/lib/blog";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { ArrowLeft, ArrowRight, Calendar, Clock, Tag } from "lucide-react";
+import { SITE_URL } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -13,6 +14,20 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("subtitle"),
+    alternates: {
+      canonical: `${SITE_URL}/${locale}/blog`,
+      languages: {
+        en: `${SITE_URL}/en/blog`,
+        es: `${SITE_URL}/es/blog`,
+        "x-default": `${SITE_URL}/en/blog`,
+      },
+    },
+    openGraph: {
+      title: t("title"),
+      description: t("subtitle"),
+      url: `${SITE_URL}/${locale}/blog`,
+      type: "website",
+    },
   };
 }
 

@@ -1,0 +1,64 @@
+---
+title: "Multi-tenancy en Postgres: patrones de aislamiento para SaaS"
+description: "¿Columna de tenant, RLS, schema por tenant o base de datos por tenant? Cómo pienso el aislamiento de datos de clientes en un SaaS en producción, y la disciplina que importa más que el patrón."
+date: "2026-03-22"
+tags: ["PostgreSQL", "SaaS", "Multi-tenancy", "Backend"]
+altSlug: "multi-tenant-postgres-isolation"
+---
+
+## La pregunta que todo SaaS enfrenta
+
+En el momento en que tu producto tiene dos clientes, tienes un problema de multi-tenancy: el cliente A jamás debe ver los datos del cliente B — ni en una query, ni en un caché, ni en un log. Trabajando en un SaaS para restaurantes donde cada tabla termina apuntando a una empresa, aprendí que el patrón que elijas importa menos que la disciplina que construyas alrededor.
+
+## Los cuatro patrones
+
+**1. Schema compartido, columna de tenant.** Cada fila lleva un `company_id`. Una base de datos, un schema, lo más barato de operar y lo más fácil de migrar. El riesgo se concentra en un solo lugar: absolutamente toda query debe filtrar por tenant.
+
+**2. Row-Level Security (RLS).** El mismo layout, pero Postgres aplica el filtro por ti:
+
+```sql
+ALTER TABLE orders ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation ON orders
+  USING (company_id = current_setting('app.company_id')::uuid);
+```
+
+Ahora ni siquiera una query con bugs puede filtrar filas — la base de datos se niega. El costo: debes setear `app.company_id` por conexión o transacción, lo que se complica con poolers y drivers serverless.
+
+**3. Schema por tenant.** Aislamiento más fuerte, migraciones por tenant posibles. Operacionalmente doloroso pasados unos cientos de tenants — cada migración se convierte en una operación de flota.
+
+**4. Base de datos por tenant.** Máximo aislamiento, máximo costo. Se justifica en industrias reguladas o contratos enterprise enormes; rara vez en un SaaS en crecimiento.
+
+## Lo que uso en la práctica
+
+Schema compartido con columna de tenant, más tres disciplinas no negociables:
+
+**Accessors con scope, nunca queries crudas.** El código de aplicación jamás toca una tabla sin pasar por un helper que exige el tenant:
+
+```typescript
+export function tenantDb(companyId: string) {
+  return {
+    orders: {
+      list: (filters: OrderFilters) =>
+        db.select().from(orders).where(
+          and(eq(orders.companyId, companyId), buildFilters(filters))
+        ),
+    },
+    // cada accessor repite el patrón — que sea aburrido es el punto
+  };
+}
+```
+
+Si llegar a los datos sin nombrar al tenant es *imposible por construcción*, el code review deja de ser tu última línea de defensa.
+
+**Índices compuestos con el tenant primero.** `(company_id, created_at)`, `(company_id, status)`. Toda query caliente empieza por la columna de tenant, así que todo índice también. Esto además mantiene compacta la porción del B-tree de cada tenant — un tenant pequeño nunca paga el table scan de uno grande.
+
+**Pruebas cross-tenant en CI.** Un test que inicia sesión como el tenant A e intenta cada endpoint con IDs de recursos del tenant B, esperando 404. Es la auditoría de seguridad más barata que vas a escribir, y atrapa la *categoría* del bug, no solo un bug.
+
+## Las fugas sutiles
+
+La capa de queries es donde todos miran, así que rara vez es donde se rompe. Las fugas que he visto de verdad: claves de caché sin el prefijo del tenant, rooms de WebSocket que emiten a todo el mundo, jobs en background que procesan "todas las filas" sin scope, e IDs enteros secuenciales que filtran métricas de crecimiento. Aplica scope a esos cuatro igual que a las queries.
+
+## Conclusión
+
+Elige tenancy por filas hasta que tengas una razón contractual para no hacerlo. Y gasta tu energía donde vive el riesgo real: hacer estructuralmente imposible el acceso sin scope, y probar la frontera como lo haría un atacante.

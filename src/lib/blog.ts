@@ -12,6 +12,8 @@ export type BlogPost = {
   readingTime: string;
   content: string;
   locale: string;
+  /** Slug of this post's translation in the other locale (for hreflang pairing) */
+  altSlug?: string;
 };
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "blog");
@@ -38,6 +40,7 @@ export function getAllPosts(locale: string): Omit<BlogPost, "content">[] {
         tags: data.tags ?? [],
         readingTime: stats.text,
         locale,
+        altSlug: data.altSlug,
       };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -63,5 +66,6 @@ export function getPostBySlug(slug: string, locale: string): BlogPost | null {
     readingTime: stats.text,
     content,
     locale,
+    altSlug: data.altSlug,
   };
 }

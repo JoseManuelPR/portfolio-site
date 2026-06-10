@@ -1,0 +1,68 @@
+---
+title: "React Server Components: The Mental Model That Finally Clicked"
+description: "RSC stops being confusing the moment you stop thinking of it as one app. Here is the two-program model I use to decide what runs where."
+date: "2026-01-18"
+tags: ["React", "Next.js", "RSC", "Architecture"]
+altSlug: "react-server-components-modelo-mental"
+---
+
+## The confusion is the default
+
+Every React developer I know went through the same arc with Server Components: read the docs, nod along, then hit `"use client"` errors for a week. The problem isn't the API — it's that we keep trying to fit RSC into the single-program mental model we learned with classic React.
+
+## Two programs, one tree
+
+The model that finally clicked for me: **you are writing two programs that render one tree.**
+
+- The **server program** runs at build time or request time. It can read the filesystem, query the database, and hold secrets. Its output is not HTML — it's a serialized description of UI.
+- The **client program** runs in the browser. It owns state, effects, and event handlers. It receives the server's output and hydrates the interactive islands.
+
+`"use client"` is not a marker for "this renders in the browser." It's the **boundary line between the two programs**. Everything imported below it belongs to the client bundle.
+
+## Data flows down, interactions stay client
+
+Once you see two programs, the rules become obvious instead of arbitrary:
+
+```tsx
+// Server program: fetch where you render
+export default async function PostPage({ params }) {
+  const { slug } = await params;
+  const post = await db.posts.findBySlug(slug); // no API route needed
+
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      {/* Client island receives plain, serializable props */}
+      <LikeButton postId={post.id} initialCount={post.likes} />
+    </article>
+  );
+}
+```
+
+```tsx
+// Client program: state and events only
+"use client";
+
+export function LikeButton({ postId, initialCount }: Props) {
+  const [count, setCount] = useState(initialCount);
+  return <button onClick={() => like(postId, setCount)}>{count}</button>;
+}
+```
+
+The props crossing the boundary must survive serialization. Functions, class instances, and Dates-as-Dates don't cross — that's not a limitation, it's the contract between the two programs.
+
+## How I decide what goes where
+
+My checklist, in order:
+
+1. **Does it need `useState`, `useEffect`, or an event handler?** Client.
+2. **Does it touch data, secrets, or heavy dependencies?** Server.
+3. **Neither?** Server by default — it ships zero JavaScript.
+
+This portfolio applies the rule everywhere: the blog you're reading is rendered entirely on the server (MDX compilation, syntax highlighting and reading-time never ship to your browser), while the theme toggle and contact form are small client islands.
+
+## The payoff
+
+On a content page, the difference is brutal: the server program can pull in Shiki (~1 MB of grammars) to highlight code at build time, and the client pays nothing. Before RSC, that trade-off didn't exist — every dependency was a bundle decision.
+
+Stop asking "where does this component render?" Start asking "which program does this belong to?" The errors stop, and the architecture starts designing itself.
