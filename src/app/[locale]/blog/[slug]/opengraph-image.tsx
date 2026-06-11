@@ -13,9 +13,14 @@ export default async function Image({
   const { locale, slug } = await params;
   const post = getPostBySlug(slug, locale);
 
-  const title = post?.title ?? "Blog";
-  const description = post?.description ?? "";
+  const title = (post?.title ?? "Blog").toUpperCase();
   const tags = post?.tags?.slice(0, 3) ?? [];
+  const kicker = locale === "es" ? "BITÁCORA" : "FIELD NOTES";
+  const date = post
+    ? new Date(post.date)
+        .toLocaleDateString(locale, { year: "numeric", month: "short" })
+        .toUpperCase()
+    : "";
 
   return new ImageResponse(
     (
@@ -24,103 +29,100 @@ export default async function Image({
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          padding: "72px 80px",
           backgroundColor: "#0d0e12",
-          backgroundImage:
-            "radial-gradient(ellipse 80% 50% at 20% 0%, rgba(42,74,191,0.45), transparent), radial-gradient(ellipse 60% 40% at 90% 100%, rgba(159,179,248,0.18), transparent)",
-          color: "#fff",
+          color: "#ece7dc",
           fontFamily: "sans-serif",
         }}
       >
-        {/* Header: brand */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        {/* Brand color: solid ultramarine spine on the left */}
+        <div style={{ width: 26, height: "100%", backgroundColor: "#2a4abf" }} />
+
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            padding: "56px 64px",
+          }}
+        >
+          {/* Top row: brand + kicker */}
           <div
             style={{
               display: "flex",
-              fontSize: 30,
-              fontWeight: 700,
-              color: "#fff",
+              justifyContent: "space-between",
+              alignItems: "baseline",
             }}
           >
-            jm
-            <span style={{ color: "#9fb3f8" }}>.</span>
+            <span style={{ fontSize: 30, fontWeight: 800, letterSpacing: -0.5 }}>
+              JM·26
+            </span>
+            <span
+              style={{
+                fontSize: 17,
+                letterSpacing: 4,
+                color: "#aaa698",
+              }}
+            >
+              + {kicker} {date ? `· ${date}` : ""}
+            </span>
           </div>
-          <div
-            style={{
-              width: 1,
-              height: 26,
-              backgroundColor: "rgba(255,255,255,0.2)",
-            }}
-          />
-          <div style={{ fontSize: 22, color: "rgba(255,255,255,0.55)" }}>
-            {locale === "es" ? "Blog" : "Blog"}
-          </div>
-        </div>
 
-        {/* Title + description */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+          {/* Title — uppercase display, ink-canvas editorial */}
           <div
             style={{
-              fontSize: title.length > 50 ? 54 : 64,
+              fontSize: title.length > 60 ? 56 : 68,
               fontWeight: 800,
-              lineHeight: 1.15,
-              letterSpacing: "-0.02em",
-              maxWidth: 1000,
+              lineHeight: 1.04,
+              letterSpacing: -1,
+              maxWidth: 1020,
             }}
           >
             {title}
           </div>
-          {description && (
+
+          {/* Bottom row: sharp tag chips + author/site */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              borderTop: "2px solid rgba(236,231,220,0.25)",
+              paddingTop: 28,
+            }}
+          >
+            <div style={{ display: "flex", gap: 12 }}>
+              {tags.map((tag) => (
+                <div
+                  key={tag}
+                  style={{
+                    display: "flex",
+                    padding: "8px 16px",
+                    border: "1px solid rgba(159,179,248,0.6)",
+                    color: "#9fb3f8",
+                    fontSize: 17,
+                    fontWeight: 600,
+                    letterSpacing: 2,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {tag}
+                </div>
+              ))}
+            </div>
             <div
               style={{
-                fontSize: 26,
-                lineHeight: 1.45,
-                color: "rgba(255,255,255,0.6)",
-                maxWidth: 950,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
               }}
             >
-              {description.length > 140
-                ? `${description.slice(0, 140)}…`
-                : description}
-            </div>
-          )}
-        </div>
-
-        {/* Footer: tags + author */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <div style={{ display: "flex", gap: 12 }}>
-            {tags.map((tag) => (
-              <div
-                key={tag}
-                style={{
-                  display: "flex",
-                  padding: "8px 18px",
-                  borderRadius: 10,
-                  backgroundColor: "rgba(42,74,191,0.5)",
-                  border: "1px solid rgba(159,179,248,0.5)",
-                  color: "#cdd8fb",
-                  fontSize: 20,
-                  fontWeight: 600,
-                }}
-              >
-                {tag}
-              </div>
-            ))}
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-            <div style={{ fontSize: 24, fontWeight: 700 }}>
-              José Manuel Puicón
-            </div>
-            <div style={{ fontSize: 19, color: "rgba(255,255,255,0.45)" }}>
-              josepuicon-dev.vercel.app
+              <span style={{ fontSize: 21, fontWeight: 700 }}>
+                JOSÉ MANUEL PUICÓN
+              </span>
+              <span style={{ fontSize: 16, color: "#aaa698", letterSpacing: 1 }}>
+                josepuicon-dev.vercel.app
+              </span>
             </div>
           </div>
         </div>
