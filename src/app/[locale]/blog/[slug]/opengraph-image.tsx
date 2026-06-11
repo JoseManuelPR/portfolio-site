@@ -27,9 +27,9 @@ export default async function Image({
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 80px",
-          backgroundColor: "#0a0a0f",
+          backgroundColor: "#0d0e12",
           backgroundImage:
-            "radial-gradient(ellipse 80% 50% at 20% 0%, rgba(99,102,241,0.25), transparent), radial-gradient(ellipse 60% 40% at 90% 100%, rgba(168,85,247,0.18), transparent)",
+            "radial-gradient(ellipse 80% 50% at 20% 0%, rgba(42,74,191,0.45), transparent), radial-gradient(ellipse 60% 40% at 90% 100%, rgba(159,179,248,0.18), transparent)",
           color: "#fff",
           fontFamily: "sans-serif",
         }}
@@ -45,7 +45,7 @@ export default async function Image({
             }}
           >
             jm
-            <span style={{ color: "#6366f1" }}>.</span>
+            <span style={{ color: "#9fb3f8" }}>.</span>
           </div>
           <div
             style={{
@@ -104,9 +104,9 @@ export default async function Image({
                   display: "flex",
                   padding: "8px 18px",
                   borderRadius: 10,
-                  backgroundColor: "rgba(99,102,241,0.16)",
-                  border: "1px solid rgba(99,102,241,0.35)",
-                  color: "#a5b4fc",
+                  backgroundColor: "rgba(42,74,191,0.5)",
+                  border: "1px solid rgba(159,179,248,0.5)",
+                  color: "#cdd8fb",
                   fontSize: 20,
                   fontWeight: 600,
                 }}

@@ -1,21 +1,30 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Inter } from "next/font/google";
+import { Archivo_Black, Instrument_Serif } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/site";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { GridBackground } from "@/components/GridBackground";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import "../globals.css";
 
-const inter = Inter({
+// Inter moved to the blog layout — it's the only surface that uses it, and
+// every preloaded font sits in the simulated pre-LCP critical graph.
+
+// v2 display face — wide, loud, editorial. The static Black cut weighs a
+// third of the variable wdth file (~35KB vs 88KB), which matters because
+// every preloaded font sits in the simulated pre-LCP critical graph.
+const archivo = Archivo_Black({
   subsets: ["latin"],
-  variable: "--font-inter",
-  // "optional": never re-paint text when the webfont arrives late — the first
-  // paint IS the LCP. Repeat visits get Inter from cache; cold visits on slow
-  // connections render the metric-adjusted fallback. Classic text-LCP fix.
+  weight: "400",
+  variable: "--font-archivo",
+  display: "optional",
+});
+
+// Serif italic accent for the "human" words inside the brutalist system.
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  variable: "--font-instrument",
+  weight: "400",
+  style: "italic",
   display: "optional",
 });
 
@@ -162,28 +171,36 @@ export default async function LocaleLayout({
     nav: messages.nav,
     hero: messages.hero,
     experience: messages.experience,
+    // v2 home: client islands need contact (Tally popup) and nav (float bar)
+    v2: {
+      contact: (messages as Record<string, any>).v2?.contact,
+      nav: (messages as Record<string, any>).v2?.nav,
+    },
   } as typeof messages;
 
   return (
-    <html lang={locale} className={inter.variable} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`${archivo.variable} ${instrumentSerif.variable}`}
+      suppressHydrationWarning
+    >
       <head>
+        {/* The stack marquee pulls 14 SVGs from this third-party CDN */}
+        <link rel="preconnect" href="https://cdn.simpleicons.org" />
         <JsonLd />
       </head>
       <body className="min-h-screen font-sans antialiased">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-9999 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white focus:outline-hidden"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-9999 focus:bg-bone focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:text-ink focus:outline-hidden"
         >
-          Skip to main content
+          {locale === "es" ? "Saltar al contenido" : "Skip to main content"}
         </a>
-        <ThemeProvider>
-          <NextIntlClientProvider messages={clientMessages}>
-            <GridBackground />
-            <Navbar />
-            <main id="main-content">{children}</main>
-            <Footer />
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <NextIntlClientProvider messages={clientMessages}>
+          {/* Section chrome lives with each surface: blog and home each
+              bring their own nav/footer. Single ink theme site-wide. */}
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -7,6 +7,20 @@
   --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco,
     'Cascadia Mono', 'Roboto Mono', monospace;
 
+  /* ——— v2 art direction: "Field Notes" ——— */
+  --font-display: var(--font-archivo), 'Archivo', 'Helvetica Neue', sans-serif;
+  --font-serifx: var(--font-instrument), 'Instrument Serif', Georgia, serif;
+
+  /* Deep, calm ultramarine — bold without shouting. Soft periwinkle for
+     accents on ink, where the deep blue wouldn't read. */
+  --color-azul: #2a4abf;
+  --color-azul-soft: #9fb3f8;
+  --color-ink: #0d0e12;
+  --color-ink-soft: #14161d;
+  --color-bone: #ece7dc;
+  --color-bone-dim: #aaa698;
+  --color-signal: #29d24e;
+
   --color-accent: #6366f1;
   --color-accent-light: #818cf8;
   --color-accent-dark: #4f46e5;
@@ -244,14 +258,15 @@
   }
 
   body {
-    @apply bg-neutral-50 text-neutral-900 dark:bg-[#0a0a0f] dark:text-neutral-100;
+    /* v2: single committed theme — ink canvas, bone type, everywhere */
+    @apply bg-ink text-bone;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   ::selection {
-    @apply bg-accent/20 text-accent-dark dark:text-accent-light;
+    @apply bg-azul text-bone;
   }
 }
 
@@ -430,9 +445,11 @@
   @apply bg-neutral-400 dark:bg-neutral-600;
 }
 
-/* Focus ring */
+/* Focus ring — periwinkle on ink: 9.4:1 on the canvas, 3.6:1 on the blue
+   fields (≥3:1 non-text on both). The v1 ring (accent/40 + white offset)
+   measured 1.63:1 and was only visible by accident. */
 *:focus-visible {
-  @apply outline-hidden ring-2 ring-accent/40 ring-offset-2 ring-offset-white dark:ring-offset-[#0a0a0f];
+  @apply outline-hidden ring-2 ring-azul-soft ring-offset-2 ring-offset-ink;
 }
 
 /* Gradient mesh background */
@@ -458,18 +475,8 @@
     radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 0.04) 0px, transparent 50%);
 }
 
-/* Shiki dual-theme syntax highlighting (rehype-pretty-code).
-   Tokens carry --shiki-light / --shiki-dark inline vars; we pick per theme. */
-code[data-theme*=" "],
-code[data-theme*=" "] span {
-  color: var(--shiki-light);
-}
-
-:is(.dark) code[data-theme*=" "],
-:is(.dark) code[data-theme*=" "] span {
-  color: var(--shiki-dark);
-}
-
+/* Shiki syntax highlighting (rehype-pretty-code), single dark theme —
+   token colors come inline from the theme itself. */
 [data-rehype-pretty-code-figure] {
   margin: 0;
 }
@@ -504,3 +511,246 @@ code[data-theme*=" "] span {
 .hero-name { view-transition-name: hero-name; }
 .hero-title { view-transition-name: hero-title; }
 .nav-logo { view-transition-name: nav-logo; }
+
+/* Inter's CSS variable is only defined inside the blog subtree (see
+   blog/layout.tsx). Everywhere else --font-sans falls back to the system
+   stack through this default. */
+:root {
+  --font-inter: ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* ————————————————————————————————————————————————————————————————
+   v2 — "Field Notes" system
+   Brutalist-editorial: vermilion field, ink type, HUD annotations.
+   ———————————————————————————————————————————————————————————————— */
+
+/* Display face — Archivo Black registers as weight 400; asking for more
+   would trigger faux-bold smearing */
+.v2-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.v2-serif {
+  font-family: var(--font-serifx);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* HUD micro-label — 11px floor (12px on sm): it carries real information
+   (roles, dates, nav), not just ornament. Tracking eased for word-scanning. */
+.v2-hud {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+@media (min-width: 640px) {
+  .v2-hud { font-size: 0.75rem; }
+}
+
+/* Primary CTA size — .v2-hud is unlayered CSS and beats Tailwind utilities,
+   so size overrides need their own class */
+.v2-hud-cta {
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+}
+
+@media (min-width: 640px) {
+  .v2-hud-cta { font-size: 0.875rem; }
+}
+
+/* Nav/touch affordance: comfortable hit areas without moving the layout */
+.v2-tap {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.625rem 0.5rem;
+  margin: -0.625rem -0.5rem;
+}
+
+/* Crosshair tick before HUD labels */
+.v2-hud-tick::before {
+  content: '+';
+  margin-right: 0.6em;
+  opacity: 0.6;
+}
+
+/* Load entrance: transform-only so the hero name never gates LCP */
+@media (prefers-reduced-motion: no-preference) {
+  .v2-rise {
+    animation: v2-rise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .v2-fade {
+    opacity: 0;
+    animation: v2-fade 0.9s ease both;
+  }
+}
+
+/* Scroll-driven section reveals — no JS, no IntersectionObserver races.
+   Browsers without animation-timeline support simply show content. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .v2-reveal {
+      animation: v2-reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 55%;
+    }
+  }
+}
+
+@keyframes v2-reveal-in {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes v2-rise {
+  from { transform: translateY(0.55em); }
+  to { transform: translateY(0); }
+}
+
+@keyframes v2-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Ticker strip */
+.v2-ticker {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.v2-ticker-slow {
+  animation-duration: 45s;
+}
+
+.v2-ticker-frame:hover .v2-ticker {
+  animation-play-state: paused;
+}
+
+/* WCAG 2.2.2: moving content needs a pause mechanism beyond :hover.
+   On touch devices the strips rest static and scroll manually. */
+@media (pointer: coarse) {
+  .v2-ticker { animation-play-state: paused; }
+  .v2-ticker-frame {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Scroll progress hairline — zero-JS, scroll-driven. Browsers without
+   support simply never show it. */
+@supports (animation-timeline: scroll()) {
+  .v2-progress {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 2px;
+    z-index: 60;
+    background: var(--color-azul-soft);
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    animation: v2-progress-grow linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+@keyframes v2-progress-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Floating nav: hidden over the hero, slides in after. visibility:hidden
+   removes its 7 links from the tab order while off-screen — without it,
+   keyboard users tab through invisible controls (WCAG 2.4.11). */
+.v2-floatnav {
+  visibility: hidden;
+  transform: translateY(-110%);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s 0.5s;
+}
+
+.v2-floatnav[data-visible="true"] {
+  visibility: visible;
+  transform: translateY(0);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Typing log caret */
+.v2-caret::after {
+  content: '▌';
+  margin-left: 2px;
+  animation: v2-caret-blink 1.1s steps(1) infinite;
+}
+
+@keyframes v2-caret-blink {
+  50% { opacity: 0; }
+}
+
+/* Rotating coordinate ring (conic text ring drawn in SVG, CSS-rotated) */
+.v2-ring {
+  animation: spin 26s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-ticker, .v2-ring { animation: none; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Vignette over the vermilion field — cinematic edge darkening */
+.v2-vignette {
+  background:
+    radial-gradient(120% 90% at 50% 10%, transparent 55%, rgba(0, 0, 0, 0.14) 100%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05), transparent 18%);
+}
+
+/* Work record rows */
+.v2-row {
+  position: relative;
+  isolation: isolate;
+}
+
+.v2-row::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-azul);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hover AND keyboard focus get the same sweep — the stretched links made
+   the whole row interactive, so the whole row must show focus too.
+   Dim text at 0.9 over the blue sweep = 5.18:1 (0.8 measured 4.44:1, FAIL). */
+@media (hover: hover) {
+  .v2-row:hover::after { transform: scaleY(1); }
+  .v2-row:hover { color: var(--color-bone); }
+  .v2-row:hover .v2-row-dim { color: var(--color-bone); opacity: 0.9; }
+}
+
+.v2-row:focus-within::after { transform: scaleY(1); }
+.v2-row:focus-within { color: var(--color-bone); }
+.v2-row:focus-within .v2-row-dim { color: var(--color-bone); opacity: 0.9; }
+
+/* Giant hover email underline */
+.v2-mail {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 0.06em;
+  background-position: 0 96%;
+  background-repeat: no-repeat;
+  transition: background-size 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.v2-mail:hover { background-size: 100% 0.06em; }

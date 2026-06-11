@@ -9,7 +9,8 @@ export type BlogPost = {
   description: string;
   date: string;
   tags: string[];
-  readingTime: string;
+  /** Reading time in whole minutes — views localize the unit themselves */
+  minutes: number;
   content: string;
   locale: string;
   /** Slug of this post's translation in the other locale (for hreflang pairing) */
@@ -38,7 +39,7 @@ export function getAllPosts(locale: string): Omit<BlogPost, "content">[] {
         description: data.description ?? "",
         date: data.date ?? new Date().toISOString(),
         tags: data.tags ?? [],
-        readingTime: stats.text,
+        minutes: Math.max(1, Math.ceil(stats.minutes)),
         locale,
         altSlug: data.altSlug,
       };
@@ -63,7 +64,7 @@ export function getPostBySlug(slug: string, locale: string): BlogPost | null {
     description: data.description ?? "",
     date: data.date ?? new Date().toISOString(),
     tags: data.tags ?? [],
-    readingTime: stats.text,
+    minutes: Math.max(1, Math.ceil(stats.minutes)),
     content,
     locale,
     altSlug: data.altSlug,
