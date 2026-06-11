@@ -1,5 +1,6 @@
-import { useTranslations } from "next-intl";
+import { useTranslations, useMessages } from "next-intl";
 import { Link } from "@/i18n/routing";
+import { V2Log } from "./V2Log";
 
 function CoordinateRing({ text }: { text: string }) {
   return (
@@ -39,11 +40,13 @@ function CoordinateRing({ text }: { text: string }) {
 export function V2Hero({ locale }: { locale: string }) {
   const t = useTranslations("v2.hero");
   const nav = useTranslations("v2.nav");
+  const messages = useMessages() as Record<string, any>;
+  const logLines = messages?.v2?.hero?.log ?? [];
 
   const ticker = t("ticker");
 
   return (
-    <header className="relative flex min-h-dvh flex-col overflow-hidden bg-verm text-ink">
+    <header className="relative flex min-h-dvh flex-col overflow-hidden bg-azul text-bone">
       {/* Cinematic edge darkening */}
       <div className="v2-vignette pointer-events-none absolute inset-0" aria-hidden="true" />
 
@@ -94,6 +97,11 @@ export function V2Hero({ locale }: { locale: string }) {
         <p className="v2-hud v2-hud-tick v2-fade" style={{ animationDelay: "1.4s" }}>
           ES · EN · PT
         </p>
+      </div>
+
+      {/* Field log — typing animation, mounts well after first paint */}
+      <div className="absolute bottom-40 right-5 z-10 hidden w-72 sm:right-10 lg:block">
+        <V2Log lines={logLines} />
       </div>
 
       {/* Main composition */}
@@ -149,7 +157,7 @@ export function V2Hero({ locale }: { locale: string }) {
       </div>
 
       {/* Ticker strip */}
-      <div className="v2-ticker-frame relative z-10 overflow-hidden border-t border-ink/25 py-3">
+      <div className="v2-ticker-frame relative z-10 overflow-hidden border-t border-bone/25 py-3">
         <div className="v2-ticker v2-hud gap-0">
           <span className="whitespace-nowrap">{ticker.repeat(3)}</span>
           <span className="whitespace-nowrap" aria-hidden="true">

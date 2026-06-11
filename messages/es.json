@@ -291,7 +291,25 @@
       "status": "Abierto a oportunidades",
       "scroll": "Desliza",
       "ticker": "Product engineering · Full-stack · Agentes de IA · Mentalidad UX · Remote-first · Desde 2018 · ",
-      "ring": "DESDE CHICLAYO PARA EL MUNDO · 6°46′S 79°50′W · "
+      "ring": "DESDE CHICLAYO PARA EL MUNDO · 6°46′S 79°50′W · ",
+      "log": [
+        {
+          "cmd": "whoami",
+          "out": "josé manuel — product engineer"
+        },
+        {
+          "cmd": "uptime --carrera",
+          "out": "8+ años en producción"
+        },
+        {
+          "cmd": "deploy aurant.lat",
+          "out": "ok · multi-tenant · SUNAT-ready"
+        },
+        {
+          "cmd": "status",
+          "out": "● abierto a oportunidades"
+        }
+      ]
     },
     "work": {
       "label": "Registros seleccionados",

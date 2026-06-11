@@ -26,7 +26,7 @@ export function V2Work() {
       <p className="v2-reveal v2-hud v2-hud-tick text-bone-dim">{t("label")}</p>
       <h2 className="v2-reveal v2-display mt-6 text-[clamp(2.6rem,8vw,7rem)]">
         {t("title1")}{" "}
-        <em className="v2-serif normal-case text-verm">{t("titleSerif")}</em>
+        <em className="v2-serif normal-case text-azul-soft">{t("titleSerif")}</em>
       </h2>
 
       <div className="mt-16 border-t border-bone/15 sm:mt-24">

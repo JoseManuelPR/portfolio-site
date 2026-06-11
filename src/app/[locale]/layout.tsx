@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { Archivo_Black, Instrument_Serif } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/site";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import "../globals.css";
 
 // Inter moved to the blog layout — it's the only surface that uses it, and
@@ -172,8 +171,11 @@ export default async function LocaleLayout({
     nav: messages.nav,
     hero: messages.hero,
     experience: messages.experience,
-    // v2 home: only the contact section runs on the client (Tally popup)
-    v2: { contact: (messages as Record<string, any>).v2?.contact },
+    // v2 home: client islands need contact (Tally popup) and nav (float bar)
+    v2: {
+      contact: (messages as Record<string, any>).v2?.contact,
+      nav: (messages as Record<string, any>).v2?.nav,
+    },
   } as typeof messages;
 
   return (
@@ -192,13 +194,11 @@ export default async function LocaleLayout({
         >
           Skip to main content
         </a>
-        <ThemeProvider>
-          <NextIntlClientProvider messages={clientMessages}>
-            {/* Section chrome lives with each surface: the blog keeps the v1
-                Navbar/Footer via its own layout; the v2 home brings its own. */}
-            {children}
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <NextIntlClientProvider messages={clientMessages}>
+          {/* Section chrome lives with each surface: blog and home each
+              bring their own nav/footer. Single ink theme site-wide. */}
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

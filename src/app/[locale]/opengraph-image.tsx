@@ -1,19 +1,19 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Jose Manuel Puicon Rodas — Software Engineer";
+export const alt = "José Manuel Puicón — Product Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 const copy = {
   en: {
-    title: "Software Engineer",
-    pitch: "Building scalable products with impact",
-    stack: "TypeScript · React · Vue · Node.js · AWS",
+    kicker: "FIELD NOTES OF A PRODUCT ENGINEER",
+    role: "PRODUCT ENGINEER",
+    hud: "UTC−5 · CHICLAYO, PE · +83% CWV · ES · EN · PT",
   },
   es: {
-    title: "Ingeniero de Software",
-    pitch: "Construyendo productos escalables con impacto",
-    stack: "TypeScript · React · Vue · Node.js · AWS",
+    kicker: "BITÁCORA DE UN PRODUCT ENGINEER",
+    role: "PRODUCT ENGINEER",
+    hud: "UTC−5 · CHICLAYO, PE · +83% CWV · ES · EN · PT",
   },
 } as const;
 
@@ -34,118 +34,70 @@ export default async function OgImage({
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: "72px 80px",
-          background: "#0a0a0f",
-          position: "relative",
-          overflow: "hidden",
+          padding: "64px 72px",
+          backgroundColor: "#2a4abf",
+          color: "#ece7dc",
+          fontFamily: "sans-serif",
         }}
       >
-        {/* Background gradient orbs */}
-        <div
-          style={{
-            position: "absolute",
-            top: -120,
-            right: -80,
-            width: 500,
-            height: 500,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: -100,
-            left: -60,
-            width: 400,
-            height: 400,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 70%)",
-          }}
-        />
-
-        {/* Top: Logo */}
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <span
-            style={{
-              fontSize: 36,
-              fontWeight: 800,
-              color: "#fff",
-              letterSpacing: -1,
-            }}
-          >
-            jm
-            <span style={{ color: "#6366f1" }}>.</span>
-          </span>
-        </div>
-
-        {/* Middle: Name + Title */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <span
-            style={{
-              fontSize: 72,
-              fontWeight: 800,
-              color: "#fff",
-              lineHeight: 1.1,
-              letterSpacing: -2,
-            }}
-          >
-            José Manuel
-          </span>
-          <span
-            style={{
-              fontSize: 72,
-              fontWeight: 800,
-              lineHeight: 1.1,
-              letterSpacing: -2,
-              background: "linear-gradient(135deg, #6366f1, #a855f7, #ec4899)",
-              backgroundClip: "text",
-              color: "transparent",
-            }}
-          >
-            {t.title}
-            <span style={{ color: "#6366f1" }}>.</span>
-          </span>
-        </div>
-
-        {/* Bottom: Pitch + Stack */}
+        {/* Top row: brand + HUD */}
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "flex-end",
+            alignItems: "baseline",
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <span
-              style={{
-                fontSize: 22,
-                color: "#a1a1aa",
-                fontWeight: 400,
-              }}
-            >
-              {t.pitch}
-            </span>
-            <span
-              style={{
-                fontSize: 16,
-                color: "#6366f1",
-                fontWeight: 600,
-                letterSpacing: 1,
-              }}
-            >
-              {t.stack}
-            </span>
-          </div>
+          <span style={{ fontSize: 30, fontWeight: 800, letterSpacing: -0.5 }}>
+            JM·26
+          </span>
+          <span style={{ fontSize: 17, letterSpacing: 3, opacity: 0.85 }}>
+            + {t.kicker}
+          </span>
+        </div>
+
+        {/* Name block */}
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <span
             style={{
-              fontSize: 16,
-              color: "#52525b",
-              fontWeight: 500,
+              fontSize: 124,
+              fontWeight: 800,
+              lineHeight: 0.95,
+              letterSpacing: -3,
             }}
           >
+            JOSÉ MANUEL
+          </span>
+          <span
+            style={{
+              fontSize: 124,
+              fontWeight: 800,
+              lineHeight: 0.95,
+              letterSpacing: -3,
+              marginLeft: 90,
+            }}
+          >
+            PUICÓN
+          </span>
+        </div>
+
+        {/* Bottom: role chip + hud + site */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderTop: "2px solid rgba(236,231,220,0.35)",
+            paddingTop: 26,
+          }}
+        >
+          <span style={{ fontSize: 21, letterSpacing: 4, fontWeight: 700 }}>
+            {t.role}
+          </span>
+          <span style={{ fontSize: 16, letterSpacing: 2, opacity: 0.8 }}>
+            {t.hud}
+          </span>
+          <span style={{ fontSize: 17, letterSpacing: 1, opacity: 0.9 }}>
             josepuicon-dev.vercel.app
           </span>
         </div>

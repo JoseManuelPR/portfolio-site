@@ -12,7 +12,7 @@ export function V2Footer() {
         <p className="v2-hud text-bone-dim">6°46′S 79°50′W · UTC−5</p>
         <div className="flex items-baseline gap-8">
           <p className="v2-hud text-bone-dim">{t("stack")}</p>
-          <a href="#top" className="v2-hud underline-offset-4 hover:text-verm hover:underline">
+          <a href="#top" className="v2-hud underline-offset-4 hover:text-azul-soft hover:underline">
             {t("top")} ↑
           </a>
         </div>

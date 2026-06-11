@@ -13,7 +13,7 @@ export function V2Capabilities() {
 
       <h2 className="v2-reveal v2-display mt-6 max-w-5xl text-[clamp(2rem,6vw,5rem)]">
         {t("statement1")}{" "}
-        <em className="v2-serif normal-case text-verm">{t("statementSerif")}</em>{" "}
+        <em className="v2-serif normal-case text-azul-soft">{t("statementSerif")}</em>{" "}
         {t("statement2")}
       </h2>
 
@@ -21,11 +21,11 @@ export function V2Capabilities() {
         {items.map((cap, i) => (
           <div
             key={cap.k}
-            className="group bg-ink-soft p-6 transition-colors duration-300 hover:bg-verm hover:text-ink sm:p-8"
+            className="group bg-ink-soft p-6 transition-colors duration-300 hover:bg-azul hover:text-bone sm:p-8"
           >
             <p className="v2-hud">{String(i + 1).padStart(2, "0")}</p>
             <p className="v2-display mt-6 text-xl sm:text-2xl">{cap.k}</p>
-            <p className="mt-2 text-sm text-bone-dim transition-colors duration-300 group-hover:text-ink/75">
+            <p className="mt-2 text-sm text-bone-dim transition-colors duration-300 group-hover:text-bone/75">
               {cap.v}
             </p>
           </div>

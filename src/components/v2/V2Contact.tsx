@@ -37,7 +37,7 @@ export function V2Contact() {
       <h2 className="v2-reveal v2-display mt-4 text-[clamp(2.8rem,9.5vw,9rem)]">
         <button
           onClick={openForm}
-          className="v2-mail cursor-pointer text-left uppercase text-bone transition-colors duration-300 hover:text-verm"
+          className="v2-mail cursor-pointer text-left uppercase text-bone transition-colors duration-300 hover:text-azul-soft"
         >
           {t("title")}
         </button>
@@ -46,7 +46,7 @@ export function V2Contact() {
       <div className="v2-reveal mt-10 flex flex-wrap items-baseline gap-x-6 gap-y-4">
         <button
           onClick={openForm}
-          className="v2-hud cursor-pointer border border-bone/30 px-5 py-3 text-bone transition-colors duration-300 hover:border-verm hover:bg-verm hover:text-ink"
+          className="v2-hud cursor-pointer border border-bone/30 px-5 py-3 text-bone transition-colors duration-300 hover:border-azul-soft hover:bg-azul hover:text-bone"
         >
           {t("formCta")} ↗
         </button>
@@ -67,7 +67,7 @@ export function V2Contact() {
             href={s.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="v2-hud underline-offset-4 hover:text-verm hover:underline"
+            className="v2-hud underline-offset-4 hover:text-azul-soft hover:underline"
           >
             {s.label} ↗
           </a>
