@@ -7,6 +7,18 @@
   --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco,
     'Cascadia Mono', 'Roboto Mono', monospace;
 
+  /* ——— v2 art direction: "Field Notes" ——— */
+  --font-display: var(--font-archivo), 'Archivo', 'Helvetica Neue', sans-serif;
+  --font-serifx: var(--font-instrument), 'Instrument Serif', Georgia, serif;
+
+  --color-verm: #ff4d00;
+  --color-verm-deep: #c93a00;
+  --color-ink: #0e0d0b;
+  --color-ink-soft: #171511;
+  --color-bone: #ece5d8;
+  --color-bone-dim: #b5ad9e;
+  --color-signal: #29d24e;
+
   --color-accent: #6366f1;
   --color-accent-light: #818cf8;
   --color-accent-dark: #4f46e5;
@@ -504,3 +516,156 @@ code[data-theme*=" "] span {
 .hero-name { view-transition-name: hero-name; }
 .hero-title { view-transition-name: hero-title; }
 .nav-logo { view-transition-name: nav-logo; }
+
+/* Inter's CSS variable is only defined inside the blog subtree (see
+   blog/layout.tsx). Everywhere else --font-sans falls back to the system
+   stack through this default. */
+:root {
+  --font-inter: ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* ————————————————————————————————————————————————————————————————
+   v2 — "Field Notes" system
+   Brutalist-editorial: vermilion field, ink type, HUD annotations.
+   ———————————————————————————————————————————————————————————————— */
+
+/* Display face — Archivo Black registers as weight 400; asking for more
+   would trigger faux-bold smearing */
+.v2-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.v2-serif {
+  font-family: var(--font-serifx);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* HUD micro-label */
+.v2-hud {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+@media (min-width: 640px) {
+  .v2-hud { font-size: 0.6875rem; }
+}
+
+/* Crosshair tick before HUD labels */
+.v2-hud-tick::before {
+  content: '+';
+  margin-right: 0.6em;
+  opacity: 0.6;
+}
+
+/* Load entrance: transform-only so the hero name never gates LCP */
+@media (prefers-reduced-motion: no-preference) {
+  .v2-rise {
+    animation: v2-rise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .v2-fade {
+    opacity: 0;
+    animation: v2-fade 0.9s ease both;
+  }
+}
+
+/* Scroll-driven section reveals — no JS, no IntersectionObserver races.
+   Browsers without animation-timeline support simply show content. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .v2-reveal {
+      animation: v2-reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 55%;
+    }
+  }
+}
+
+@keyframes v2-reveal-in {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes v2-rise {
+  from { transform: translateY(0.55em); }
+  to { transform: translateY(0); }
+}
+
+@keyframes v2-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Ticker strip */
+.v2-ticker {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.v2-ticker-frame:hover .v2-ticker {
+  animation-play-state: paused;
+}
+
+/* Rotating coordinate ring (conic text ring drawn in SVG, CSS-rotated) */
+.v2-ring {
+  animation: spin 26s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-ticker, .v2-ring { animation: none; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Vignette over the vermilion field — cinematic edge darkening */
+.v2-vignette {
+  background:
+    radial-gradient(120% 90% at 50% 10%, transparent 55%, rgba(0, 0, 0, 0.14) 100%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05), transparent 18%);
+}
+
+/* Work record rows */
+.v2-row {
+  position: relative;
+  isolation: isolate;
+}
+
+.v2-row::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-verm);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .v2-row:hover::after { transform: scaleY(1); }
+  .v2-row:hover { color: var(--color-ink); }
+  .v2-row:hover .v2-row-dim { color: var(--color-ink); opacity: 0.75; }
+}
+
+/* Giant hover email underline */
+.v2-mail {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 0.06em;
+  background-position: 0 96%;
+  background-repeat: no-repeat;
+  transition: background-size 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.v2-mail:hover { background-size: 100% 0.06em; }

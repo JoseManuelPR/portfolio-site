@@ -1,21 +1,31 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Inter } from "next/font/google";
+import { Archivo_Black, Instrument_Serif } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { GridBackground } from "@/components/GridBackground";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import "../globals.css";
 
-const inter = Inter({
+// Inter moved to the blog layout — it's the only surface that uses it, and
+// every preloaded font sits in the simulated pre-LCP critical graph.
+
+// v2 display face — wide, loud, editorial. The static Black cut weighs a
+// third of the variable wdth file (~35KB vs 88KB), which matters because
+// every preloaded font sits in the simulated pre-LCP critical graph.
+const archivo = Archivo_Black({
   subsets: ["latin"],
-  variable: "--font-inter",
-  // "optional": never re-paint text when the webfont arrives late — the first
-  // paint IS the LCP. Repeat visits get Inter from cache; cold visits on slow
-  // connections render the metric-adjusted fallback. Classic text-LCP fix.
+  weight: "400",
+  variable: "--font-archivo",
+  display: "optional",
+});
+
+// Serif italic accent for the "human" words inside the brutalist system.
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  variable: "--font-instrument",
+  weight: "400",
+  style: "italic",
   display: "optional",
 });
 
@@ -162,10 +172,16 @@ export default async function LocaleLayout({
     nav: messages.nav,
     hero: messages.hero,
     experience: messages.experience,
+    // v2 home: only the contact section runs on the client (Tally popup)
+    v2: { contact: (messages as Record<string, any>).v2?.contact },
   } as typeof messages;
 
   return (
-    <html lang={locale} className={inter.variable} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`${archivo.variable} ${instrumentSerif.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <JsonLd />
       </head>
@@ -178,10 +194,9 @@ export default async function LocaleLayout({
         </a>
         <ThemeProvider>
           <NextIntlClientProvider messages={clientMessages}>
-            <GridBackground />
-            <Navbar />
-            <main id="main-content">{children}</main>
-            <Footer />
+            {/* Section chrome lives with each surface: the blog keeps the v1
+                Navbar/Footer via its own layout; the v2 home brings its own. */}
+            {children}
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

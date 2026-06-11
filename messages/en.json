@@ -61,7 +61,13 @@
       {
         "title": "Bunny Studio",
         "description": "Global creative services marketplace connecting businesses with vetted professionals. Full-stack engineering across the platform — frontend experiences, backend services, and cloud infrastructure on AWS.",
-        "tags": ["TypeScript", "Vue.js", "Node.js", "AWS", "PostgreSQL"],
+        "tags": [
+          "TypeScript",
+          "Vue.js",
+          "Node.js",
+          "AWS",
+          "PostgreSQL"
+        ],
         "type": "featured",
         "gradient": "blue",
         "icon": "🎙️"
@@ -69,7 +75,13 @@
       {
         "title": "Torre.ai",
         "description": "AI-powered professional networking platform. Built core features including the application flow, candidate genome, and search. Achieved 83% improvement in Core Web Vitals. Integrated LLM-driven matching (GPT, Gemini).",
-        "tags": ["TypeScript", "Vue.js", "Scala", "AI/LLMs", "AWS"],
+        "tags": [
+          "TypeScript",
+          "Vue.js",
+          "Scala",
+          "AI/LLMs",
+          "AWS"
+        ],
         "href": "https://torre.ai",
         "type": "featured",
         "gradient": "green",
@@ -78,7 +90,13 @@
       {
         "title": "AGROS",
         "description": "Agricultural technology platform with offline-capable mobile app for field data collection, georeferencing, and biometric identification. Full product ownership from conception to deployment.",
-        "tags": ["React", "Python", "Android", "Docker", "AWS"],
+        "tags": [
+          "React",
+          "Python",
+          "Android",
+          "Docker",
+          "AWS"
+        ],
         "type": "project",
         "gradient": "amber",
         "icon": "🌾"
@@ -86,7 +104,12 @@
       {
         "title": "Kiui Platform",
         "description": "Comprehensive business management tool. Engineered GraphQL APIs reducing latency by 35%, built responsive web and mobile experiences with React Native.",
-        "tags": ["React", "React Native", "GraphQL", "Node.js"],
+        "tags": [
+          "React",
+          "React Native",
+          "GraphQL",
+          "Node.js"
+        ],
         "type": "project",
         "gradient": "purple",
         "icon": "📊"
@@ -94,7 +117,11 @@
       {
         "title": "Portfolio",
         "description": "This site — bilingual, dark-mode, ISR-powered with dynamic GitHub stats, animated terminal, and 100% Lighthouse scores.",
-        "tags": ["Next.js 14", "TypeScript", "TailwindCSS"],
+        "tags": [
+          "Next.js 14",
+          "TypeScript",
+          "TailwindCSS"
+        ],
         "href": "https://josepuicon-dev.vercel.app",
         "github": "https://github.com/JoseManuelPR/portfolio-site",
         "type": "project",
@@ -251,5 +278,164 @@
   "footer": {
     "built": "Built with Next.js & TailwindCSS",
     "rights": "All rights reserved."
+  },
+  "v2": {
+    "nav": {
+      "work": "Work",
+      "notes": "Notes",
+      "contact": "Contact"
+    },
+    "hero": {
+      "kicker": "Field notes of a product engineer",
+      "tagline": "I design, ship and operate software that earns its keep.",
+      "status": "Open to opportunities",
+      "scroll": "Scroll",
+      "ticker": "Product engineering · Full-stack · AI agents · UX-minded · Remote-first · Since 2018 · ",
+      "ring": "FROM CHICLAYO TO THE WORLD · 6°46′S 79°50′W · "
+    },
+    "work": {
+      "label": "Selected records",
+      "title1": "Things I",
+      "titleSerif": "shipped",
+      "items": [
+        {
+          "id": "01",
+          "company": "Bunny Studio",
+          "role": "Product Engineer — Head-of-Eng scope",
+          "period": "2026 — Now",
+          "place": "San Francisco · Remote",
+          "desc": "Leading product initiatives from concept to production — product thinking, UX and full-stack engineering, with AI agents woven into the team workflow.",
+          "tags": [
+            "Product",
+            "AI-assisted dev",
+            "Full-stack"
+          ]
+        },
+        {
+          "id": "02",
+          "company": "Aurant",
+          "role": "Founder & Engineer",
+          "period": "2025 — Now",
+          "place": "Perú",
+          "desc": "Restaurant SaaS built end to end: POS, electronic invoicing (SUNAT), realtime kitchen displays and an AI layer — designed, shipped and operated solo.",
+          "tags": [
+            "SaaS",
+            "Multi-tenant",
+            "AI"
+          ]
+        },
+        {
+          "id": "03",
+          "company": "Torre.ai",
+          "role": "Software Engineer",
+          "period": "2021 — 2025",
+          "place": "Remote",
+          "desc": "Owned core product surfaces — application flow, candidate genome, search. Lifted Core Web Vitals by 83% and shipped LLM-powered matching.",
+          "tags": [
+            "TypeScript",
+            "Vue",
+            "LLMs"
+          ]
+        },
+        {
+          "id": "04",
+          "company": "ARKHO",
+          "role": "Full Stack Engineer",
+          "period": "2025 — 2026",
+          "place": "Chile · Remote",
+          "desc": "Modernized the core platform of Chile’s customs agency — cloud-native services on AWS for a high-stakes government system.",
+          "tags": [
+            "AWS",
+            "Gov-scale"
+          ]
+        },
+        {
+          "id": "05",
+          "company": "AGROS",
+          "role": "Software Engineer",
+          "period": "Field ops",
+          "place": "Perú",
+          "desc": "Offline-first agricultural data collection with biometric ID and georeferencing — built for places where the network does not exist.",
+          "tags": [
+            "Offline-first",
+            "Android"
+          ]
+        }
+      ]
+    },
+    "capabilities": {
+      "label": "Capabilities",
+      "statement1": "Product thinking,",
+      "statementSerif": "engineering",
+      "statement2": "discipline.",
+      "items": [
+        {
+          "k": "Product engineering",
+          "v": "Concept → production, end to end"
+        },
+        {
+          "k": "Full-stack TypeScript",
+          "v": "React · Vue · Node · Next.js"
+        },
+        {
+          "k": "AI agents & RAG",
+          "v": "Claude · GPT · embeddings · MCP"
+        },
+        {
+          "k": "Web performance",
+          "v": "Core Web Vitals as a feature"
+        },
+        {
+          "k": "Cloud",
+          "v": "AWS · Cloudflare · Vercel"
+        },
+        {
+          "k": "Teams",
+          "v": "Roadmaps, reviews, mentoring"
+        }
+      ]
+    },
+    "numbers": {
+      "label": "By the numbers",
+      "items": [
+        {
+          "value": 8,
+          "suffix": "+",
+          "caption": "years in production"
+        },
+        {
+          "value": 83,
+          "suffix": "%",
+          "caption": "Core Web Vitals lift at Torre.ai"
+        },
+        {
+          "value": 35,
+          "suffix": "%",
+          "caption": "API latency cut with GraphQL"
+        },
+        {
+          "value": 3,
+          "suffix": "",
+          "caption": "languages — ES · EN · PT"
+        }
+      ]
+    },
+    "notes": {
+      "label": "Field notes",
+      "readAll": "All notes"
+    },
+    "contact": {
+      "label": "Transmission",
+      "kicker": "Have a project, a role, or a hard problem?",
+      "title": "Let’s talk.",
+      "formCta": "Open the form",
+      "or": "or write to",
+      "socials": "Elsewhere"
+    },
+    "footer": {
+      "built": "Designed & built in Chiclayo, Perú",
+      "stack": "Next.js 16 · React 19 · Tailwind 4",
+      "top": "Back to top"
+    }
   }
 }
