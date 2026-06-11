@@ -14,6 +14,7 @@ const SOCIALS = [
 
 export function V2Contact() {
   const t = useTranslations("v2.contact");
+  const nav = useTranslations("v2.nav");
 
   const openForm = () => {
     const tally = (window as any).Tally;
@@ -34,44 +35,53 @@ export function V2Contact() {
         {t("kicker")}
       </p>
 
-      <h2 className="v2-reveal v2-display mt-4 text-[clamp(2.8rem,9.5vw,9rem)]">
+      <h2 className="v2-reveal v2-display mt-4 text-[clamp(2.4rem,9.5vw,9rem)]">
         <button
+          type="button"
           onClick={openForm}
+          aria-haspopup="dialog"
+          aria-label={t("formCta")}
           className="v2-mail cursor-pointer text-left uppercase text-bone transition-colors duration-300 hover:text-azul-soft"
         >
           {t("title")}
         </button>
       </h2>
 
-      <div className="v2-reveal mt-10 flex flex-wrap items-baseline gap-x-6 gap-y-4">
+      <div className="v2-reveal mt-10 flex flex-wrap items-center gap-x-6 gap-y-5">
         <button
+          type="button"
           onClick={openForm}
-          className="v2-hud cursor-pointer border border-bone/30 px-5 py-3 text-bone transition-colors duration-300 hover:border-azul-soft hover:bg-azul hover:text-bone"
+          aria-haspopup="dialog"
+          className="v2-hud v2-hud-cta cursor-pointer border border-bone/50 px-6 py-3.5 text-bone transition-colors duration-300 hover:border-azul-soft hover:bg-azul"
         >
-          {t("formCta")} ↗
+          {t("formCta")} <span aria-hidden="true">↗</span>
         </button>
         <span className="v2-hud text-bone-dim">{t("or")}</span>
         <a
           href="mailto:josemanuelpr23@gmail.com"
-          className="v2-mail font-mono text-sm tracking-wide sm:text-base"
+          className="v2-mail font-mono text-base underline decoration-bone/40 underline-offset-4 tracking-wide sm:text-lg"
         >
           josemanuelpr23@gmail.com
         </a>
       </div>
 
-      <div className="v2-reveal mt-20 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-t border-bone/15 pt-6">
+      <div className="v2-reveal mt-20 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-bone/15 pt-6">
         <span className="v2-hud text-bone-dim">{t("socials")}</span>
-        {SOCIALS.map((s) => (
-          <a
-            key={s.label}
-            href={s.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="v2-hud underline-offset-4 hover:text-azul-soft hover:underline"
-          >
-            {s.label} ↗
-          </a>
-        ))}
+        {SOCIALS.map((s) => {
+          const external = s.href.startsWith("http");
+          return (
+            <a
+              key={s.label}
+              href={s.href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
+              className="v2-hud v2-tap underline-offset-4 hover:text-azul-soft hover:underline"
+            >
+              {s.label} <span aria-hidden="true">↗</span>
+              {external && <span className="sr-only"> {nav("newTab")}</span>}
+            </a>
+          );
+        })}
       </div>
     </section>
   );

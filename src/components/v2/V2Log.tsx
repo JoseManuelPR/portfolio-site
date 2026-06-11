@@ -13,9 +13,15 @@ export function V2Log({ lines }: { lines: LogLine[] }) {
   const [charCount, setCharCount] = useState(0);
 
   useEffect(() => {
+    // Honor reduced motion: render the full log statically, no typing loop
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setMounted(true);
+      setLineIdx(lines.length);
+      return;
+    }
     const t = setTimeout(() => setMounted(true), 1600);
     return () => clearTimeout(t);
-  }, []);
+  }, [lines.length]);
 
   useEffect(() => {
     if (!mounted || lineIdx >= lines.length) return;
@@ -48,11 +54,11 @@ export function V2Log({ lines }: { lines: LogLine[] }) {
         return (
           <div key={i}>
             <p className={typing && !done ? "v2-caret" : ""}>
-              <span className="opacity-50">$ </span>
+              <span className="opacity-70">$ </span>
               {shown}
             </p>
             {done && i < lines.length && (
-              <p className={`pl-4 opacity-60 ${typing ? "v2-caret" : ""}`}>
+              <p className={`pl-4 opacity-90 ${typing ? "v2-caret" : ""}`}>
                 {line.out}
               </p>
             )}

@@ -9,7 +9,7 @@ export function V2Numbers() {
 
   return (
     <section className="bg-azul px-5 py-24 text-bone sm:px-10 sm:py-32">
-      <p className="v2-reveal v2-hud v2-hud-tick">{t("label")}</p>
+      <h2 className="v2-reveal v2-hud v2-hud-tick font-normal">{t("label")}</h2>
 
       <div className="mt-14 grid grid-cols-2 gap-x-6 gap-y-14 sm:mt-20 lg:grid-cols-4">
         {items.map((n) => (

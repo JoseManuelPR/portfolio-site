@@ -18,6 +18,7 @@ const LINKS: Record<string, string> = {
 
 export function V2Work() {
   const t = useTranslations("v2.work");
+  const nav = useTranslations("v2.nav");
   const messages = useMessages() as Record<string, any>;
   const items: WorkItem[] = messages?.v2?.work?.items ?? [];
 
@@ -35,7 +36,9 @@ export function V2Work() {
           return (
             <article
               key={item.id}
-              className="v2-reveal v2-row border-b border-bone/15 px-1 py-7 transition-colors duration-300 sm:px-3 sm:py-9"
+              className={`v2-reveal border-b border-bone/15 px-1 py-7 sm:px-3 sm:py-9 ${
+                href ? "v2-row transition-colors duration-300" : ""
+              }`}
             >
               <div className="grid grid-cols-[auto_1fr] items-baseline gap-x-5 gap-y-3 sm:grid-cols-[3.5rem_1fr_auto] sm:gap-x-8">
                 <span className="v2-hud v2-row-dim text-bone-dim">{item.id}</span>
@@ -49,7 +52,10 @@ export function V2Work() {
                       className="after:absolute after:inset-0"
                     >
                       {item.company}
-                      <span className="ml-3 align-super text-[0.35em] tracking-widest">↗</span>
+                      <span aria-hidden="true" className="ml-3 align-super text-[0.35em] tracking-widest">
+                        ↗
+                      </span>
+                      <span className="sr-only"> {nav("newTab")}</span>
                     </a>
                   ) : (
                     item.company
@@ -58,13 +64,13 @@ export function V2Work() {
 
                 <p className="v2-hud v2-row-dim col-start-2 text-bone-dim sm:col-start-3 sm:text-right">
                   {item.period}
-                  <span className="mx-2 opacity-40">·</span>
+                  <span className="mx-2 opacity-70" aria-hidden="true">·</span>
                   {item.place}
                 </p>
 
-                <div className="col-start-2 max-w-3xl sm:col-span-2">
+                <div className="col-start-2 sm:col-span-2">
                   <p className="v2-hud mb-2">{item.role}</p>
-                  <p className="v2-row-dim text-sm leading-relaxed text-bone-dim sm:text-base">
+                  <p className="v2-row-dim max-w-[65ch] text-sm leading-relaxed text-bone-dim sm:text-base">
                     {item.desc}
                   </p>
                   <p className="v2-hud v2-row-dim mt-3 text-bone-dim">

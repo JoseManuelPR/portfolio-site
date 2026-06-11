@@ -445,9 +445,11 @@
   @apply bg-neutral-400 dark:bg-neutral-600;
 }
 
-/* Focus ring */
+/* Focus ring — periwinkle on ink: 9.4:1 on the canvas, 3.6:1 on the blue
+   fields (≥3:1 non-text on both). The v1 ring (accent/40 + white offset)
+   measured 1.63:1 and was only visible by accident. */
 *:focus-visible {
-  @apply outline-hidden ring-2 ring-accent/40 ring-offset-2 ring-offset-white dark:ring-offset-[#0a0a0f];
+  @apply outline-hidden ring-2 ring-azul-soft ring-offset-2 ring-offset-ink;
 }
 
 /* Gradient mesh background */
@@ -473,13 +475,8 @@
     radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 0.04) 0px, transparent 50%);
 }
 
-/* Shiki syntax highlighting (rehype-pretty-code). The site is single-theme
-   ink now, so the dark token palette applies unconditionally. */
-code[data-theme*=" "],
-code[data-theme*=" "] span {
-  color: var(--shiki-dark);
-}
-
+/* Shiki syntax highlighting (rehype-pretty-code), single dark theme —
+   token colors come inline from the theme itself. */
 [data-rehype-pretty-code-figure] {
   margin: 0;
 }
@@ -545,17 +542,37 @@ code[data-theme*=" "] span {
   letter-spacing: 0;
 }
 
-/* HUD micro-label */
+/* HUD micro-label — 11px floor (12px on sm): it carries real information
+   (roles, dates, nav), not just ornament. Tracking eased for word-scanning. */
 .v2-hud {
   font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.22em;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   line-height: 1.4;
 }
 
 @media (min-width: 640px) {
-  .v2-hud { font-size: 0.6875rem; }
+  .v2-hud { font-size: 0.75rem; }
+}
+
+/* Primary CTA size — .v2-hud is unlayered CSS and beats Tailwind utilities,
+   so size overrides need their own class */
+.v2-hud-cta {
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+}
+
+@media (min-width: 640px) {
+  .v2-hud-cta { font-size: 0.875rem; }
+}
+
+/* Nav/touch affordance: comfortable hit areas without moving the layout */
+.v2-tap {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.625rem 0.5rem;
+  margin: -0.625rem -0.5rem;
 }
 
 /* Crosshair tick before HUD labels */
@@ -618,6 +635,16 @@ code[data-theme*=" "] span {
   animation-play-state: paused;
 }
 
+/* WCAG 2.2.2: moving content needs a pause mechanism beyond :hover.
+   On touch devices the strips rest static and scroll manually. */
+@media (pointer: coarse) {
+  .v2-ticker { animation-play-state: paused; }
+  .v2-ticker-frame {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 /* Scroll progress hairline — zero-JS, scroll-driven. Browsers without
    support simply never show it. */
 @supports (animation-timeline: scroll()) {
@@ -639,14 +666,21 @@ code[data-theme*=" "] span {
   to { transform: scaleX(1); }
 }
 
-/* Floating nav: hidden over the hero, slides in after */
+/* Floating nav: hidden over the hero, slides in after. visibility:hidden
+   removes its 7 links from the tab order while off-screen — without it,
+   keyboard users tab through invisible controls (WCAG 2.4.11). */
 .v2-floatnav {
+  visibility: hidden;
   transform: translateY(-110%);
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s 0.5s;
 }
 
 .v2-floatnav[data-visible="true"] {
+  visibility: visible;
   transform: translateY(0);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Typing log caret */
@@ -697,11 +731,18 @@ code[data-theme*=" "] span {
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Hover AND keyboard focus get the same sweep — the stretched links made
+   the whole row interactive, so the whole row must show focus too.
+   Dim text at 0.9 over the blue sweep = 5.18:1 (0.8 measured 4.44:1, FAIL). */
 @media (hover: hover) {
   .v2-row:hover::after { transform: scaleY(1); }
   .v2-row:hover { color: var(--color-bone); }
-  .v2-row:hover .v2-row-dim { color: var(--color-bone); opacity: 0.8; }
+  .v2-row:hover .v2-row-dim { color: var(--color-bone); opacity: 0.9; }
 }
+
+.v2-row:focus-within::after { transform: scaleY(1); }
+.v2-row:focus-within { color: var(--color-bone); }
+.v2-row:focus-within .v2-row-dim { color: var(--color-bone); opacity: 0.9; }
 
 /* Giant hover email underline */
 .v2-mail {

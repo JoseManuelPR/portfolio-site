@@ -46,39 +46,42 @@ export function V2Hero({ locale }: { locale: string }) {
   const ticker = t("ticker");
 
   return (
-    <header className="relative flex min-h-dvh flex-col overflow-hidden bg-azul text-bone">
+    <header className="relative flex min-h-svh flex-col overflow-hidden bg-azul text-bone">
       {/* Cinematic edge darkening */}
       <div className="v2-vignette pointer-events-none absolute inset-0" aria-hidden="true" />
 
       {/* Top bar */}
-      <nav className="relative z-10 flex items-baseline justify-between px-5 pt-6 sm:px-10 sm:pt-8">
-        <a href="#top" className="v2-display text-xl sm:text-2xl">
+      <nav
+        aria-label={nav("mainLabel")}
+        className="relative z-10 flex items-center justify-between px-5 pt-6 sm:px-10 sm:pt-8"
+      >
+        <a href="#top" className="v2-display v2-tap text-xl sm:text-2xl">
           JM<span className="align-super text-[0.5em]">·26</span>
         </a>
 
-        <div className="flex items-baseline gap-6 sm:gap-10">
-          <a href="#work" className="v2-hud hidden hover:underline sm:inline">
+        <div className="flex items-center gap-4 sm:gap-7">
+          <a href="#work" className="v2-hud v2-tap hidden hover:underline sm:inline-flex">
             {nav("work")}
           </a>
-          <Link href="/blog" className="v2-hud hidden hover:underline sm:inline">
+          <Link href="/blog" className="v2-hud v2-tap hidden hover:underline sm:inline-flex">
             {nav("notes")}
           </Link>
-          <a href="#contact" className="v2-hud hover:underline">
+          <a href="#contact" className="v2-hud v2-tap hover:underline">
             {nav("contact")}
           </a>
-          <span className="v2-hud flex gap-2" aria-label="Language">
+          <span role="group" aria-label={nav("langLabel")} className="v2-hud flex items-center gap-1">
             <Link
               href="/"
               locale="es"
-              className={locale === "es" ? "underline" : "opacity-50 hover:opacity-100"}
+              className={`v2-tap ${locale === "es" ? "underline" : "opacity-85 hover:opacity-100"}`}
             >
               ES
             </Link>
-            <span className="opacity-40">/</span>
+            <span className="opacity-40" aria-hidden="true">/</span>
             <Link
               href="/"
               locale="en"
-              className={locale === "en" ? "underline" : "opacity-50 hover:opacity-100"}
+              className={`v2-tap ${locale === "en" ? "underline" : "opacity-85 hover:opacity-100"}`}
             >
               EN
             </Link>
@@ -156,13 +159,12 @@ export function V2Hero({ locale }: { locale: string }) {
         </div>
       </div>
 
-      {/* Ticker strip */}
-      <div className="v2-ticker-frame relative z-10 overflow-hidden border-t border-bone/25 py-3">
-        <div className="v2-ticker v2-hud gap-0">
+      {/* Ticker strip — visual copy is decorative; SRs get one clean copy */}
+      <div className="v2-ticker-frame relative z-10 overflow-hidden border-t border-bone/40 py-3">
+        <p className="sr-only">{ticker}</p>
+        <div className="v2-ticker v2-hud gap-0" aria-hidden="true">
           <span className="whitespace-nowrap">{ticker.repeat(3)}</span>
-          <span className="whitespace-nowrap" aria-hidden="true">
-            {ticker.repeat(3)}
-          </span>
+          <span className="whitespace-nowrap">{ticker.repeat(3)}</span>
         </div>
       </div>
     </header>

@@ -77,7 +77,7 @@ export default async function BlogPage({
                 {post.title}
               </span>
               <span className="v2-hud v2-row-dim text-bone-dim sm:text-right">
-                {post.readingTime} →
+                {post.minutes} min <span aria-hidden="true">→</span>
               </span>
               <p className="v2-row-dim col-start-2 max-w-3xl text-sm leading-relaxed text-bone-dim sm:col-start-3">
                 {post.description}

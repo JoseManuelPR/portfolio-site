@@ -283,7 +283,12 @@
     "nav": {
       "work": "Trabajo",
       "notes": "Notas",
-      "contact": "Contacto"
+      "contact": "Contacto",
+      "mainLabel": "Principal",
+      "stickyLabel": "Navegación rápida",
+      "langLabel": "Idioma",
+      "backToTop": "Volver arriba",
+      "newTab": "(abre en pestaña nueva)"
     },
     "hero": {
       "kicker": "Bitácora de un product engineer",

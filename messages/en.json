@@ -283,7 +283,12 @@
     "nav": {
       "work": "Work",
       "notes": "Notes",
-      "contact": "Contact"
+      "contact": "Contact",
+      "mainLabel": "Main",
+      "stickyLabel": "Quick navigation",
+      "langLabel": "Language",
+      "backToTop": "Back to top",
+      "newTab": "(opens in a new tab)"
     },
     "hero": {
       "kicker": "Field notes of a product engineer",

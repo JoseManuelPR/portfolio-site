@@ -35,7 +35,6 @@ function LogoRun() {
             alt=""
             width={22}
             height={22}
-            loading="lazy"
             className="h-5 w-5 opacity-75 transition-opacity duration-300 group-hover:opacity-100 sm:h-[22px] sm:w-[22px]"
             aria-hidden="true"
           />

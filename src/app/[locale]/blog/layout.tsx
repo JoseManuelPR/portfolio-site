@@ -27,33 +27,36 @@ export default async function BlogLayout({
 
   return (
     <div className={`${inter.variable} min-h-dvh bg-ink text-bone`}>
-      <nav className="flex items-baseline justify-between border-b border-bone/10 px-5 py-4 sm:px-10">
-        <Link href="/" className="v2-display text-lg">
+      <nav
+        aria-label={nav("mainLabel")}
+        className="flex items-center justify-between border-b border-bone/20 px-5 py-2.5 sm:px-10"
+      >
+        <Link href="/" className="v2-display v2-tap text-lg">
           JM<span className="align-super text-[0.5em]">·26</span>
         </Link>
-        <div className="flex items-baseline gap-6 sm:gap-9">
-          <Link href="/#work" className="v2-hud text-bone-dim hover:text-bone">
+        <div className="flex items-center gap-3 sm:gap-6">
+          <Link href="/#work" className="v2-hud v2-tap text-bone-dim hover:text-bone">
             {nav("work")}
           </Link>
-          <Link href="/blog" className="v2-hud text-bone underline underline-offset-4">
+          <Link href="/blog" className="v2-hud v2-tap text-bone underline underline-offset-4">
             {nav("notes")}
           </Link>
-          <Link href="/#contact" className="v2-hud text-bone-dim hover:text-bone">
+          <Link href="/#contact" className="v2-hud v2-tap text-bone-dim hover:text-bone">
             {nav("contact")}
           </Link>
-          <span className="v2-hud flex gap-2 text-bone-dim">
+          <span role="group" aria-label={nav("langLabel")} className="v2-hud flex items-center gap-1 text-bone-dim">
             <Link
               href="/blog"
               locale="es"
-              className={locale === "es" ? "text-bone underline" : "hover:text-bone"}
+              className={`v2-tap ${locale === "es" ? "text-bone underline" : "hover:text-bone"}`}
             >
               ES
             </Link>
-            <span className="opacity-40">/</span>
+            <span className="opacity-40" aria-hidden="true">/</span>
             <Link
               href="/blog"
               locale="en"
-              className={locale === "en" ? "text-bone underline" : "hover:text-bone"}
+              className={`v2-tap ${locale === "en" ? "text-bone underline" : "hover:text-bone"}`}
             >
               EN
             </Link>

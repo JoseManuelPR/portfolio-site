@@ -24,8 +24,8 @@ export function V2Capabilities() {
             className="group bg-ink-soft p-6 transition-colors duration-300 hover:bg-azul hover:text-bone sm:p-8"
           >
             <p className="v2-hud">{String(i + 1).padStart(2, "0")}</p>
-            <p className="v2-display mt-6 text-xl sm:text-2xl">{cap.k}</p>
-            <p className="mt-2 text-sm text-bone-dim transition-colors duration-300 group-hover:text-bone/75">
+            <h3 className="v2-display mt-6 text-xl sm:text-2xl">{cap.k}</h3>
+            <p className="mt-2 text-sm text-bone-dim transition-colors duration-300 group-hover:text-bone/90">
               {cap.v}
             </p>
           </div>

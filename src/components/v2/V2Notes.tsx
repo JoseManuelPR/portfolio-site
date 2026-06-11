@@ -13,10 +13,10 @@ export function V2Notes({
 
   return (
     <section id="notes" className="border-t border-bone/10 bg-ink px-5 py-24 text-bone sm:px-10 sm:py-32">
-      <div className="v2-reveal flex items-baseline justify-between">
-        <p className="v2-hud v2-hud-tick text-bone-dim">{t("label")}</p>
-        <Link href="/blog" className="v2-hud underline-offset-4 hover:underline">
-          {t("readAll")} ↗
+      <div className="v2-reveal flex items-center justify-between">
+        <h2 className="v2-hud v2-hud-tick font-normal text-bone-dim">{t("label")}</h2>
+        <Link href="/blog" className="v2-hud v2-tap underline-offset-4 hover:underline">
+          {t("readAll")} <span aria-hidden="true">↗</span>
         </Link>
       </div>
 
@@ -37,7 +37,7 @@ export function V2Notes({
               {post.title}
             </span>
             <span className="v2-hud v2-row-dim text-bone-dim">
-              {post.readingTime} →
+              {post.minutes} min <span aria-hidden="true">→</span>
             </span>
           </Link>
         ))}
